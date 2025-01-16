@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const SignIn = () => {
@@ -8,8 +7,8 @@ const SignIn = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle sign in logic here
-    console.log('Email:', email);
-    console.log('Password:', password);
+    // console.log('Email:', email);
+    // console.log('Password:', password);
   };
 
   return (

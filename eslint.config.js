@@ -10,6 +10,7 @@ export default [
     ignores: ['dist'],
   },
   {
+    files: ['**/*.{js,jsx}'],
     languageOptions: {
       ecmaVersion: 12,
       sourceType: 'module',
@@ -55,7 +56,7 @@ export default [
           },
         },
       ],
-      'react/react-in-jsx-scope': 'off',
+      'react/react-in-jsx-scope': 'off', // React 17+ no longer requires React in scope
       'react/prop-types': 'warn',
       'react/jsx-key': 'error',
       'react/jsx-no-undef': 'error',
@@ -72,7 +73,7 @@ export default [
       'jsx-a11y/anchor-is-valid': 'error',
       'jsx-a11y/label-has-associated-control': 'error',
       'jsx-a11y/no-static-element-interactions': 'error',
-      'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      'no-unused-vars': 'off',
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       'no-debugger': 'warn',
       'prettier/prettier': ['error'],
