@@ -1,38 +1,81 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import react from 'eslint-plugin-react'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
+import importPlugin from 'eslint-plugin-import';
+import jsxA11y from 'eslint-plugin-jsx-a11y';
+import prettier from 'eslint-plugin-prettier';
+import react from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
+import globals from 'globals';
 
 export default [
-  { ignores: ['dist'] },
   {
-    files: ['**/*.{js,jsx}'],
+    ignores: ['dist'],
+  },
+  {
     languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
+      ecmaVersion: 12,
+      sourceType: 'module',
+      globals: {
+        ...globals.browser,
+      },
       parserOptions: {
-        ecmaVersion: 'latest',
-        ecmaFeatures: { jsx: true },
-        sourceType: 'module',
+        ecmaVersion: 12,
+        ecmaFeatures: {
+          jsx: true,
+        },
       },
     },
-    settings: { react: { version: '18.3' } },
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
     plugins: {
       react,
       'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
+      'jsx-a11y': jsxA11y,
+      prettier,
+      import: importPlugin,
     },
     rules: {
-      ...js.configs.recommended.rules,
-      ...react.configs.recommended.rules,
-      ...react.configs['jsx-runtime'].rules,
-      ...reactHooks.configs.recommended.rules,
-      'react/jsx-no-target-blank': 'off',
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
+      'import/order': [
+        'error',
+        {
+          groups: ['builtin', 'external', 'internal'],
+          pathGroups: [
+            {
+              pattern: 'react',
+              group: 'external',
+              position: 'before',
+            },
+          ],
+          pathGroupsExcludedImportTypes: ['react'],
+          'newlines-between': 'always',
+          alphabetize: {
+            order: 'asc',
+            caseInsensitive: true,
+          },
+        },
       ],
+      'react/react-in-jsx-scope': 'off',
+      'react/prop-types': 'warn',
+      'react/jsx-key': 'error',
+      'react/jsx-no-undef': 'error',
+      'react/jsx-no-bind': [
+        'warn',
+        {
+          allowArrowFunctions: true,
+          allowFunctions: false,
+          allowBind: false,
+        },
+      ],
+      'react/jsx-pascal-case': 'error',
+      'jsx-a11y/alt-text': 'error',
+      'jsx-a11y/anchor-is-valid': 'error',
+      'jsx-a11y/label-has-associated-control': 'error',
+      'jsx-a11y/no-static-element-interactions': 'error',
+      'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      'no-debugger': 'warn',
+      'prettier/prettier': ['error'],
     },
   },
-]
+];
