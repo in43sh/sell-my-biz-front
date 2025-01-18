@@ -1,4 +1,4 @@
-const HamburgerMenu = ({ toggleMenu }) => {
+const HamburgerMenu = () => {
   return (
     <button className="text-white md:hidden" onClick={toggleMenu}>
       <svg

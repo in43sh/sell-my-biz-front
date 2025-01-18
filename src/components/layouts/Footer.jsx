@@ -3,7 +3,7 @@ const Footer = () => {
     <div className="container-fluid bg-secondary text-dark mt-5 pt-5">
       <div className="row px-xl-5 pt-5">
         <div className="col-lg-4 col-md-12 pr-xl-5 mb-5 pr-3">
-          <a href="" className="text-decoration-none">
+          <a href="/" className="text-decoration-none">
             <h1 className="display-5 font-weight-semi-bold mb-4">
               <span className="text-primary font-weight-bold mr-1 border border-white px-3">
                 E
@@ -110,7 +110,7 @@ const Footer = () => {
         <div className="col-md-6 px-xl-0">
           <p className="mb-md-0 text-md-left text-dark text-center">
             &copy;
-            <a className="text-dark font-weight-semi-bold" href="#">
+            <a className="text-dark font-weight-semi-bold" href="/">
               Your Site Name
             </a>
             . All Rights Reserved. Designed by

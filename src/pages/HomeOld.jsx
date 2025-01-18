@@ -1,5 +1,7 @@
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
+
+import { Link } from 'react-router-dom';
+
 import HamburgerMenu from '../components/HamburgerMenu'; // Import the new HamburgerMenu component
 
 const Home = () => {

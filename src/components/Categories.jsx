@@ -10,7 +10,7 @@ const Categories = () => {
           >
             <p className="text-right">15 Products</p>
             <a
-              href=""
+              href="/"
               className="cat-img position-relative mb-3 overflow-hidden"
             >
               <img className="img-fluid" src="img/cat-1.jpg" alt="" />
@@ -26,7 +26,7 @@ const Categories = () => {
           >
             <p className="text-right">15 Products</p>
             <a
-              href=""
+              href="/"
               className="cat-img position-relative mb-3 overflow-hidden"
             >
               <img className="img-fluid" src="img/cat-2.jpg" alt="" />
@@ -42,7 +42,7 @@ const Categories = () => {
           >
             <p className="text-right">15 Products</p>
             <a
-              href=""
+              href="/"
               className="cat-img position-relative mb-3 overflow-hidden"
             >
               <img className="img-fluid" src="img/cat-3.jpg" alt="" />
@@ -58,7 +58,7 @@ const Categories = () => {
           >
             <p className="text-right">15 Products</p>
             <a
-              href=""
+              href="/"
               className="cat-img position-relative mb-3 overflow-hidden"
             >
               <img className="img-fluid" src="img/cat-4.jpg" alt="" />
@@ -74,7 +74,7 @@ const Categories = () => {
           >
             <p className="text-right">15 Products</p>
             <a
-              href=""
+              href="/"
               className="cat-img position-relative mb-3 overflow-hidden"
             >
               <img className="img-fluid" src="img/cat-5.jpg" alt="" />
@@ -90,7 +90,7 @@ const Categories = () => {
           >
             <p className="text-right">15 Products</p>
             <a
-              href=""
+              href="/"
               className="cat-img position-relative mb-3 overflow-hidden"
             >
               <img className="img-fluid" src="img/cat-6.jpg" alt="" />

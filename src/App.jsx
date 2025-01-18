@@ -1,5 +1,6 @@
 import { BrowserRouter } from 'react-router-dom';
 
+import MainLayout from './components/layouts/MainLayout';
 import Router from './routes/Router';
 
 function App() {
@@ -10,7 +11,9 @@ function App() {
         v7_relativeSplatPath: true,
       }}
     >
-      <Router />
+      <MainLayout>
+        <Router />
+      </MainLayout>
     </BrowserRouter>
   );
 }

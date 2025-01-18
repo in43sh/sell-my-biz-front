@@ -23,47 +23,47 @@ const Navbar = () => {
               style={{ height: '410px' }}
             >
               <div className="nav-item dropdown">
-                <a href="#" className="nav-link" data-toggle="dropdown">
+                <a href="/" className="nav-link" data-toggle="dropdown">
                   Dresses
                   <i className="fa fa-angle-down float-right mt-1"></i>
                 </a>
                 <div className="dropdown-menu position-absolute bg-secondary rounded-0 m-0 w-100 border-0">
-                  <a href="" className="dropdown-item">
+                  <a href="/" className="dropdown-item">
                     Men's Dresses
                   </a>
-                  <a href="" className="dropdown-item">
+                  <a href="/" className="dropdown-item">
                     Women's Dresses
                   </a>
-                  <a href="" className="dropdown-item">
+                  <a href="/" className="dropdown-item">
                     Baby's Dresses
                   </a>
                 </div>
               </div>
-              <a href="" className="nav-item nav-link">
+              <a href="/" className="nav-item nav-link">
                 Shirts
               </a>
-              <a href="" className="nav-item nav-link">
+              <a href="/" className="nav-item nav-link">
                 Jeans
               </a>
-              <a href="" className="nav-item nav-link">
+              <a href="/" className="nav-item nav-link">
                 Swimwear
               </a>
-              <a href="" className="nav-item nav-link">
+              <a href="/" className="nav-item nav-link">
                 Sleepwear
               </a>
-              <a href="" className="nav-item nav-link">
+              <a href="/" className="nav-item nav-link">
                 Sportswear
               </a>
-              <a href="" className="nav-item nav-link">
+              <a href="/" className="nav-item nav-link">
                 Jumpsuits
               </a>
-              <a href="" className="nav-item nav-link">
+              <a href="/" className="nav-item nav-link">
                 Blazers
               </a>
-              <a href="" className="nav-item nav-link">
+              <a href="/" className="nav-item nav-link">
                 Jackets
               </a>
-              <a href="" className="nav-item nav-link">
+              <a href="/" className="nav-item nav-link">
                 Shoes
               </a>
             </div>
@@ -71,7 +71,7 @@ const Navbar = () => {
         </div>
         <div className="col-lg-9">
           <nav className="navbar navbar-expand-lg bg-light navbar-light py-lg-0 px-0 py-3">
-            <a href="" className="text-decoration-none d-block d-lg-none">
+            <a href="/" className="text-decoration-none d-block d-lg-none">
               <h1 className="display-5 font-weight-semi-bold m-0">
                 <span className="text-primary font-weight-bold mr-1 border px-3">
                   E
@@ -103,7 +103,7 @@ const Navbar = () => {
                 </a>
                 <div className="nav-item dropdown">
                   <a
-                    href="#"
+                    href="/"
                     className="nav-link dropdown-toggle"
                     data-toggle="dropdown"
                   >
@@ -123,10 +123,10 @@ const Navbar = () => {
                 </a>
               </div>
               <div className="navbar-nav ml-auto py-0">
-                <a href="" className="nav-item nav-link">
+                <a href="/" className="nav-item nav-link">
                   Login
                 </a>
-                <a href="" className="nav-item nav-link">
+                <a href="/" className="nav-item nav-link">
                   Register
                 </a>
               </div>
@@ -158,7 +158,7 @@ const Navbar = () => {
                     <h3 className="display-4 font-weight-semi-bold mb-4 text-white">
                       Fashionable Dress
                     </h3>
-                    <a href="" className="btn btn-light px-3 py-2">
+                    <a href="/" className="btn btn-light px-3 py-2">
                       Shop Now
                     </a>
                   </div>
@@ -185,7 +185,7 @@ const Navbar = () => {
                     <h3 className="display-4 font-weight-semi-bold mb-4 text-white">
                       Reasonable Price
                     </h3>
-                    <a href="" className="btn btn-light px-3 py-2">
+                    <a href="/" className="btn btn-light px-3 py-2">
                       Shop Now
                     </a>
                   </div>

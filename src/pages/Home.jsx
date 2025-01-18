@@ -1,19 +1,15 @@
-import Topbar from '../components/Topbar';
-import Navbar from '../components/Navbar';
 import Categories from '../components/Categories';
-import Subscribe from '../components/Subscribe';
+import Navbar from '../components/Navbar';
 import Products from '../components/Products';
-import Footer from '../components/Footer';
+import Subscribe from '../components/Subscribe';
 
 const Home = () => {
   return (
     <>
-      <Topbar />
       <Navbar />
       <Categories />
       <Subscribe />
       <Products />
-      <Footer />
     </>
   );
 };
