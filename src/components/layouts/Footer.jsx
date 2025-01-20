@@ -1,137 +1,131 @@
+import React from 'react';
+import Logo from '../../assets/images/logo.svg';
+
 const Footer = () => {
   return (
-    <div className="container-fluid bg-secondary text-dark mt-5 pt-5">
-      <div className="row px-xl-5 pt-5">
-        <div className="col-lg-4 col-md-12 pr-xl-5 mb-5 pr-3">
-          <a href="/" className="text-decoration-none">
-            <h1 className="display-5 font-weight-semi-bold mb-4">
-              <span className="text-primary font-weight-bold mr-1 border border-white px-3">
-                E
-              </span>
-              Shopper
-            </h1>
-          </a>
-          <p>
-            Dolore erat dolor sit lorem vero amet. Sed sit lorem magna, ipsum no
-            sit erat lorem et magna ipsum dolore amet erat.
-          </p>
-          <p className="mb-2">
-            <i className="fa fa-map-marker-alt text-primary mr-3"></i>123
-            Street, New York, USA
-          </p>
-          <p className="mb-2">
-            <i className="fa fa-envelope text-primary mr-3"></i>info@example.com
-          </p>
-          <p className="mb-0">
-            <i className="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890
-          </p>
+    <footer className="bg-white text-dark pt-5">
+      <div className="container">
+        <div className="row">
+          {/* About Section */}
+          <div className="col-lg-4 col-md-12 mb-4">
+            <a href="/" className="text-decoration-none">
+              <img
+                src={Logo}
+                alt="SellMyBiz"
+                style={{
+                  width: '200px',
+                  height: 'auto',
+                  display: 'block', // Ensures proper alignment
+                  marginBottom: '20px',
+                }}
+              />
+            </a>
+            <p>
+              Discover opportunities and grow your business with SellMyBiz. 
+              Connect with potential buyers and sellers in a seamless platform.
+            </p>
+            <p>
+              <i className="fa fa-map-marker-alt text-primary mr-2"></i>123 Business St, Startup City
+            </p>
+            <p>
+              <i className="fa fa-envelope text-primary mr-2"></i>support@sellmybiz.com
+            </p>
+            <p>
+              <i className="fa fa-phone-alt text-primary mr-2"></i>+1 800 123 4567
+            </p>
+          </div>
+
+          {/* Quick Links */}
+          <div className="col-lg-4 col-md-6 mb-4">
+            <h5 className="font-weight-bold text-dark mb-4">Quick Links</h5>
+            <ul className="list-unstyled">
+              <li>
+                <a className="text-dark" href="/">
+                  <i className="fa fa-angle-right mr-2"></i>Home
+                </a>
+              </li>
+              <li>
+                <a className="text-dark" href="/about-us">
+                  <i className="fa fa-angle-right mr-2"></i>About Us
+                </a>
+              </li>
+              <li>
+                <a className="text-dark" href="/businesses">
+                  <i className="fa fa-angle-right mr-2"></i>Businesses
+                </a>
+              </li>
+              <li>
+                <a className="text-dark" href="/help">
+                  <i className="fa fa-angle-right mr-2"></i>Help
+                </a>
+              </li>
+              <li>
+                <a className="text-dark" href="/contact">
+                  <i className="fa fa-angle-right mr-2"></i>Contact Us
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Newsletter Section */}
+          <div className="col-lg-4 col-md-6 mb-4">
+            <h5 className="font-weight-bold text-dark mb-4">Newsletter</h5>
+            <p>Stay updated with our latest listings and offers.</p>
+            <form>
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="form-control border-0 rounded-0"
+                  placeholder="Your Name"
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  type="email"
+                  className="form-control border-0 rounded-0"
+                  placeholder="Your Email"
+                  required
+                />
+              </div>
+              <button
+                className="btn btn-primary btn-block rounded-0"
+                type="submit"
+              >
+                Subscribe
+              </button>
+            </form>
+          </div>
         </div>
-        <div className="col-lg-8 col-md-12">
-          <div className="row">
-            <div className="col-md-4 mb-5">
-              <h5 className="font-weight-bold text-dark mb-4">Quick Links</h5>
-              <div className="d-flex flex-column justify-content-start">
-                <a className="text-dark mb-2" href="index.html">
-                  <i className="fa fa-angle-right mr-2"></i>Home
-                </a>
-                <a className="text-dark mb-2" href="shop.html">
-                  <i className="fa fa-angle-right mr-2"></i>Our Shop
-                </a>
-                <a className="text-dark mb-2" href="detail.html">
-                  <i className="fa fa-angle-right mr-2"></i>Shop Detail
-                </a>
-                <a className="text-dark mb-2" href="cart.html">
-                  <i className="fa fa-angle-right mr-2"></i>Shopping Cart
-                </a>
-                <a className="text-dark mb-2" href="checkout.html">
-                  <i className="fa fa-angle-right mr-2"></i>Checkout
-                </a>
-                <a className="text-dark" href="contact.html">
-                  <i className="fa fa-angle-right mr-2"></i>Contact Us
-                </a>
-              </div>
-            </div>
-            <div className="col-md-4 mb-5">
-              <h5 className="font-weight-bold text-dark mb-4">Quick Links</h5>
-              <div className="d-flex flex-column justify-content-start">
-                <a className="text-dark mb-2" href="index.html">
-                  <i className="fa fa-angle-right mr-2"></i>Home
-                </a>
-                <a className="text-dark mb-2" href="shop.html">
-                  <i className="fa fa-angle-right mr-2"></i>Our Shop
-                </a>
-                <a className="text-dark mb-2" href="detail.html">
-                  <i className="fa fa-angle-right mr-2"></i>Shop Detail
-                </a>
-                <a className="text-dark mb-2" href="cart.html">
-                  <i className="fa fa-angle-right mr-2"></i>Shopping Cart
-                </a>
-                <a className="text-dark mb-2" href="checkout.html">
-                  <i className="fa fa-angle-right mr-2"></i>Checkout
-                </a>
-                <a className="text-dark" href="contact.html">
-                  <i className="fa fa-angle-right mr-2"></i>Contact Us
-                </a>
-              </div>
-            </div>
-            <div className="col-md-4 mb-5">
-              <h5 className="font-weight-bold text-dark mb-4">Newsletter</h5>
-              <form action="">
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className="form-control border-0 py-4"
-                    placeholder="Your Name"
-                    required="required"
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    type="email"
-                    className="form-control border-0 py-4"
-                    placeholder="Your Email"
-                    required="required"
-                  />
-                </div>
-                <div>
-                  <button
-                    className="btn btn-primary btn-block border-0 py-3"
-                    type="submit"
-                  >
-                    Subscribe Now
-                  </button>
-                </div>
-              </form>
-            </div>
+
+        {/* Footer Bottom */}
+        <div className="row mt-4 border-top pt-3">
+          <div className="col-md-6 text-md-left text-center mb-3 mb-md-0">
+            <p className="mb-0">
+              &copy; {new Date().getFullYear()}{' '}
+              <a href="/" className="text-dark font-weight-bold">
+                SellMyBiz
+              </a>
+              . All Rights Reserved.
+            </p>
+          </div>
+          <div className="col-md-6 text-md-right text-center">
+            <a href="/" className="text-dark mx-2">
+              <i className="fab fa-facebook-f"></i>
+            </a>
+            <a href="/" className="text-dark mx-2">
+              <i className="fab fa-twitter"></i>
+            </a>
+            <a href="/" className="text-dark mx-2">
+              <i className="fab fa-linkedin-in"></i>
+            </a>
+            <a href="/" className="text-dark mx-2">
+              <i className="fab fa-instagram"></i>
+            </a>
           </div>
         </div>
       </div>
-      <div className="row border-top border-light mx-xl-5 py-4">
-        <div className="col-md-6 px-xl-0">
-          <p className="mb-md-0 text-md-left text-dark text-center">
-            &copy;
-            <a className="text-dark font-weight-semi-bold" href="/">
-              Your Site Name
-            </a>
-            . All Rights Reserved. Designed by
-            <a
-              className="text-dark font-weight-semi-bold"
-              href="https://htmlcodex.com"
-            >
-              HTML Codex
-            </a>
-            <br />
-            Distributed By
-            <a href="https://themewagon.com" target="_blank">
-              ThemeWagon
-            </a>
-          </p>
-        </div>
-        <div className="col-md-6 px-xl-0 text-md-right text-center">
-          <img className="img-fluid" src="img/payments.png" alt="" />
-        </div>
-      </div>
-    </div>
+    </footer>
   );
 };
 

@@ -1,9 +1,10 @@
 import { useState, useEffect, useCallback } from 'react';
 
 import { getBusinesses } from '../api/DBRequests';
-import Categories from '../components/Categories';
-import Navbar from '../components/Navbar';
 import BusinessesList from '../components/Businesses/BusinessesList';
+import Categories from '../components/Categories';
+
+import Navbar from '../components/Navbar';
 import Subscribe from '../components/Subscribe';
 
 const Home = () => {

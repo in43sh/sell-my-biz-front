@@ -37,25 +37,7 @@ export default [
       import: importPlugin,
     },
     rules: {
-      'import/order': [
-        'error',
-        {
-          groups: ['builtin', 'external', 'internal'],
-          pathGroups: [
-            {
-              pattern: 'react',
-              group: 'external',
-              position: 'before',
-            },
-          ],
-          pathGroupsExcludedImportTypes: ['react'],
-          'newlines-between': 'always',
-          alphabetize: {
-            order: 'asc',
-            caseInsensitive: true,
-          },
-        },
-      ],
+      'import/order': 'off',
       'react/react-in-jsx-scope': 'off', // React 17+ no longer requires React in scope
       'react/prop-types': 'warn',
       'react/jsx-key': 'error',

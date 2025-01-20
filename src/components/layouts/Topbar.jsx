@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-
+import Logo from '../../assets/images/logo.svg';
 import { useAuth } from '../../contexts/AuthProvider';
 
 const Topbar = () => {
@@ -61,12 +61,7 @@ const Topbar = () => {
       <div className="row align-items-center px-xl-5 py-3">
         <div className="col-lg-3 d-none d-lg-block">
           <Link to="/" className="text-decoration-none">
-            <h1 className="display-5 font-weight-semi-bold m-0">
-              <span className="text-primary font-weight-bold mr-1 border px-3">
-                E
-              </span>
-              Shopper
-            </h1>
+            <img src={Logo} alt="Logo" />
           </Link>
         </div>
         <div className="col-lg-6 col-6 text-left">
