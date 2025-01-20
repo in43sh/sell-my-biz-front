@@ -1,6 +1,6 @@
 const HamburgerMenu = () => {
   return (
-    <button className="text-white md:hidden" onClick={toggleMenu}>
+    <button className="text-white md:hidden">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
