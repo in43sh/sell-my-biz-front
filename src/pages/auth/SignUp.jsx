@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import useSignUpForm from '../../hooks/useSignUpForm';
+
 import InputField from '../../components/Form/InputField';
+import useSignUpForm from '../../hooks/useSignUpForm';
 
 const SignUpPage = () => {
   const { form, error, isLoading, handleChange, handleSubmit } =

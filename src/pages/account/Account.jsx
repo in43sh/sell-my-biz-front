@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import AddBusiness from './AddBusiness';
+import MyBusinesses from './MyBusinesses';
 import Profile from './Profile';
 import LeftMenu from '../../components/account/LeftMenu';
 
@@ -8,8 +10,12 @@ const AccountPage = () => {
 
   const accountContent = () => {
     switch (activePage) {
+      case 'AddBusiness':
+        return <AddBusiness />;
       case 'Profile':
         return <Profile />;
+      case 'MyBusinesses':
+        return <MyBusinesses />;
       case 'Orders':
         return <div>Your order history goes here.</div>;
       default:

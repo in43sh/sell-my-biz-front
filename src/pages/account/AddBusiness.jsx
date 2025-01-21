@@ -1,4 +1,4 @@
-// import BusinessForm from '../../components/Books/BusinessForm';
+import BusinessForm from '../../components/Businesses/BusinessForm';
 
 const AddBusiness = () => {
   return (
@@ -7,7 +7,7 @@ const AddBusiness = () => {
         Add New Book
       </h1>
 
-      {/* <BusinessForm /> */}
+      <BusinessForm />
     </>
   );
 };

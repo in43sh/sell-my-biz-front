@@ -3,11 +3,11 @@ import { Route, Routes } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 
 // Auth pages
+import Account from '../pages/account/Account';
 import SignIn from '../pages/auth/SignIn';
 import SignUp from '../pages/auth/SignUp';
 
 // Account pages
-import Account from '../pages/account/Account';
 
 import Home from '../pages/Home';
 import NotFound from '../pages/NotFound';

@@ -96,7 +96,6 @@ export const getBusinesses = async (
     sort: sortBy || undefined,
     ...stringFilters,
   };
-  console.log('here');
 
   const {
     data: { businesses },
@@ -112,4 +111,13 @@ export const getBusinesses = async (
   console.log('businesses ===> ', businesses);
 
   return businesses;
+};
+
+export const addBusiness = (headers, bookData, token) => {
+  return handleApiRequest(
+    '/api/v1/businesses',
+    { headers: headers },
+    bookData,
+    token
+  );
 };

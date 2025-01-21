@@ -1,15 +1,10 @@
 import { Link } from 'react-router-dom';
-import useAuthForm from '../../hooks/useAuthForm';
+
 import InputField from '../../components/Form/InputField';
+import useAuthForm from '../../hooks/useAuthForm';
 
 const SignIn = () => {
-  const {
-    form,
-    error,
-    // isLoading,
-    handleChange,
-    handleSubmit,
-  } = useAuthForm();
+  const { form, error, handleChange, handleSubmit } = useAuthForm();
 
   return (
     <div className="container-fluid bg-secondary text-dark mt-5 pt-5">
@@ -22,19 +17,21 @@ const SignIn = () => {
                 <InputField
                   id="email"
                   type="email"
+                  name="email"
                   placeholder="Your Email"
-                  value={(form.email = 'test1@test.com')}
+                  value={form.email} // Bind input value to state
                   error={error.email}
-                  onChange={handleChange}
+                  onChange={handleChange} // Handle input changes
                   label="Email"
                 />
                 <InputField
                   id="password"
                   type="password"
+                  name="password"
                   placeholder="Your Password"
-                  value={(form.password = 'testtest')}
+                  value={form.password} // Bind input value to state
                   error={error.password}
-                  onChange={handleChange}
+                  onChange={handleChange} // Handle input changes
                   label="Password"
                 />
                 <button

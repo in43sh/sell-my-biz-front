@@ -25,8 +25,8 @@ const Topbar = () => {
               Account
             </Link>
             <span className="text-muted px-2">|</span>
-            <Link className="text-dark" to="/register">
-              Register
+            <Link className="text-dark" to="/sign-up">
+              Sign up
             </Link>
             <span className="text-muted px-2">|</span>
             <Link className="text-dark" to="/sign-in">

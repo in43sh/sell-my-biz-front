@@ -15,9 +15,14 @@ const Home = () => {
   const fetchBusinesses = useCallback(async () => {
     setIsLoading(true);
     try {
-      setBusinessesList(await getBusinesses('', { isAvailable: true }, 10));
+      const fetchedBusinesses = await getBusinesses(
+        '',
+        { isAvailable: true },
+        10
+      );
+      setBusinessesList(fetchedBusinesses);
     } catch (error) {
-      setError('Failed to load books. Please try again later.');
+      setError('Failed to load businesses. Please try again later.');
     }
     setIsLoading(false);
   }, []);
@@ -26,16 +31,31 @@ const Home = () => {
     fetchBusinesses();
   }, [fetchBusinesses]);
 
-  useEffect(() => {
-    console.log('businessesList ===> ', businessesList);
-  }, [businessesList]);
-
   return (
     <>
       <Navbar />
-      <Categories />
-      <Subscribe />
-      <BusinessesList list={businessesList} />
+      <div className="container-fluid mt-4">
+        <Categories />
+        <div className="container-fluid pt-5">
+          <div className="mb-4 text-center">
+            <h2 className="section-title px-5">
+              <span className="bg-light text-dark px-3">Just Arrived</span>
+            </h2>
+          </div>
+          {error ? (
+            <div className="alert alert-danger mt-4 text-center">{error}</div>
+          ) : isLoading ? (
+            <div className="mt-4 text-center">
+              <div className="spinner-border text-primary" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>
+            </div>
+          ) : (
+            <BusinessesList list={businessesList} />
+          )}
+        </div>
+        <Subscribe />
+      </div>
     </>
   );
 };
