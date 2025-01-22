@@ -1,34 +1,35 @@
-import { Route, Routes } from 'react-router-dom';
-
+import { Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 
-// Auth pages
-import Account from '../pages/account/Account';
-import SignIn from '../pages/auth/SignIn';
-import SignUp from '../pages/auth/SignUp';
-
-// Account pages
-
+// Pages
 import Home from '../pages/Home';
 import NotFound from '../pages/NotFound';
+import SignIn from '../pages/auth/SignIn';
+import SignUp from '../pages/auth/SignUp';
+import AccountLayout from '../components/layouts/AccountLayout';
+import AddBusiness from '../pages/account/AddBusiness';
+import Profile from '../pages/account/Profile';
+import MyBusinesses from '../pages/account/MyBusinesses';
 
 const Router = () => {
   return (
     <Routes>
+      {/* Public Routes */}
       <Route path="/" element={<Home />} />
-
-      {/* Auth */}
       <Route path="/sign-in" element={<SignIn />} />
       <Route path="/sign-up" element={<SignUp />} />
 
-      {/* Account */}
+      {/* Protected Account Routes */}
       <Route
         path="/account"
-        element={<ProtectedRoute element={<Account />} />}
-      />
+        element={<ProtectedRoute element={<AccountLayout />} />}
+      >
+        <Route path="add-business" element={<AddBusiness />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="my-businesses" element={<MyBusinesses />} />
+      </Route>
 
-      {/* 404 Not Found */}
-      <Route path="/404" element={<NotFound />} />
+      {/* 404 Route */}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

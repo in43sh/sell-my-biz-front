@@ -16,8 +16,6 @@ const AccountPage = () => {
         return <Profile />;
       case 'MyBusinesses':
         return <MyBusinesses />;
-      case 'Orders':
-        return <div>Your order history goes here.</div>;
       default:
         return <div>Select a page.</div>;
     }
@@ -28,10 +26,7 @@ const AccountPage = () => {
       <div className="row">
         <LeftMenu activePage={activePage} setActivePage={setActivePage} />
 
-        <div className="col-lg-9 col-md-8 p-4">
-          {/* <h3 className="mb-4">{activePage}</h3> */}
-          {accountContent()}
-        </div>
+        <div className="col-lg-9 col-md-8 p-4">{accountContent()}</div>
       </div>
     </div>
   );

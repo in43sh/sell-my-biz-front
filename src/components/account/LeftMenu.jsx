@@ -1,33 +1,39 @@
-const LeftMenu = ({ activePage, setActivePage }) => {
+import { NavLink } from 'react-router-dom';
+
+const LeftMenu = () => {
   return (
-    <div className="col-lg-3 col-md-4 bg-light border-right">
-      <div className="list-group">
-        <button
-          className={`list-group-item list-group-item-action ${activePage === 'AddBusiness' ? 'active' : ''}`}
-          onClick={() => setActivePage('AddBusiness')}
-        >
-          Add Business
-        </button>
-        <button
-          className={`list-group-item list-group-item-action ${activePage === 'Profile' ? 'active' : ''}`}
-          onClick={() => setActivePage('Profile')}
+    <ul className="list-group">
+      <li className="list-group-item">
+        <NavLink
+          to="/account/profile"
+          className={({ isActive }) =>
+            isActive ? 'text-primary font-weight-bold' : 'text-dark'
+          }
         >
           Profile
-        </button>
-        <button
-          className={`list-group-item list-group-item-action ${activePage === 'MyBusinesses' ? 'active' : ''}`}
-          onClick={() => setActivePage('MyBusinesses')}
+        </NavLink>
+      </li>
+      <li className="list-group-item">
+        <NavLink
+          to="/account/add-business"
+          className={({ isActive }) =>
+            isActive ? 'text-primary font-weight-bold' : 'text-dark'
+          }
+        >
+          Add Business
+        </NavLink>
+      </li>
+      <li className="list-group-item">
+        <NavLink
+          to="/account/my-businesses"
+          className={({ isActive }) =>
+            isActive ? 'text-primary font-weight-bold' : 'text-dark'
+          }
         >
           My Businesses
-        </button>
-        <button
-          className={`list-group-item list-group-item-action ${activePage === 'Orders' ? 'active' : ''}`}
-          onClick={() => setActivePage('Orders')}
-        >
-          Orders
-        </button>
-      </div>
-    </div>
+        </NavLink>
+      </li>
+    </ul>
   );
 };
 
