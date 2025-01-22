@@ -1,4 +1,18 @@
-const BusinessCard = ({ business }) => {
+// import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import DeleteButton from './DeleteButton';
+import EditButton from './EditButton';
+
+const BusinessCard = ({
+  business,
+  canEdit,
+  canDelete,
+  canViewDetails,
+  canContact,
+  updateList,
+  isLink = false,
+}) => {
+  const { _id: id, name, description, price, image } = business;
   return (
     <div key={business.id} className="col-lg-3 col-md-6 col-sm-12 pb-1">
       <div className="card product-item mb-4 border-0">
@@ -19,12 +33,27 @@ const BusinessCard = ({ business }) => {
           </div>
         </div>
         <div className="card-footer d-flex justify-content-between bg-light border">
-          <a href="/" className="btn btn-sm text-dark p-0">
-            <i className="fas fa-eye text-primary mr-1"></i>View Detail
-          </a>
-          <a href="/" className="btn btn-sm text-dark p-0">
-            <i className="fas fa-shopping-cart text-primary mr-1"></i>Contact
-          </a>
+          {canViewDetails && (
+            <a href="/" className="btn btn-sm text-dark p-0">
+              <i className="fas fa-shopping-cart text-primary mr-1"></i>Contact
+            </a>
+          )}
+          {canContact && (
+            <a href="/" className="btn btn-sm text-dark p-0">
+              <i className="fas fa-eye text-primary mr-1"></i>View Detail
+            </a>
+          )}
+          {isLink ? (
+            <Link to={`/businesses/${id}`} className="btn btn-sm text-dark p-0">
+              <i className="fas fa-eye text-primary mr-1"></i>View Details
+            </Link>
+          ) : null}
+          <div className="d-flex">
+            {canEdit && <EditButton id={id} />}
+            {canDelete && (
+              <DeleteButton id={id} name={name} updateList={updateList} />
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -15,12 +15,12 @@ const handleApiRequest = async (
       'Content-Type': 'application/json',
     };
 
-    console.log('headers ===> ', headers);
+    // console.log('headers ===> ', headers);
 
     if (token) {
       headers.Authorization = `Bearer ${token}`;
     }
-    console.log('token ===> ', token);
+    // console.log('token ===> ', token);
 
     // const options = {
     //   method,
@@ -38,13 +38,13 @@ const handleApiRequest = async (
         : {}),
     };
 
-    console.log('options ===> ', options);
+    // console.log('options ===> ', options);
     // console.log('API_BASE_URL ===> ', API_BASE_URL);
     // console.log('url ===> ', url);
 
     const response = await fetch(`${API_BASE_URL}${url}`, options);
-    await fetch(`${API_BASE_URL}${url}`, options);
-    console.log('response ===> ', response);
+    // await fetch(`${API_BASE_URL}${url}`, options);
+    // console.log('response ===> ', response);
 
     if (!response.ok) {
       const errorResponse = await response.json();
@@ -108,16 +108,49 @@ export const getBusinesses = async (
   );
 
   // console.log('data ===> ', data);
-  console.log('businesses ===> ', businesses);
+  // console.log('businesses ===> ', businesses);
 
   return businesses;
 };
 
+export const getBusiness = async (id) => {
+  const {
+    data: { book },
+  } = await handleApiRequest(
+    `/api/v1/businesses/${id}`,
+    null,
+    null,
+    null,
+    'get'
+  );
+  return book;
+};
+
 export const addBusiness = (headers, bookData, token) => {
+  console.log('bookData ===> ', bookData);
+
   return handleApiRequest(
     '/api/v1/businesses',
     { headers: headers },
     bookData,
     token
+  );
+};
+export const updateBusiness = (headers, businessData, token) => {
+  return handleApiRequest(
+    `/api/v1/businesses/${businessData.id}`,
+    { headers: headers },
+    businessData,
+    token,
+    'put'
+  );
+};
+export const deleteBusiness = async (id, token) => {
+  await handleApiRequest(
+    `/api/v1/businesses/${id}`,
+    { headers: {} },
+    null,
+    token,
+    'delete'
   );
 };

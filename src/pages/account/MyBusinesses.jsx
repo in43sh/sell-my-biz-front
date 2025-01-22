@@ -86,6 +86,8 @@ const MyBusinesses = () => {
             list={booksList}
             canEdit={true}
             canDelete={true}
+            canViewDetails={false}
+            canContact={false}
             updateList={fetchBooks}
           />
           {/* {showLoadMore && (
