@@ -9,11 +9,11 @@ const handleApiRequest = async (
   token = '',
   method = 'POST'
 ) => {
-  console.log('url ===> ', url);
-  console.log('config ===> ', config);
-  console.log('payload ===> ', payload);
-  console.log('token ===> ', token);
-  console.log('method ===> ', method);
+  // console.log('url ===> ', url);
+  // console.log('config ===> ', config);
+  // console.log('payload ===> ', payload);
+  // console.log('token ===> ', token);
+  // console.log('method ===> ', method);
 
   try {
     console.log('here');
