@@ -12,7 +12,7 @@ const BusinessesList = ({
   updateList,
   isLinkList = false,
 }) => {
-  console.log('list ===> ', list);
+  // console.log('list ===> ', list);
   return (
     <div className="container-fluid pt-5">
       <div className="row px-xl-5 pb-3">

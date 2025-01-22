@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
+import { useAuth } from '../contexts/AuthProvider';
 import { getBusinesses } from '../api/DBRequests';
 import BusinessesList from '../components/Businesses/BusinessesList';
 import Categories from '../components/Categories';
@@ -8,6 +9,7 @@ import Navbar from '../components/Navbar';
 import Subscribe from '../components/Subscribe';
 
 const Home = () => {
+  const { isLoggedIn } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const [businessesList, setBusinessesList] = useState([]);
   const [error, setError] = useState('');
@@ -51,7 +53,11 @@ const Home = () => {
               </div>
             </div>
           ) : (
-            <BusinessesList list={businessesList} />
+            <BusinessesList
+              list={businessesList}
+              canViewDetails={true}
+              canContact={isLoggedIn ? true : false}
+            />
           )}
         </div>
         <Subscribe />

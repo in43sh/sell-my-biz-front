@@ -10,6 +10,7 @@ import AccountLayout from '../components/layouts/AccountLayout';
 import AddBusiness from '../pages/account/AddBusiness';
 import Profile from '../pages/account/Profile';
 import MyBusinesses from '../pages/account/MyBusinesses';
+import EditBusiness from '../pages/account/EditBusiness';
 
 const Router = () => {
   return (
@@ -27,6 +28,7 @@ const Router = () => {
         <Route path="add-business" element={<AddBusiness />} />
         <Route path="profile" element={<Profile />} />
         <Route path="my-businesses" element={<MyBusinesses />} />
+        <Route path="edit-business" element={<EditBusiness />} />
       </Route>
 
       {/* 404 Route */}

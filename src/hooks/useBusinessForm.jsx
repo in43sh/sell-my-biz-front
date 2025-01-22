@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react';
-import { addBusiness, getBusiness } from '../api/DBRequests';
-import { useAccount } from '../contexts/AccountProvider';
+import { useNavigate } from 'react-router-dom';
+import { addBusiness, getBusiness, updateBusiness } from '../api/DBRequests';
+// import { useAccount } from '../contexts/AccountProvider';
 import { useAuth } from '../contexts/AuthProvider';
 
 const useBusinessForm = (id) => {
+  // console.log('id ===> ', id);
+  const navigate = useNavigate();
+
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
     name: '',
@@ -28,23 +32,30 @@ const useBusinessForm = (id) => {
 
   const [error, setError] = useState({});
   const { token } = useAuth();
-  const { setAccountPage } = useAccount();
+  // const { setAccountPage } = useAccount();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const loadBusiness = async () => {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    setIsLoading(true);
+    try {
+      const business = await getBusiness(headers, id); // Assume an API call to fetch a business by ID
+      setForm(business);
+    } catch (error) {
+      console.error('Failed to fetch business:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   // Load data for editing
   useEffect(() => {
-    const fetchBusiness = async () => {
-      if (id) {
-        try {
-          const business = await getBusiness(id); // Assume an API call to fetch a business by ID
-          setForm(business);
-        } catch (error) {
-          console.error('Failed to fetch business:', error);
-        }
-      }
-    };
-    fetchBusiness();
+    if (id) {
+      loadBusiness();
+    }
   }, [id]);
 
   const handleChange = ({ target: { name, value } }) => {
@@ -79,8 +90,19 @@ const useBusinessForm = (id) => {
       const headers = { 'Content-Type': 'application/json' };
       console.log('form ===> ', form);
       console.log('here');
+      if (id) {
+        console.log('id ===> ', id);
 
-      await addBusiness(headers, form, token);
+        await updateBusiness(headers, form, token);
+        // if (result.status === 200) {
+        //   navigate('/account/my-businesses');
+        // }
+      } else {
+        const result = await addBusiness(headers, form, token);
+        if (result.status === 201) {
+          navigate('/account/my-businesses');
+        }
+      }
       // fetchBusinesses(); // Refresh the list of businesses
     } catch (error) {
       console.error(error);

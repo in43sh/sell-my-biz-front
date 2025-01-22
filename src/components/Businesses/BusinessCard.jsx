@@ -33,12 +33,12 @@ const BusinessCard = ({
           </div>
         </div>
         <div className="card-footer d-flex justify-content-between bg-light border">
-          {canViewDetails && (
+          {canContact && (
             <a href="/" className="btn btn-sm text-dark p-0">
               <i className="fas fa-shopping-cart text-primary mr-1"></i>Contact
             </a>
           )}
-          {canContact && (
+          {canViewDetails && (
             <a href="/" className="btn btn-sm text-dark p-0">
               <i className="fas fa-eye text-primary mr-1"></i>View Detail
             </a>

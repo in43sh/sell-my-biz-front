@@ -6,6 +6,7 @@ import InputField from '../Form/InputField';
 const BusinessForm = ({ id = '' }) => {
   const { form, error, isLoading, handleChange, handleSubmit } =
     useBusinessForm(id);
+  // console.log('form ===> ', form);
 
   return (
     <>

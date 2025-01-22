@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 import { useAccount } from '../../contexts/AccountProvider';
 
 const EditButton = ({ id }) => {
-  const { setAccountPage, setCurrentBusinessId } = useAccount();
+  const navigate = useNavigate();
+  const { setCurrentBusinessId } = useAccount();
 
   const handleEdit = () => {
-    setAccountPage('editBusiness');
+    navigate('/account/edit-business');
     setCurrentBusinessId(id);
   };
 
