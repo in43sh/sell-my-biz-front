@@ -1,57 +1,59 @@
 import { useState, useEffect, useCallback } from 'react';
 
 import { getBusinesses } from '../../api/DBRequests';
-import AddBookButton from '../../components/account/AddBusinessButton';
+import AddBusinessButton from '../../components/account/AddBusinessButton';
 import BusinessesList from '../../components/Businesses/BusinessesList';
-// import LoadMoreButton from '../../components/Books/LoadMoreButton';
-// import LabelAndSelect from '../../components/Form/LabelAndSelect';
+// import LoadMoreButton from '../../components/Businesses/LoadMoreButton';
 import Spinner from '../../components/layouts/Spinner';
 import { useAuth } from '../../contexts/AuthProvider';
 // import { sortingOptions } from '../../utils/selectUtils';
 
 const MyBusinesses = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [booksList, setBooksList] = useState([]);
+  const [businessesList, setBusinessesList] = useState([]);
   const [sortBy, setSortBy] = useState('-createdAt');
   const { userId } = useAuth();
   const [error, setError] = useState('');
   const [showLoadMore, setShowLoadMore] = useState(true);
 
-  const BOOKS_LIMIT = 50;
+  const BUSINESSES_LIMIT = 50;
 
-  const fetchBooks = useCallback(
+  const fetchBusinesses = useCallback(
     async (skip = 0) => {
       setIsLoading(true);
       try {
-        const fetchedBooks = await getBusinesses(
+        const fetchBusinesses = await getBusinesses(
           sortBy,
           { userId: userId },
-          BOOKS_LIMIT,
+          BUSINESSES_LIMIT,
           skip
         );
 
         skip === 0
-          ? setBooksList(fetchedBooks)
-          : setBooksList((prevBooks) => [...prevBooks, ...fetchedBooks]);
+          ? setBusinessesList(fetchBusinesses)
+          : setBusinessesList((prevBusinesses) => [
+              ...prevBusinesses,
+              ...fetchBusinesses,
+            ]);
 
-        fetchedBooks.length < BOOKS_LIMIT
+        fetchBusinesses.length < BUSINESSES_LIMIT
           ? setShowLoadMore(false)
           : setShowLoadMore(true);
       } catch (error) {
-        setError('Failed to load books. Please try again later.');
+        setError('Failed to load businesses. Please try again later.');
       }
       setIsLoading(false);
     },
     [sortBy, userId]
   );
 
-  // const handleLoadMoreBooks = () => {
-  //   fetchBooks(booksList.length);
+  // const handleLoadMoreBusinesses = () => {
+  //   fetchBusinesses(businessesList.length);
   // };
 
   useEffect(() => {
-    fetchBooks();
-  }, [fetchBooks]);
+    fetchBusinesses();
+  }, [fetchBusinesses]);
 
   // const handleSortSelect = (name, value) => {
   //   setSortBy(value);
@@ -61,7 +63,7 @@ const MyBusinesses = () => {
     <>
       <div className="d-flex justify-content-center justify-content-sm-end mb-4 gap-2">
         <div className="d-sm-none">
-          <AddBookButton />
+          <AddBusinessButton />
         </div>
 
         {/* <div className="w-auto">
@@ -83,16 +85,16 @@ const MyBusinesses = () => {
       ) : (
         <>
           <BusinessesList
-            list={booksList}
+            list={businessesList}
             canEdit={true}
             canDelete={true}
             canViewDetails={false}
             canContact={false}
-            updateList={fetchBooks}
+            updateList={fetchBusinesses}
           />
           {/* {showLoadMore && (
             <div className="d-flex justify-content-center mt-3">
-              <LoadMoreButton onClick={handleLoadMoreBooks} />
+              <LoadMoreButton onClick={handleLoadMoreBusinesses} />
             </div>
           )} */}
         </>

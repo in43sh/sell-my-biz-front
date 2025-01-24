@@ -33,7 +33,11 @@ const Topbar = () => {
               Log in
             </Link>
             <span className="text-muted px-2">|</span>
-            <p className="text-dark" type="button" onClick={clearUserSession}>
+            <p
+              className="text-dark mb-0"
+              type="button"
+              onClick={clearUserSession}
+            >
               Log out
             </p>
           </div>

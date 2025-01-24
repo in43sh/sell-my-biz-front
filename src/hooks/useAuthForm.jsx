@@ -24,28 +24,21 @@ const useAuthForm = () => {
   };
 
   const handleSubmit = async (e) => {
-    console.log('here');
-
     e.preventDefault();
 
     const validationErrors = validateForm();
     setError(validationErrors);
-    console.log('here2');
     if (Object.keys(validationErrors).length > 0) {
-      console.log('validationErrors ===> ', validationErrors);
       return;
     }
 
     setIsLoading(true);
-
-    console.log('here3');
     try {
       const headers = {
         'Content-Type': 'application/json',
       };
 
       const result = await login(headers, form);
-      console.log('result ===> ', result);
 
       if (result.status === 200) {
         setUserSession({

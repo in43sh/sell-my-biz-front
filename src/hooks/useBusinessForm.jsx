@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { addBusiness, getBusiness, updateBusiness } from '../api/DBRequests';
-// import { useAccount } from '../contexts/AccountProvider';
 import { useAuth } from '../contexts/AuthProvider';
 
 const useBusinessForm = (id) => {
-  // console.log('id ===> ', id);
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +30,6 @@ const useBusinessForm = (id) => {
 
   const [error, setError] = useState({});
   const { token } = useAuth();
-  // const { setAccountPage } = useAccount();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -42,7 +39,7 @@ const useBusinessForm = (id) => {
     };
     setIsLoading(true);
     try {
-      const business = await getBusiness(headers, id); // Assume an API call to fetch a business by ID
+      const business = await getBusiness(headers, id);
       setForm(business);
     } catch (error) {
       console.error('Failed to fetch business:', error);
@@ -88,11 +85,7 @@ const useBusinessForm = (id) => {
 
     try {
       const headers = { 'Content-Type': 'application/json' };
-      console.log('form ===> ', form);
-      console.log('here');
       if (id) {
-        console.log('id ===> ', id);
-
         await updateBusiness(headers, form, token);
         // if (result.status === 200) {
         //   navigate('/account/my-businesses');
@@ -103,7 +96,6 @@ const useBusinessForm = (id) => {
           navigate('/account/my-businesses');
         }
       }
-      // fetchBusinesses(); // Refresh the list of businesses
     } catch (error) {
       console.error(error);
       setError({ form: 'Failed to add business.' });

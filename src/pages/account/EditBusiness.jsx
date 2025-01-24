@@ -3,12 +3,11 @@ import { useAccount } from '../../contexts/AccountProvider';
 
 const EditBusiness = () => {
   const { currentBusinessId } = useAccount();
-  // console.log('currentBusinessId ===> ', currentBusinessId);
 
   return (
     <>
       <h1 className="font-headings mb-6 flex justify-center text-2xl font-bold">
-        Edit Book
+        Edit Business
       </h1>
 
       <BusinessForm id={currentBusinessId} />

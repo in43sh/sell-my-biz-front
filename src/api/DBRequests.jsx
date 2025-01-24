@@ -9,26 +9,15 @@ const handleApiRequest = async (
   token = '',
   method = 'POST'
 ) => {
-  // console.log('url ===> ', url);
-  // console.log('config ===> ', config);
-  // console.log('payload ===> ', payload);
-  // console.log('token ===> ', token);
-  // console.log('method ===> ', method);
-
   try {
-    console.log('here');
-
     const headers = {
       ...config.headers,
       'Content-Type': 'application/json',
     };
 
-    console.log('headers ===> ', headers);
-
     if (token) {
       headers.Authorization = `Bearer ${token}`;
     }
-    console.log('token ===> ', token);
 
     // const options = {
     //   method,
@@ -45,14 +34,7 @@ const handleApiRequest = async (
         ? { body: JSON.stringify(payload) }
         : {}),
     };
-
-    console.log('options ===> ', options);
-    console.log('API_BASE_URL ===> ', API_BASE_URL);
-    console.log('url ===> ', url);
-
     const response = await fetch(`${API_BASE_URL}${url}`, options);
-    // await fetch(`${API_BASE_URL}${url}`, options);
-    // console.log('response ===> ', response);
 
     if (!response.ok) {
       const errorResponse = await response.json();
@@ -64,7 +46,6 @@ const handleApiRequest = async (
     }
 
     const data = await response.json();
-    console.log('data ===> ', data);
     return { data, status: response.status };
   } catch (error) {
     const errorMessage =
@@ -115,15 +96,10 @@ export const getBusinesses = async (
     'get'
   );
 
-  // console.log('data ===> ', data);
-  // console.log('businesses ===> ', businesses);
-
   return businesses;
 };
 
 export const getBusiness = async (headers, id) => {
-  // console.log('id ===> ', id);
-
   const {
     data: { business },
   } = await handleApiRequest(
@@ -133,24 +109,19 @@ export const getBusiness = async (headers, id) => {
     null,
     'GET'
   );
-  console.log('business ===> ', business);
 
   return business;
 };
 
-export const addBusiness = (headers, bookData, token) => {
-  console.log('bookData ===> ', bookData);
-
+export const addBusiness = (headers, businessData, token) => {
   return handleApiRequest(
     '/api/v1/businesses',
     { headers: headers },
-    bookData,
+    businessData,
     token
   );
 };
 export const updateBusiness = (headers, businessData, token) => {
-  console.log('businessData ===> ', businessData);
-
   return handleApiRequest(
     `/api/v1/businesses/${businessData._id}`,
     { headers: headers },

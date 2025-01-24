@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-// import axios from 'axios';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthProvider';
 import { getBusiness } from '../api/DBRequests';
 
 const BusinessDetail = () => {
   const { isLoggedIn } = useAuth();
-  const { id } = useParams(); // Get the business ID from the URL
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [business, setBusiness] = useState(null);
-  //   const [relatedBusinesses, setRelatedBusinesses] = useState([]);
-  //   const [authenticated, setAuthenticated] = useState(false); // Mock authentication state
+  const [showContactInfo, setShowContactInfo] = useState(false);
 
   const getBusinessData = async () => {
     try {
@@ -23,6 +22,14 @@ const BusinessDetail = () => {
     }
   };
 
+  const handleContactSeller = () => {
+    if (isLoggedIn) {
+      setShowContactInfo(true);
+    } else {
+      navigate('/sign-in');
+    }
+  };
+
   useEffect(() => {
     getBusinessData();
   }, [id]);
@@ -32,152 +39,85 @@ const BusinessDetail = () => {
   }
 
   return (
-    <div className="container py-5">
-      {/* Breadcrumb Navigation */}
-      <nav aria-label="breadcrumb" className="mb-4">
-        <ol className="breadcrumb">
-          <li className="breadcrumb-item">
-            <a href="/">Home</a>
-          </li>
-          <li className="breadcrumb-item">
-            <a href="/businesses">Businesses</a>
-          </li>
-          <li className="breadcrumb-item active" aria-current="page">
-            {business.name}
-          </li>
-        </ol>
-      </nav>
-
-      <div className="row">
-        {/* Main Content */}
-        <div className="col-lg-8">
-          <h1 className="mb-4">{business.name}</h1>
-          <h5 className="text-muted mb-4">{business.category}</h5>
-
-          {/* Image Carousel */}
-          <div
-            id="businessCarousel"
-            className="carousel slide mb-4"
-            data-bs-ride="carousel"
-          >
-            <div className="carousel-inner">
-              {business.images?.map((image, index) => (
-                <div
-                  className={`carousel-item ${index === 0 ? 'active' : ''}`}
-                  key={index}
-                >
-                  <img
-                    src={image}
-                    className="d-block w-100"
-                    alt={`Slide ${index + 1}`}
-                  />
-                </div>
-              ))}
-            </div>
-            <button
-              className="carousel-control-prev"
-              type="button"
-              data-bs-target="#businessCarousel"
-              data-bs-slide="prev"
-            >
-              <span
-                className="carousel-control-prev-icon"
-                aria-hidden="true"
-              ></span>
-              <span className="visually-hidden">Previous</span>
-            </button>
-            <button
-              className="carousel-control-next"
-              type="button"
-              data-bs-target="#businessCarousel"
-              data-bs-slide="next"
-            >
-              <span
-                className="carousel-control-next-icon"
-                aria-hidden="true"
-              ></span>
-              <span className="visually-hidden">Next</span>
-            </button>
-          </div>
-
-          {/* Business Details */}
-          <h3 className="text-primary">${business.price.toLocaleString()}</h3>
-          <p className="mb-4">{business.description}</p>
-
-          {/* Contact Information */}
-          {isLoggedIn ? (
-            <div className="card mb-4">
-              <div className="card-body">
-                <h5>Contact Information</h5>
-                <p>
-                  <i className="fa fa-user text-primary me-2"></i>
-                  {business.ownerName}
-                </p>
-                <p>
-                  <i className="fa fa-envelope text-primary me-2"></i>
-                  {business.contactEmail}
-                </p>
-              </div>
-            </div>
-          ) : (
-            <p className="text-danger">
-              Please log in to view contact information.
-            </p>
-          )}
-        </div>
-        {/* Sidebar */}
-        <div className="col-lg-4">
-          <div className="card mb-4">
-            <div className="card-body">
-              <h5 className="card-title">Business Highlights</h5>
+    <div>
+      <div className="container py-5">
+        <div className="row px-xl-5">
+          <div className="col-lg-8">
+            <div className="mb-5">
+              <h3 className="font-weight-semi-bold">{business.name}</h3>
               <ul className="list-group list-group-flush">
                 <li className="list-group-item">
-                  Revenue: ${business.grossRevenue.toLocaleString()}
+                  Category: {business.category}
+                </li>
+                <li className="list-group-item">Price: ${business.price}</li>
+                <li className="list-group-item">
+                  Revenue: ${business.grossRevenue}
+                </li>
+                <li className="list-group-item">Profit: ${business.profit}</li>
+                <li className="list-group-item">
+                  Cash Flow: ${business.cashFlow}
                 </li>
                 <li className="list-group-item">
-                  Cash Flow: ${business.cashFlow.toLocaleString()}
+                  Inventory Value: ${business.inventoryValue}
+                </li>
+                <li className="list-group-item">Address: {business.address}</li>
+                <li className="list-group-item">City: {business.city}</li>
+                <li className="list-group-item">State: {business.state}</li>
+                <li className="list-group-item">ZipCode: {business.zipCode}</li>
+                <li className="list-group-item">
+                  Owner Name: {business.ownerName}
+                </li>
+                <li className="list-group-item">
+                  Contact Email: {business.contactEmail}
+                </li>
+                <li className="list-group-item">
+                  Years Established: {business.yearsEstablished}
                 </li>
                 <li className="list-group-item">
                   Employees: {business.employees}
                 </li>
                 <li className="list-group-item">
-                  Location: {business.city}, {business.state}
+                  Reason for Selling: {business.reasonForSelling}
                 </li>
               </ul>
             </div>
+            <h4 className="font-weight-semi-bold mb-3">Description</h4>
+            <p>{business.description}</p>
           </div>
 
-          <button className="btn btn-primary w-100">Message Owner</button>
-        </div>
-      </div>
-
-      {/* Related Businesses */}
-      {/* <div className="mt-5">
-        <h4 className="mb-4">You May Also Like</h4>
-        <div className="row">
-          {relatedBusinesses.slice(0, 3).map((related) => (
-            <div className="col-lg-4 col-md-6 mb-4" key={related.id}>
-              <div className="card h-100">
-                <img
-                  src={related.images[0]}
-                  className="card-img-top"
-                  alt={related.name}
-                />
-                <div className="card-body">
-                  <h5 className="card-title">{related.name}</h5>
-                  <p className="card-text">${related.price.toLocaleString()}</p>
-                  <a
-                    href={`/business/${related.id}`}
-                    className="btn btn-primary w-100"
-                  >
-                    View Details
-                  </a>
-                </div>
+          <div className="col-lg-4">
+            <div className="card mb-4 border-0">
+              <div className="card-body text-center">
+                <p>
+                  If you're interested in this business, please get in touch
+                  with the seller for more information.
+                </p>
+                <button
+                  onClick={handleContactSeller}
+                  className="btn btn-primary"
+                >
+                  Contact Seller
+                </button>
               </div>
             </div>
-          ))}
+            {showContactInfo && (
+              <div className="card mb-4">
+                <div className="card-body">
+                  <h5>Contact Information</h5>
+                  <p>
+                    <i className="fa fa-user text-primary me-2"></i>
+                    {business.ownerName}
+                  </p>
+                  <p>
+                    <i className="fa fa-envelope text-primary me-2"></i>
+                    {business.contactEmail}
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };
