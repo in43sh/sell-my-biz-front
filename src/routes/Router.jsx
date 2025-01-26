@@ -11,6 +11,7 @@ import AddBusiness from '../pages/account/AddBusiness';
 import Profile from '../pages/account/Profile';
 import MyBusinesses from '../pages/account/MyBusinesses';
 import EditBusiness from '../pages/account/EditBusiness';
+import Businesses from '../pages/Businesses';
 import BusinessDetail from '../pages/BusinessDetail';
 
 const Router = () => {
@@ -32,6 +33,8 @@ const Router = () => {
         <Route path="edit-business" element={<EditBusiness />} />
       </Route>
 
+      {/* Businesses Routes */}
+      <Route path="/businesses" element={<Businesses />} />
       <Route path="/business/:id" element={<BusinessDetail />} />
 
       {/* 404 Route */}

@@ -9,6 +9,9 @@ const handleApiRequest = async (
   token = '',
   method = 'POST'
 ) => {
+  // console.log('url ===> ', url);
+  console.log('config.params ===> ', config.params);
+
   try {
     const headers = {
       ...config.headers,
@@ -19,14 +22,13 @@ const handleApiRequest = async (
       headers.Authorization = `Bearer ${token}`;
     }
 
-    // const options = {
-    //   method,
-    //   headers,
-    //   body:
-    //     method !== 'GET' && method !== 'DELETE'
-    //       ? JSON.stringify(payload)
-    //       : undefined,
-    // };
+    // Serialize config.params into query parameters
+    let queryParams = '';
+    if (config.params) {
+      queryParams = new URLSearchParams(config.params).toString();
+      url = `${url}?${queryParams}`;
+    }
+
     const options = {
       method,
       headers,
@@ -34,6 +36,8 @@ const handleApiRequest = async (
         ? { body: JSON.stringify(payload) }
         : {}),
     };
+
+    console.log('url ===> ', url);
     const response = await fetch(`${API_BASE_URL}${url}`, options);
 
     if (!response.ok) {
@@ -73,6 +77,8 @@ export const getBusinesses = async (
   limit = BUSINESSES_LIMIT,
   skip = 0
 ) => {
+  console.log('sortBy ===> ', sortBy);
+  console.log('filters ===> ', filters);
   const stringFilters = Object.fromEntries(
     Object.entries(filters).map(([key, values]) =>
       Array.isArray(values) ? [key, values.join(',')] : [key, values]
@@ -82,7 +88,7 @@ export const getBusinesses = async (
   const params = {
     limit: limit,
     skip: skip,
-    sort: sortBy || undefined,
+    priceSort: sortBy || undefined,
     ...stringFilters,
   };
 
