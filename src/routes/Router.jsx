@@ -13,6 +13,7 @@ import MyBusinesses from '../pages/account/MyBusinesses';
 import EditBusiness from '../pages/account/EditBusiness';
 import Businesses from '../pages/Businesses';
 import BusinessDetail from '../pages/BusinessDetail';
+import BusinessEvaluate from '../pages/BusinessEvaluate';
 
 const Router = () => {
   return (
@@ -36,6 +37,8 @@ const Router = () => {
       {/* Businesses Routes */}
       <Route path="/businesses" element={<Businesses />} />
       <Route path="/business/:id" element={<BusinessDetail />} />
+
+      <Route path="/evaluate" element={<BusinessEvaluate />} />
 
       {/* 404 Route */}
       <Route path="*" element={<NotFound />} />

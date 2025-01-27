@@ -2,10 +2,29 @@ import PropTypes from 'prop-types';
 import useBusinessForm from '../../hooks/useBusinessForm';
 import Spinner from '../../components/layouts/Spinner';
 import InputField from '../Form/InputField';
+import { useEffect } from 'react';
 
-const BusinessForm = ({ id = '' }) => {
-  const { form, error, isLoading, handleChange, handleSubmit } =
+const BusinessForm = ({ id = '', evaluationData = null }) => {
+  const { form, error, isLoading, handleChange, handleSubmit, setForm } =
     useBusinessForm(id);
+
+  useEffect(() => {
+    if (evaluationData) {
+      setForm({
+        ...form,
+        name: '',
+        description: '',
+        category: evaluationData.details?.industry || '',
+        price: evaluationData.result || '',
+        grossRevenue: evaluationData.details?.grossRevenue || '',
+        profit: evaluationData.details?.profit || '',
+        inventoryValue: evaluationData.details?.inventory || '',
+        yearsEstablished: evaluationData.details?.businessAge || '',
+        employees: '',
+        reasonForSelling: '',
+      });
+    }
+  }, [evaluationData, setForm]);
 
   return (
     <>
@@ -22,7 +41,6 @@ const BusinessForm = ({ id = '' }) => {
               onChange={handleChange}
               label="Business Name"
             />
-
             <InputField
               id="description"
               name="description"
@@ -32,7 +50,6 @@ const BusinessForm = ({ id = '' }) => {
               onChange={handleChange}
               label="Description"
             />
-
             <InputField
               id="category"
               name="category"
@@ -42,7 +59,6 @@ const BusinessForm = ({ id = '' }) => {
               onChange={handleChange}
               label="Category"
             />
-
             <InputField
               id="price"
               name="price"
@@ -54,7 +70,6 @@ const BusinessForm = ({ id = '' }) => {
               onChange={handleChange}
               label="Price"
             />
-
             <InputField
               id="grossRevenue"
               name="grossRevenue"
@@ -65,7 +80,6 @@ const BusinessForm = ({ id = '' }) => {
               onChange={handleChange}
               label="Gross Revenue"
             />
-
             <InputField
               id="profit"
               name="profit"
@@ -90,7 +104,6 @@ const BusinessForm = ({ id = '' }) => {
               onChange={handleChange}
               label="Cash Flow"
             />
-
             <InputField
               id="inventoryValue"
               name="inventoryValue"
@@ -101,7 +114,6 @@ const BusinessForm = ({ id = '' }) => {
               onChange={handleChange}
               label="Inventory Value"
             />
-
             <InputField
               id="address"
               name="address"
@@ -111,7 +123,6 @@ const BusinessForm = ({ id = '' }) => {
               onChange={handleChange}
               label="Address"
             />
-
             <InputField
               id="city"
               name="city"
@@ -121,7 +132,6 @@ const BusinessForm = ({ id = '' }) => {
               onChange={handleChange}
               label="City"
             />
-
             <InputField
               id="state"
               name="state"
@@ -131,7 +141,6 @@ const BusinessForm = ({ id = '' }) => {
               onChange={handleChange}
               label="State"
             />
-
             <InputField
               id="zipCode"
               name="zipCode"
@@ -156,7 +165,6 @@ const BusinessForm = ({ id = '' }) => {
               onChange={handleChange}
               label="Owner Name"
             />
-
             <InputField
               id="contactEmail"
               name="contactEmail"
@@ -166,7 +174,6 @@ const BusinessForm = ({ id = '' }) => {
               onChange={handleChange}
               label="Contact Email"
             />
-
             <InputField
               id="yearsEstablished"
               name="yearsEstablished"
@@ -178,7 +185,6 @@ const BusinessForm = ({ id = '' }) => {
               onChange={handleChange}
               label="Years Established"
             />
-
             <InputField
               id="employees"
               name="employees"
@@ -201,7 +207,6 @@ const BusinessForm = ({ id = '' }) => {
               onChange={handleChange}
               label="Reason for Selling"
             />
-
             <InputField
               id="image"
               name="image"
@@ -234,6 +239,7 @@ const BusinessForm = ({ id = '' }) => {
 
 BusinessForm.propTypes = {
   id: PropTypes.string,
+  evaluationData: PropTypes.object,
 };
 
 export default BusinessForm;

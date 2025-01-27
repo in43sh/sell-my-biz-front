@@ -106,6 +106,7 @@ const useBusinessForm = (id) => {
 
   return {
     form,
+    setForm,
     error,
     isLoading,
     handleChange,

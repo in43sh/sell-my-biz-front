@@ -10,7 +10,7 @@ const handleApiRequest = async (
   method = 'POST'
 ) => {
   // console.log('url ===> ', url);
-  console.log('config.params ===> ', config.params);
+  // console.log('config.params ===> ', config.params);
 
   try {
     const headers = {
@@ -37,7 +37,7 @@ const handleApiRequest = async (
         : {}),
     };
 
-    console.log('url ===> ', url);
+    // console.log('url ===> ', url);
     const response = await fetch(`${API_BASE_URL}${url}`, options);
 
     if (!response.ok) {
@@ -77,8 +77,8 @@ export const getBusinesses = async (
   limit = BUSINESSES_LIMIT,
   skip = 0
 ) => {
-  console.log('sortBy ===> ', sortBy);
-  console.log('filters ===> ', filters);
+  // console.log('sortBy ===> ', sortBy);
+  // console.log('filters ===> ', filters);
   const stringFilters = Object.fromEntries(
     Object.entries(filters).map(([key, values]) =>
       Array.isArray(values) ? [key, values.join(',')] : [key, values]

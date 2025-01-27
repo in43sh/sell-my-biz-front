@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getBusinesses } from '../api/DBRequests';
 import usStates from '../constants/usStates';
 import categories from '../constants/categories';
-import loading from '../assets/images/loading.svg';
+// import loading from '../assets/images/loading.svg';
 
 const BusinessListPage = () => {
   const [businesses, setBusinesses] = useState([]);
@@ -62,10 +62,10 @@ const BusinessListPage = () => {
     try {
       const adjustedSortBy =
         sortBy === 'asc' ? 'asc' : sortBy === 'desc' ? 'desc' : '';
-      console.log('adjustedSortBy ===> ', adjustedSortBy);
+      // console.log('adjustedSortBy ===> ', adjustedSortBy);
 
       const businesses = await getBusinesses(adjustedSortBy, filters);
-      console.log('businesses ===> ', businesses);
+      // console.log('businesses ===> ', businesses);
 
       setBusinesses(businesses);
     } catch (error) {
@@ -224,7 +224,8 @@ const BusinessListPage = () => {
         {/* Businesses List Section */}
         <div className="col-md-9">
           {loading && (
-            <img src={loading} alt="Loading" className="d-block mx-auto" />
+            // <img src={loading} alt="Loading" className="d-block mx-auto" />
+            <p className="d-block mx-auto">Loading</p>
           )}
           <div className="row">
             {businesses.length === 0 && !loading && (

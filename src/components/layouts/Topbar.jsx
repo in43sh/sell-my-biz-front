@@ -21,6 +21,10 @@ const Topbar = () => {
               Support
             </Link>
             <span className="text-muted px-2">|</span>
+            <Link className="text-dark" to="/evaluate">
+              Evaluation
+            </Link>
+            <span className="text-muted px-2">|</span>
             <Link className="text-dark" to="/account/profile">
               Account
             </Link>
