@@ -22,6 +22,8 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
         yearsEstablished: evaluationData.details?.businessAge || '',
         employees: '',
         reasonForSelling: '',
+        isListedByOwner: false,
+        preferredContactMethod: '',
       });
     }
   }, [evaluationData, setForm]);
@@ -175,6 +177,15 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
               label="Contact Email"
             />
             <InputField
+              id="phoneNumber"
+              name="phoneNumber"
+              type="phone"
+              value={form.phoneNumber}
+              error={error.phoneNumber}
+              onChange={handleChange}
+              label="Contact Phone Number"
+            />
+            <InputField
               id="yearsEstablished"
               name="yearsEstablished"
               type="number"
@@ -211,10 +222,53 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
               id="image"
               name="image"
               type="text"
-              value={form.image}
+              value={
+                (form.image =
+                  'DEFAULT_IMAGE_URL=https://res.cloudinary.com/dqgqk1sqq/image/upload/default_cover.jpg')
+              }
               error={error.image}
               onChange={handleChange}
               label="Image URL"
+            />
+            {/* <InputField
+              id="isListedByOwner"
+              name="isListedByOwner"
+              // type="text"
+              // value={form.isListedByOwner}
+              value={(form.isListedByOwner = false)}
+              error={error.isListedByOwner}
+              onChange={handleChange}
+              label="Is Listed by Owner"
+            /> */}
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="isListedByOwner"
+                name="isListedByOwner"
+                checked={form.isListedByOwner || false} // Default to false if undefined
+                onChange={(e) =>
+                  handleChange({
+                    target: {
+                      name: 'isListedByOwner',
+                      value: e.target.checked,
+                    },
+                  })
+                }
+              />
+              <label className="form-check-label" htmlFor="isListedByOwner">
+                Is Listed by Owner
+              </label>
+            </div>
+
+            <InputField
+              id="preferredContactMethod"
+              name="preferredContactMethod"
+              type="text"
+              value={form.preferredContactMethod}
+              error={error.preferredContactMethod}
+              onChange={handleChange}
+              label="Preferred Contact Method"
             />
           </div>
         </div>

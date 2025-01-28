@@ -25,6 +25,7 @@ const useBusinessForm = (id) => {
     yearsEstablished: '',
     employees: '',
     reasonForSelling: '',
+    isListedByOwner: false,
     image: '',
   });
 
