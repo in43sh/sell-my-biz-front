@@ -63,6 +63,7 @@ const useBusinessForm = (id) => {
 
   const handleFileUpload = (event) => {
     const selectedFile = event.target.files[0];
+
     if (selectedFile) {
       const reader = new FileReader();
       reader.onload = () => {
@@ -96,6 +97,9 @@ const useBusinessForm = (id) => {
     if (isSubmitting) return;
     setIsSubmitting(true);
 
+    const formData = new FormData();
+
+    // Validate form before submitting
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setError(validationErrors);
@@ -103,17 +107,23 @@ const useBusinessForm = (id) => {
       return;
     }
 
+    // Append the file if it exists
+    if (file) {
+      formData.append('file', file);
+    }
+
+    // Append the form fields (removing empty/null/undefined values)
+    Object.entries(form).forEach(([key, value]) => {
+      if (value !== null && value !== undefined && value !== '') {
+        formData.append(key, value);
+      }
+    });
+
     try {
-      const headers = file
-        ? { 'Content-Type': 'multipart/form-data' }
-        : { 'Content-Type': 'application/json' };
       if (id) {
-        await updateBusiness(headers, form, token);
-        // if (result.status === 200) {
-        //   navigate('/account/my-businesses');
-        // }
+        await updateBusiness(headers, formData, token, id);
       } else {
-        const result = await addBusiness(headers, form, token);
+        const result = await addBusiness({}, formData, token);
         if (result.status === 201) {
           navigate('/account/my-businesses');
         }

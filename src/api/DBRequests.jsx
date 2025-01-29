@@ -9,20 +9,19 @@ const handleApiRequest = async (
   token = '',
   method = 'POST'
 ) => {
-  // console.log('url ===> ', url);
-  // console.log('config.params ===> ', config.params);
-
   try {
     const headers = {
       ...config.headers,
-      'Content-Type': 'application/json',
     };
+
+    if (!(payload instanceof FormData)) {
+      headers['Content-Type'] = 'application/json';
+    }
 
     if (token) {
       headers.Authorization = `Bearer ${token}`;
     }
 
-    // Serialize config.params into query parameters
     let queryParams = '';
     if (config.params) {
       queryParams = new URLSearchParams(config.params).toString();
@@ -33,33 +32,26 @@ const handleApiRequest = async (
       method,
       headers,
       ...(method !== 'GET' && method !== 'DELETE' && payload
-        ? { body: JSON.stringify(payload) }
+        ? {
+            body:
+              payload instanceof FormData ? payload : JSON.stringify(payload),
+          }
         : {}),
     };
 
-    // console.log('url ===> ', url);
     const response = await fetch(`${API_BASE_URL}${url}`, options);
 
     if (!response.ok) {
       const errorResponse = await response.json();
       const errorMessage =
         errorResponse?.msg || errorResponse?.error || UNEXPECTED_ERROR_MESSAGE;
-      const error = new Error(errorMessage);
-      error.status = response.status;
-      throw error;
+      throw new Error(errorMessage);
     }
 
     const data = await response.json();
     return { data, status: response.status };
   } catch (error) {
-    const errorMessage =
-      error?.response?.data?.msg ||
-      error?.response?.data?.error ||
-      UNEXPECTED_ERROR_MESSAGE;
-
-    const customError = new Error(errorMessage);
-    customError.status = error?.response?.status;
-    throw customError;
+    throw new Error(error.message || UNEXPECTED_ERROR_MESSAGE);
   }
 };
 
@@ -127,6 +119,7 @@ export const addBusiness = (headers, businessData, token) => {
     token
   );
 };
+
 export const updateBusiness = (headers, businessData, token) => {
   return handleApiRequest(
     `/api/v1/businesses/${businessData._id}`,
@@ -136,6 +129,7 @@ export const updateBusiness = (headers, businessData, token) => {
     'PATCH'
   );
 };
+
 export const deleteBusiness = async (id, token) => {
   await handleApiRequest(
     `/api/v1/businesses/${id}`,

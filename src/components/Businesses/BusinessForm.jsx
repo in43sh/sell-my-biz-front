@@ -49,7 +49,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
               id="name"
               name="name"
               type="text"
-              value={form.name}
+              value={(form.name = 'Test Business 123')}
               error={error.name}
               onChange={handleChange}
               label="Business Name"
@@ -58,7 +58,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
               id="description"
               name="description"
               type="text"
-              value={form.description}
+              value={(form.description = 'Test Business Description')}
               error={error.description}
               onChange={handleChange}
               label="Description"
@@ -67,7 +67,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
               id="category"
               name="category"
               type="text"
-              value={form.category}
+              value={(form.category = 'Services')}
               error={error.category}
               onChange={handleChange}
               label="Category"
@@ -78,7 +78,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
               type="number"
               min={0}
               step={0.01}
-              value={form.price}
+              value={(form.price = 500000)}
               error={error.price}
               onChange={handleChange}
               label="Price"
@@ -88,7 +88,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
               name="grossRevenue"
               type="number"
               min={0}
-              value={form.grossRevenue}
+              value={(form.grossRevenue = 1200000)}
               error={error.grossRevenue}
               onChange={handleChange}
               label="Gross Revenue"
@@ -98,7 +98,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
               name="profit"
               type="number"
               min={0}
-              value={form.profit}
+              value={(form.profit = 240000)}
               error={error.profit}
               onChange={handleChange}
               label="Profit"
@@ -112,7 +112,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
               name="cashFlow"
               type="number"
               min={0}
-              value={form.cashFlow}
+              value={(form.cashFlow = 200000)}
               error={error.cashFlow}
               onChange={handleChange}
               label="Cash Flow"
@@ -122,7 +122,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
               name="inventoryValue"
               type="number"
               min={0}
-              value={form.inventoryValue}
+              value={(form.inventoryValue = 80000)}
               error={error.inventoryValue}
               onChange={handleChange}
               label="Inventory Value"
@@ -131,7 +131,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
               id="address"
               name="address"
               type="text"
-              value={form.address}
+              value={(form.address = '147 Oak Avenue')}
               error={error.address}
               onChange={handleChange}
               label="Address"
@@ -140,7 +140,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
               id="city"
               name="city"
               type="text"
-              value={form.city}
+              value={(form.city = 'Seattle')}
               error={error.city}
               onChange={handleChange}
               label="City"
@@ -149,7 +149,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
               id="state"
               name="state"
               type="text"
-              value={form.state}
+              value={(form.state = 'WA')}
               error={error.state}
               onChange={handleChange}
               label="State"
@@ -158,7 +158,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
               id="zipCode"
               name="zipCode"
               type="text"
-              value={form.zipCode}
+              value={(form.zipCode = '98101')}
               error={error.zipCode}
               onChange={handleChange}
               label="ZIP Code"
@@ -173,7 +173,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
               id="ownerName"
               name="ownerName"
               type="text"
-              value={form.ownerName}
+              value={(form.ownerName = 'David King')}
               error={error.ownerName}
               onChange={handleChange}
               label="Owner Name"
@@ -182,7 +182,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
               id="contactEmail"
               name="contactEmail"
               type="email"
-              value={form.contactEmail}
+              value={(form.contactEmail = 'davidking@eventmasters.com')}
               error={error.contactEmail}
               onChange={handleChange}
               label="Contact Email"
@@ -191,7 +191,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
               id="phoneNumber"
               name="phoneNumber"
               type="phone"
-              value={form.phoneNumber}
+              value={(form.phoneNumber = '+12065551234')}
               error={error.phoneNumber}
               onChange={handleChange}
               label="Contact Phone Number"
@@ -202,7 +202,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
               type="number"
               min={0}
               max={new Date().getFullYear()}
-              value={form.yearsEstablished}
+              value={(form.yearsEstablished = 10)}
               error={error.yearsEstablished}
               onChange={handleChange}
               label="Years Established"
@@ -212,7 +212,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
               name="employees"
               type="number"
               min={0}
-              value={form.employees}
+              value={(form.employees = 16)}
               error={error.employees}
               onChange={handleChange}
               label="Number of Employees"
@@ -224,12 +224,12 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
               id="reasonForSelling"
               name="reasonForSelling"
               type="text"
-              value={form.reasonForSelling}
+              value={(form.reasonForSelling = 'Relocation')}
               error={error.reasonForSelling}
               onChange={handleChange}
               label="Reason for Selling"
             />
-            <InputField
+            {/* <InputField
               id="image"
               name="image"
               type="text"
@@ -240,7 +240,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
               error={error.image}
               onChange={handleChange}
               label="Image URL"
-            />
+            /> */}
             {/* <InputField
               id="isListedByOwner"
               name="isListedByOwner"
