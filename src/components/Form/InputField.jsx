@@ -26,7 +26,7 @@ const InputField = ({
         placeholder={placeholder}
         value={value || ''} // Default to an empty string if value is undefined
         onChange={onChange} // Pass the onChange handler directly
-        required
+        // required
       />
 
       {/* Error message */}

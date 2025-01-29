@@ -1,12 +1,23 @@
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import useBusinessForm from '../../hooks/useBusinessForm';
 import Spinner from '../../components/layouts/Spinner';
 import InputField from '../Form/InputField';
-import { useEffect } from 'react';
+import AddImage from './AddImage';
 
 const BusinessForm = ({ id = '', evaluationData = null }) => {
-  const { form, error, isLoading, handleChange, handleSubmit, setForm } =
-    useBusinessForm(id);
+  const {
+    form,
+    error,
+    imageSrc,
+    isLoading,
+    setForm,
+    setFile,
+    setImageSrc,
+    handleFileUpload,
+    handleChange,
+    handleSubmit,
+  } = useBusinessForm(id);
 
   useEffect(() => {
     if (evaluationData) {
@@ -269,6 +280,14 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
               error={error.preferredContactMethod}
               onChange={handleChange}
               label="Preferred Contact Method"
+            />
+            <AddImage
+              error={error}
+              imageSrc={imageSrc}
+              setImageSrc={setImageSrc}
+              handleFileUpload={handleFileUpload}
+              handleChange={handleChange}
+              setFile={setFile}
             />
           </div>
         </div>

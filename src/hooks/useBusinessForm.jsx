@@ -27,10 +27,15 @@ const useBusinessForm = (id) => {
     reasonForSelling: '',
     isListedByOwner: false,
     image: '',
+    coverImageUrl: '',
   });
+
+  const [imageSrc, setImageSrc] = useState(null);
 
   const [error, setError] = useState({});
   const { token } = useAuth();
+
+  const [file, setFile] = useState(null);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -41,6 +46,7 @@ const useBusinessForm = (id) => {
     setIsLoading(true);
     try {
       const business = await getBusiness(headers, id);
+      setImageSrc(business.coverImageUrl);
       setForm(business);
     } catch (error) {
       console.error('Failed to fetch business:', error);
@@ -49,12 +55,24 @@ const useBusinessForm = (id) => {
     }
   };
 
-  // Load data for editing
   useEffect(() => {
     if (id) {
       loadBusiness();
     }
   }, [id]);
+
+  const handleFileUpload = (event) => {
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImageSrc(reader.result);
+      };
+      reader.readAsDataURL(selectedFile);
+      setFile(selectedFile);
+      setForm((prevForm) => ({ ...prevForm, ['coverImageUrl']: '' }));
+    }
+  };
 
   const handleChange = ({ target: { name, value } }) => {
     setError((prevError) => {
@@ -74,7 +92,8 @@ const useBusinessForm = (id) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isSubmitting) return; // Prevent double submission
+
+    if (isSubmitting) return;
     setIsSubmitting(true);
 
     const validationErrors = validateForm();
@@ -85,7 +104,9 @@ const useBusinessForm = (id) => {
     }
 
     try {
-      const headers = { 'Content-Type': 'application/json' };
+      const headers = file
+        ? { 'Content-Type': 'multipart/form-data' }
+        : { 'Content-Type': 'application/json' };
       if (id) {
         await updateBusiness(headers, form, token);
         // if (result.status === 200) {
@@ -107,11 +128,15 @@ const useBusinessForm = (id) => {
 
   return {
     form,
-    setForm,
     error,
+    imageSrc,
     isLoading,
+    setForm,
+    setFile,
+    setImageSrc,
     handleChange,
     handleSubmit,
+    handleFileUpload,
   };
 };
 

@@ -19,7 +19,7 @@ const BusinessCard = ({
         <div className="card-header product-img position-relative overflow-hidden border bg-transparent p-0">
           <img
             className="img-fluid w-100"
-            src="img/product-1.jpg"
+            src={business.coverImageUrl}
             alt={business.name}
           />
         </div>
