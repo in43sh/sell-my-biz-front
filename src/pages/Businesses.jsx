@@ -17,8 +17,15 @@ const BusinessListPage = () => {
   const fetchBusinesses = async (filters, sortBy) => {
     setLoading(true);
     try {
-      const adjustedSortBy =
-        sortBy === 'asc' ? 'asc' : sortBy === 'desc' ? 'desc' : '';
+      let adjustedSortBy = '';
+      if (sortBy === 'asc' || sortBy === 'desc') {
+        adjustedSortBy = sortBy;
+      } else if (sortBy === 'newest') {
+        adjustedSortBy = 'newest';
+      } else if (sortBy === 'oldest') {
+        adjustedSortBy = 'oldest';
+      }
+
       const businesses = await getBusinesses(adjustedSortBy, filters);
       setBusinesses(businesses);
     } catch (error) {
@@ -31,6 +38,12 @@ const BusinessListPage = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFilters((prevFilters) => ({ ...prevFilters, [name]: value }));
+  };
+
+  const handleSortChange = (e) => {
+    const newSortBy = e.target.value;
+    setSortBy(newSortBy);
+    fetchBusinesses(filters, newSortBy);
   };
 
   const handleApplyFilters = () => {
@@ -46,6 +59,7 @@ const BusinessListPage = () => {
   return (
     <div className="container-fluid mt-4">
       <div className="row">
+        {/* Filters Section */}
         <div className="col-md-3">
           <div className="bg-light border p-3">
             <h5>Filters</h5>
@@ -139,22 +153,6 @@ const BusinessListPage = () => {
                 onChange={handleInputChange}
               />
             </div>
-            <div className="mb-3">
-              <label htmlFor="sortBy" className="form-label">
-                Sort By
-              </label>
-              <select
-                id="sortBy"
-                name="sortBy"
-                className="form-control"
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-              >
-                <option value="">Default</option>
-                <option value="asc">Price (Low to High)</option>
-                <option value="desc">Price (High to Low)</option>
-              </select>
-            </div>
             <button
               className="btn btn-primary btn-block"
               onClick={handleApplyFilters}
@@ -172,10 +170,27 @@ const BusinessListPage = () => {
 
         {/* Businesses List Section */}
         <div className="col-md-9">
-          {loading && (
-            // <img src={loading} alt="Loading" className="d-block mx-auto" />
-            <p className="d-block mx-auto">Loading</p>
-          )}
+          <div className="d-flex justify-content-end mb-3">
+            <label htmlFor="sortBy" className="align-self-center me-2">
+              Sort By:
+            </label>
+            <select
+              id="sortBy"
+              name="sortBy"
+              className="form-control w-auto"
+              value={sortBy}
+              onChange={handleSortChange}
+            >
+              <option value="">Default</option>
+              <option value="asc">Price (Low to High)</option>
+              <option value="desc">Price (High to Low)</option>
+              <option value="newest">Date Listed (Newest First)</option>
+              <option value="oldest">Date Listed (Oldest First)</option>
+            </select>
+          </div>
+
+          {loading && <p className="d-block mx-auto">Loading...</p>}
+
           <div className="row">
             {businesses.length === 0 && !loading && (
               <div className="col-12">
