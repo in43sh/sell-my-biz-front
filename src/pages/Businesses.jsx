@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { getBusinesses } from '../api/DBRequests';
+import InputField from '../components/Form/InputField';
 import emptyFilters from '../constants/emptyFilters';
 import usStates from '../constants/usStates';
 import categories from '../constants/categories';
+import sortOptions from '../constants/sortOptions';
 
 const BusinessListPage = () => {
   const [businesses, setBusinesses] = useState([]);
@@ -17,16 +19,7 @@ const BusinessListPage = () => {
   const fetchBusinesses = async (filters, sortBy) => {
     setLoading(true);
     try {
-      let adjustedSortBy = '';
-      if (sortBy === 'asc' || sortBy === 'desc') {
-        adjustedSortBy = sortBy;
-      } else if (sortBy === 'newest') {
-        adjustedSortBy = 'newest';
-      } else if (sortBy === 'oldest') {
-        adjustedSortBy = 'oldest';
-      }
-
-      const businesses = await getBusinesses(adjustedSortBy, filters);
+      const businesses = await getBusinesses(sortBy, filters);
       setBusinesses(businesses);
     } catch (error) {
       console.error('Error fetching businesses:', error.message);
@@ -101,58 +94,42 @@ const BusinessListPage = () => {
                 ))}
               </select>
             </div>
-            <div className="mb-3">
-              <label htmlFor="minPrice" className="form-label">
-                Min Price
-              </label>
-              <input
-                type="number"
-                id="minPrice"
-                name="minPrice"
-                className="form-control"
-                value={filters.minPrice}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="maxPrice" className="form-label">
-                Max Price
-              </label>
-              <input
-                type="number"
-                id="maxPrice"
-                name="maxPrice"
-                className="form-control"
-                value={filters.maxPrice}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="minRevenue" className="form-label">
-                Min Revenue
-              </label>
-              <input
-                type="number"
-                id="minRevenue"
-                name="minRevenue"
-                className="form-control"
-                value={filters.minRevenue}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="maxRevenue" className="form-label">
-                Max Revenue
-              </label>
-              <input
-                type="number"
-                id="maxRevenue"
-                name="maxRevenue"
-                className="form-control"
-                value={filters.maxRevenue}
-                onChange={handleInputChange}
-              />
-            </div>
+            <InputField
+              id="minPrice"
+              name="minPrice"
+              type="number"
+              value={filters.minPrice}
+              error={null}
+              onChange={handleInputChange}
+              label="Min Price"
+            />
+            <InputField
+              id="maxPrice"
+              name="maxPrice"
+              type="number"
+              value={filters.maxPrice}
+              error={null}
+              onChange={handleInputChange}
+              label="Min Price"
+            />
+            <InputField
+              id="minRevenue"
+              name="minRevenue"
+              type="number"
+              value={filters.minRevenue}
+              error={null}
+              onChange={handleInputChange}
+              label="Min Revenue"
+            />
+            <InputField
+              id="maxRevenue"
+              name="maxRevenue"
+              type="number"
+              value={filters.maxRevenue}
+              error={null}
+              onChange={handleInputChange}
+              label="Max Revenue"
+            />
             <button
               className="btn btn-primary btn-block"
               onClick={handleApplyFilters}
@@ -170,22 +147,22 @@ const BusinessListPage = () => {
 
         {/* Businesses List Section */}
         <div className="col-md-9">
-          <div className="d-flex justify-content-end mb-3">
-            <label htmlFor="sortBy" className="align-self-center me-2">
+          <div className="d-flex justify-content-end align-items-center mb-3">
+            <label htmlFor="sortBy" className="me-2">
               Sort By:
             </label>
             <select
               id="sortBy"
               name="sortBy"
-              className="form-control w-auto"
+              className="form-select w-auto"
               value={sortBy}
               onChange={handleSortChange}
             >
-              <option value="">Default</option>
-              <option value="asc">Price (Low to High)</option>
-              <option value="desc">Price (High to Low)</option>
-              <option value="newest">Date Listed (Newest First)</option>
-              <option value="oldest">Date Listed (Oldest First)</option>
+              {sortOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
             </select>
           </div>
 
