@@ -1,4 +1,3 @@
-// src/constants/categories.js
 const categories = [
   'Automotive',
   'Home Services',
