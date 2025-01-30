@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getBusinesses } from '../api/DBRequests';
 import InputField from '../components/Form/InputField';
+// import SelectField from '../components/Form/SelectField';
 import emptyFilters from '../constants/emptyFilters';
 import usStates from '../constants/usStates';
 import categories from '../constants/categories';
@@ -52,7 +53,6 @@ const BusinessListPage = () => {
   return (
     <div className="container-fluid mt-4">
       <div className="row">
-        {/* Filters Section */}
         <div className="col-md-3">
           <div className="bg-light border p-3">
             <h5>Filters</h5>
@@ -76,6 +76,16 @@ const BusinessListPage = () => {
               </select>
             </div>
 
+            {/*
+            <SelectField
+              id="category"
+              name="category"
+              value={filters.category}
+              onChange={handleInputChange}
+              options={categories}
+              label="Category"
+            />
+            */}
             <div className="mb-3">
               <label htmlFor="state" className="form-label">
                 State
@@ -94,12 +104,21 @@ const BusinessListPage = () => {
                 ))}
               </select>
             </div>
+            {/*
+            <SelectField
+              id="state"
+              name="state"
+              value={filters.state}
+              onChange={handleInputChange}
+              options={usStates}
+              label="State"
+            />
+            */}
             <InputField
               id="minPrice"
               name="minPrice"
               type="number"
               value={filters.minPrice}
-              error={null}
               onChange={handleInputChange}
               label="Min Price"
             />
@@ -108,16 +127,14 @@ const BusinessListPage = () => {
               name="maxPrice"
               type="number"
               value={filters.maxPrice}
-              error={null}
               onChange={handleInputChange}
-              label="Min Price"
+              label="Max Price"
             />
             <InputField
               id="minRevenue"
               name="minRevenue"
               type="number"
               value={filters.minRevenue}
-              error={null}
               onChange={handleInputChange}
               label="Min Revenue"
             />
@@ -126,7 +143,6 @@ const BusinessListPage = () => {
               name="maxRevenue"
               type="number"
               value={filters.maxRevenue}
-              error={null}
               onChange={handleInputChange}
               label="Max Revenue"
             />
@@ -145,9 +161,18 @@ const BusinessListPage = () => {
           </div>
         </div>
 
-        {/* Businesses List Section */}
         <div className="col-md-9">
           <div className="d-flex justify-content-end align-items-center mb-3">
+            {/* <label htmlFor="sortBy" className="me-2">
+              Sort By:
+            </label>
+            <SelectField
+              id="sortBy"
+              name="sortBy"
+              value={sortBy}
+              onChange={handleSortChange}
+              options={sortOptions}
+            /> */}
             <label htmlFor="sortBy" className="me-2">
               Sort By:
             </label>

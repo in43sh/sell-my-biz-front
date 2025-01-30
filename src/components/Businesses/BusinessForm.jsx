@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import useBusinessForm from '../../hooks/useBusinessForm';
 import Spinner from '../../components/layouts/Spinner';
 import InputField from '../Form/InputField';
+// import SelectField from '../Form/SelectField';
 import AddImage from './AddImage';
+import categories from '../../constants/categories';
 
 const BusinessForm = ({ id = '', evaluationData = null }) => {
   const {
@@ -63,7 +65,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
               onChange={handleChange}
               label="Description"
             />
-            <InputField
+            {/* <InputField
               id="category"
               name="category"
               type="text"
@@ -71,7 +73,37 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
               error={error.category}
               onChange={handleChange}
               label="Category"
-            />
+            /> */}
+            {/* <SelectField
+              id="category"
+              name="category"
+              value={form.category}
+              options={categories}
+              onChange={handleChange}
+              label="Category"
+            /> */}
+            <div className="mb-3">
+              <label htmlFor="category" className="form-label">
+                Category
+              </label>
+              <select
+                id="category"
+                name="category"
+                className="form-control"
+                value={form.category}
+                onChange={handleChange}
+              >
+                <option value="">Select a category</option>
+                {categories.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
+              {error.category && (
+                <p className="text-danger">{error.category}</p>
+              )}
+            </div>
             <InputField
               id="price"
               name="price"
