@@ -23,8 +23,10 @@ const BusinessCard = ({
     ownerName,
     contactEmail,
     phoneNumber,
+    isListedByOwner, // New property destructured from business
   } = business;
   const [showModal, setShowModal] = useState(false);
+  console.log('isListedByOwner ===> ', isListedByOwner);
 
   return (
     <div className="container mt-4">
@@ -34,7 +36,7 @@ const BusinessCard = ({
             <img
               src={coverImageUrl || defaultCoverImage}
               className="img-fluid rounded-start"
-              alt={business.name}
+              alt={name}
             />
           </div>
           <div className="col-md-8">
@@ -43,8 +45,13 @@ const BusinessCard = ({
               <p className="text-muted mb-1">
                 {business.state}, {category}
               </p>
+              {/* Display listing source based on isListedByOwner */}
+              {isListedByOwner && (
+                <p className="text-success">
+                  <small>Posted by Owner</small>
+                </p>
+              )}
               <p className="card-text">{description}</p>
-
               <h6 className="fw-bold">${price.toLocaleString()}</h6>
               <p>
                 <strong>Gross Revenue:</strong> $
@@ -55,24 +62,15 @@ const BusinessCard = ({
                 {new Date(business.createdAt).toLocaleDateString()}
               </p>
 
-              {/* <a
-                href={`/business/${business._id}`}
-                className="btn btn-primary me-2"
-              >
-                View Details
-              </a> */}
-
               {canViewDetails && (
                 <Link
                   to={`/business/${id}`}
                   className="btn btn-primary text-dark mr-1"
                 >
-                  <i className="fas fa-eye text-primary"></i>View Detail
+                  <i className="fas fa-eye text-primary"></i> View Detail
                 </Link>
               )}
-              {/* <a href="#" className="btn btn-primary">
-                Contact
-              </a> */}
+
               {canContact && (
                 <button
                   className="btn btn-primary text-dark mr-1"

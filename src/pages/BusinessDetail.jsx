@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import {
-  useParams,
-  // useNavigate,
-  Navigate,
-} from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthProvider';
 import { getBusiness } from '../api/DBRequests';
 
 const BusinessDetail = () => {
   const { isLoggedIn } = useAuth();
   const { id } = useParams();
-  // const navigate = useNavigate();
   const [business, setBusiness] = useState(null);
   const [showContactInfo, setShowContactInfo] = useState(false);
   const [redirectToSignIn, setRedirectToSignIn] = useState(false);
@@ -31,10 +26,6 @@ const BusinessDetail = () => {
     if (isLoggedIn) {
       setShowContactInfo(true);
     } else {
-      // Option 1: Use imperative navigation
-      // navigate('/sign-in');
-
-      // Option 2: Set state to trigger declarative navigation
       setRedirectToSignIn(true);
     }
   };
@@ -67,37 +58,58 @@ const BusinessDetail = () => {
               <h3 className="font-weight-semi-bold">{business.name}</h3>
               <ul className="list-group list-group-flush">
                 <li className="list-group-item">
-                  Category: {business.category}
-                </li>
-                <li className="list-group-item">Price: ${business.price}</li>
-                <li className="list-group-item">
-                  Revenue: ${business.grossRevenue}
-                </li>
-                <li className="list-group-item">Profit: ${business.profit}</li>
-                <li className="list-group-item">
-                  Cash Flow: ${business.cashFlow}
+                  <strong>Category:</strong> {business.category}
                 </li>
                 <li className="list-group-item">
-                  Inventory Value: ${business.inventoryValue}
-                </li>
-                <li className="list-group-item">Address: {business.address}</li>
-                <li className="list-group-item">City: {business.city}</li>
-                <li className="list-group-item">State: {business.state}</li>
-                <li className="list-group-item">ZipCode: {business.zipCode}</li>
-                <li className="list-group-item">
-                  Owner Name: {business.ownerName}
+                  <strong>Price:</strong> ${business.price}
                 </li>
                 <li className="list-group-item">
-                  Contact Email: {business.contactEmail}
+                  <strong>Revenue:</strong> ${business.grossRevenue}
                 </li>
                 <li className="list-group-item">
-                  Years Established: {business.yearsEstablished}
+                  <strong>Profit:</strong> ${business.profit}
                 </li>
                 <li className="list-group-item">
-                  Employees: {business.employees}
+                  <strong>Cash Flow:</strong> ${business.cashFlow}
                 </li>
                 <li className="list-group-item">
-                  Reason for Selling: {business.reasonForSelling}
+                  <strong>Inventory Value:</strong> ${business.inventoryValue}
+                </li>
+                <li className="list-group-item">
+                  <strong>Address:</strong> {business.address}
+                </li>
+                <li className="list-group-item">
+                  <strong>City:</strong> {business.city}
+                </li>
+                <li className="list-group-item">
+                  <strong>State:</strong> {business.state}
+                </li>
+                <li className="list-group-item">
+                  <strong>ZipCode:</strong> {business.zipCode}
+                </li>
+                <li className="list-group-item">
+                  <strong>Owner Name:</strong> {business.ownerName}
+                </li>
+                {/* Display listing source if posted by owner */}
+                {business.isListedByOwner && (
+                  <li className="list-group-item">
+                    <i className="fa fa-check-circle text-success me-2"></i>
+                    Posted by Owner
+                  </li>
+                )}
+                <li className="list-group-item">
+                  <strong>Contact Email:</strong> {business.contactEmail}
+                </li>
+                <li className="list-group-item">
+                  <strong>Years Established:</strong>{' '}
+                  {business.yearsEstablished}
+                </li>
+                <li className="list-group-item">
+                  <strong>Employees:</strong> {business.employees}
+                </li>
+                <li className="list-group-item">
+                  <strong>Reason for Selling:</strong>{' '}
+                  {business.reasonForSelling}
                 </li>
               </ul>
             </div>
