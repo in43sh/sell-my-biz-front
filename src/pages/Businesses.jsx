@@ -1,72 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { getBusinesses } from '../api/DBRequests';
+import InputField from '../components/Form/InputField';
+// import SelectField from '../components/Form/SelectField';
+import emptyFilters from '../constants/emptyFilters';
 import usStates from '../constants/usStates';
 import categories from '../constants/categories';
-// import loading from '../assets/images/loading.svg';
+import sortOptions from '../constants/sortOptions';
 
 const BusinessListPage = () => {
   const [businesses, setBusinesses] = useState([]);
-  const [filters, setFilters] = useState({
-    category: '',
-    state: '',
-    minPrice: '',
-    maxPrice: '',
-    minRevenue: '',
-    maxRevenue: '',
-  });
+  const [filters, setFilters] = useState(emptyFilters);
   const [sortBy, setSortBy] = useState('');
   const [loading, setLoading] = useState(false);
 
-  //   const inputFields = [
-  //     {
-  //       id: 'minPrice',
-  //       name: 'minPrice',
-  //       type: 'number',
-  //       label: 'Min Price',
-  //       placeholder: 'Enter minimum price',
-  //       value: filters.minPrice,
-  //     },
-  //     {
-  //       id: 'maxPrice',
-  //       name: 'maxPrice',
-  //       type: 'number',
-  //       label: 'Max Price',
-  //       placeholder: 'Enter maximum price',
-  //       value: filters.maxPrice,
-  //     },
-  //     {
-  //       id: 'minRevenue',
-  //       name: 'minRevenue',
-  //       type: 'number',
-  //       label: 'Min Revenue',
-  //       placeholder: 'Enter minimum revenue',
-  //       value: filters.minRevenue,
-  //     },
-  //     {
-  //       id: 'maxRevenue',
-  //       name: 'maxRevenue',
-  //       type: 'number',
-  //       label: 'Max Revenue',
-  //       placeholder: 'Enter maximum revenue',
-  //       value: filters.maxRevenue,
-  //     },
-  //   ];
-
-  // Fetch businesses when filters or sorting change
   useEffect(() => {
-    fetchBusinesses();
+    fetchBusinesses(emptyFilters, '');
   }, []);
 
-  const fetchBusinesses = async () => {
+  const fetchBusinesses = async (filters, sortBy) => {
     setLoading(true);
     try {
-      const adjustedSortBy =
-        sortBy === 'asc' ? 'asc' : sortBy === 'desc' ? 'desc' : '';
-      // console.log('adjustedSortBy ===> ', adjustedSortBy);
-
-      const businesses = await getBusinesses(adjustedSortBy, filters);
-      // console.log('businesses ===> ', businesses);
-
+      const businesses = await getBusinesses(sortBy, filters);
       setBusinesses(businesses);
     } catch (error) {
       console.error('Error fetching businesses:', error.message);
@@ -80,23 +34,25 @@ const BusinessListPage = () => {
     setFilters((prevFilters) => ({ ...prevFilters, [name]: value }));
   };
 
+  const handleSortChange = (e) => {
+    const newSortBy = e.target.value;
+    setSortBy(newSortBy);
+    fetchBusinesses(filters, newSortBy);
+  };
+
+  const handleApplyFilters = () => {
+    fetchBusinesses(filters, sortBy);
+  };
+
   const handleResetFilters = () => {
-    setFilters({
-      category: '',
-      state: '',
-      minPrice: '',
-      maxPrice: '',
-      minRevenue: '',
-      maxRevenue: '',
-    });
+    setFilters(emptyFilters);
     setSortBy('');
-    fetchBusinesses();
+    fetchBusinesses(emptyFilters, '');
   };
 
   return (
     <div className="container-fluid mt-4">
       <div className="row">
-        {/* Filters Section */}
         <div className="col-md-3">
           <div className="bg-light border p-3">
             <h5>Filters</h5>
@@ -120,6 +76,16 @@ const BusinessListPage = () => {
               </select>
             </div>
 
+            {/*
+            <SelectField
+              id="category"
+              name="category"
+              value={filters.category}
+              onChange={handleInputChange}
+              options={categories}
+              label="Category"
+            />
+            */}
             <div className="mb-3">
               <label htmlFor="state" className="form-label">
                 State
@@ -138,77 +104,51 @@ const BusinessListPage = () => {
                 ))}
               </select>
             </div>
-            <div className="mb-3">
-              <label htmlFor="minPrice" className="form-label">
-                Min Price
-              </label>
-              <input
-                type="number"
-                id="minPrice"
-                name="minPrice"
-                className="form-control"
-                value={filters.minPrice}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="maxPrice" className="form-label">
-                Max Price
-              </label>
-              <input
-                type="number"
-                id="maxPrice"
-                name="maxPrice"
-                className="form-control"
-                value={filters.maxPrice}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="minRevenue" className="form-label">
-                Min Revenue
-              </label>
-              <input
-                type="number"
-                id="minRevenue"
-                name="minRevenue"
-                className="form-control"
-                value={filters.minRevenue}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="maxRevenue" className="form-label">
-                Max Revenue
-              </label>
-              <input
-                type="number"
-                id="maxRevenue"
-                name="maxRevenue"
-                className="form-control"
-                value={filters.maxRevenue}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="sortBy" className="form-label">
-                Sort By
-              </label>
-              <select
-                id="sortBy"
-                name="sortBy"
-                className="form-control"
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-              >
-                <option value="">Default</option>
-                <option value="asc">Price (Low to High)</option>
-                <option value="desc">Price (High to Low)</option>
-              </select>
-            </div>
+            {/*
+            <SelectField
+              id="state"
+              name="state"
+              value={filters.state}
+              onChange={handleInputChange}
+              options={usStates}
+              label="State"
+            />
+            */}
+            <InputField
+              id="minPrice"
+              name="minPrice"
+              type="number"
+              value={filters.minPrice}
+              onChange={handleInputChange}
+              label="Min Price"
+            />
+            <InputField
+              id="maxPrice"
+              name="maxPrice"
+              type="number"
+              value={filters.maxPrice}
+              onChange={handleInputChange}
+              label="Max Price"
+            />
+            <InputField
+              id="minRevenue"
+              name="minRevenue"
+              type="number"
+              value={filters.minRevenue}
+              onChange={handleInputChange}
+              label="Min Revenue"
+            />
+            <InputField
+              id="maxRevenue"
+              name="maxRevenue"
+              type="number"
+              value={filters.maxRevenue}
+              onChange={handleInputChange}
+              label="Max Revenue"
+            />
             <button
               className="btn btn-primary btn-block"
-              onClick={fetchBusinesses}
+              onClick={handleApplyFilters}
             >
               Apply Filters
             </button>
@@ -221,12 +161,38 @@ const BusinessListPage = () => {
           </div>
         </div>
 
-        {/* Businesses List Section */}
         <div className="col-md-9">
-          {loading && (
-            // <img src={loading} alt="Loading" className="d-block mx-auto" />
-            <p className="d-block mx-auto">Loading</p>
-          )}
+          <div className="d-flex justify-content-end align-items-center mb-3">
+            {/* <label htmlFor="sortBy" className="me-2">
+              Sort By:
+            </label>
+            <SelectField
+              id="sortBy"
+              name="sortBy"
+              value={sortBy}
+              onChange={handleSortChange}
+              options={sortOptions}
+            /> */}
+            <label htmlFor="sortBy" className="me-2">
+              Sort By:
+            </label>
+            <select
+              id="sortBy"
+              name="sortBy"
+              className="form-select w-auto"
+              value={sortBy}
+              onChange={handleSortChange}
+            >
+              {sortOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {loading && <p className="d-block mx-auto">Loading...</p>}
+
           <div className="row">
             {businesses.length === 0 && !loading && (
               <div className="col-12">

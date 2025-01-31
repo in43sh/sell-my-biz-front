@@ -69,8 +69,6 @@ export const getBusinesses = async (
   limit = BUSINESSES_LIMIT,
   skip = 0
 ) => {
-  // console.log('sortBy ===> ', sortBy);
-  // console.log('filters ===> ', filters);
   const stringFilters = Object.fromEntries(
     Object.entries(filters).map(([key, values]) =>
       Array.isArray(values) ? [key, values.join(',')] : [key, values]
@@ -80,7 +78,7 @@ export const getBusinesses = async (
   const params = {
     limit: limit,
     skip: skip,
-    priceSort: sortBy || undefined,
+    sortBy: sortBy || undefined,
     ...stringFilters,
   };
 
