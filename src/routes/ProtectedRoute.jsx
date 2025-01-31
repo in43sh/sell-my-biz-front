@@ -1,15 +1,18 @@
-import PropTypes from 'prop-types';
-import { Navigate } from 'react-router-dom';
-
+import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthProvider';
 
 const ProtectedRoute = ({ element }) => {
   const { isLoggedIn } = useAuth();
-  return isLoggedIn ? element : <Navigate to="/sign-in" replace />;
-};
+  const location = useLocation();
+  // console.log('isLoggedIn ===> ', isLoggedIn);
 
-ProtectedRoute.propTypes = {
-  element: PropTypes.node,
+  if (!isLoggedIn) {
+    return (
+      <Navigate to="/sign-in" state={{ from: location.pathname }} replace />
+    );
+  }
+
+  return element;
 };
 
 export default ProtectedRoute;

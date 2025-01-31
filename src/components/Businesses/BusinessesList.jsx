@@ -15,21 +15,26 @@ const BusinessesList = ({
   return (
     <div className="container-fluid pt-5">
       <div className="row px-xl-5 pb-3">
-        {list.map((business, index) => (
-          // todo
-          // is it safe to use index?
-          // figure out if it's okay to do key={business._id || index}
-          <BusinessCard
-            key={business._id} // Use _id if available, or fallback to index
-            business={business}
-            canEdit={canEdit}
-            canDelete={canDelete}
-            canViewDetails={canViewDetails}
-            canContact={canContact}
-            updateList={updateList}
-            isLink={isLinkList}
-          />
-        ))}
+        {list.map(
+          (
+            business
+            // index
+          ) => (
+            // todo
+            // is it safe to use index?
+            // figure out if it's okay to do key={business._id || index}
+            <BusinessCard
+              key={business._id} // Use _id if available, or fallback to index
+              business={business}
+              canEdit={canEdit}
+              canDelete={canDelete}
+              canViewDetails={canViewDetails}
+              canContact={canContact}
+              updateList={updateList}
+              isLink={isLinkList}
+            />
+          )
+        )}
       </div>
     </div>
   );

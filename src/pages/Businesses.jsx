@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
 import { getBusinesses } from '../api/DBRequests';
+import { useAuth } from '../contexts/AuthProvider';
+import BusinessesList from '../components/Businesses/BusinessesList';
 import InputField from '../components/Form/InputField';
-// import SelectField from '../components/Form/SelectField';
+// import BusinessCard from '../components/Businesses/BusinessCard';
 import emptyFilters from '../constants/emptyFilters';
 import usStates from '../constants/usStates';
 import categories from '../constants/categories';
 import sortOptions from '../constants/sortOptions';
 
 const BusinessListPage = () => {
+  const { isLoggedIn } = useAuth();
   const [businesses, setBusinesses] = useState([]);
   const [filters, setFilters] = useState(emptyFilters);
   const [sortBy, setSortBy] = useState('');
@@ -75,17 +78,6 @@ const BusinessListPage = () => {
                 ))}
               </select>
             </div>
-
-            {/*
-            <SelectField
-              id="category"
-              name="category"
-              value={filters.category}
-              onChange={handleInputChange}
-              options={categories}
-              label="Category"
-            />
-            */}
             <div className="mb-3">
               <label htmlFor="state" className="form-label">
                 State
@@ -104,16 +96,6 @@ const BusinessListPage = () => {
                 ))}
               </select>
             </div>
-            {/*
-            <SelectField
-              id="state"
-              name="state"
-              value={filters.state}
-              onChange={handleInputChange}
-              options={usStates}
-              label="State"
-            />
-            */}
             <InputField
               id="minPrice"
               name="minPrice"
@@ -163,16 +145,6 @@ const BusinessListPage = () => {
 
         <div className="col-md-9">
           <div className="d-flex justify-content-end align-items-center mb-3">
-            {/* <label htmlFor="sortBy" className="me-2">
-              Sort By:
-            </label>
-            <SelectField
-              id="sortBy"
-              name="sortBy"
-              value={sortBy}
-              onChange={handleSortChange}
-              options={sortOptions}
-            /> */}
             <label htmlFor="sortBy" className="me-2">
               Sort By:
             </label>
@@ -199,41 +171,15 @@ const BusinessListPage = () => {
                 <p className="mt-4 text-center">No businesses found.</p>
               </div>
             )}
-            {businesses.map((business) => (
-              <div className="col-md-4 mb-4" key={business._id}>
-                <div className="card h-100">
-                  <div className="card-body">
-                    <h5 className="card-title">{business.name}</h5>
-                    <p className="card-text">{business.description}</p>
-                    <p className="card-text">
-                      <strong>Category:</strong> {business.category}
-                    </p>
-                    <p className="card-text">
-                      <strong>State:</strong> {business.state}
-                    </p>
-                    <p className="card-text">
-                      <strong>Price:</strong> ${business.price.toLocaleString()}
-                    </p>
-                    <p className="card-text">
-                      <strong>Gross Revenue:</strong> $
-                      {business.grossRevenue.toLocaleString()}
-                    </p>
-                    <p className="card-text">
-                      <strong>Date Listed:</strong>{' '}
-                      {new Date(business.createdAt).toLocaleDateString()}
-                    </p>
-                  </div>
-                  <div className="card-footer">
-                    <a
-                      href={`/business/${business._id}`}
-                      className="btn btn-primary btn-sm btn-block"
-                    >
-                      View Details
-                    </a>
-                  </div>
-                </div>
-              </div>
-            ))}
+            {/* {businesses.map((business) => (
+              <BusinessCard key={business._id} business={business} />
+            ))} */}
+
+            <BusinessesList
+              list={businesses}
+              canViewDetails={true}
+              canContact={isLoggedIn ? true : false}
+            />
           </div>
         </div>
       </div>

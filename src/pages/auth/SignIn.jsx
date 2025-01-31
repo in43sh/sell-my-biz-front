@@ -1,10 +1,22 @@
-import { Link } from 'react-router-dom';
-
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import InputField from '../../components/Form/InputField';
 import useAuthForm from '../../hooks/useAuthForm';
 
 const SignIn = () => {
   const { form, error, handleChange, handleSubmit } = useAuthForm();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  console.log('Current location:', location);
+  console.log('location.state?.from:', location.state?.from);
+
+  // Ensure `from` is defined
+  const from = location.state?.from || '/';
+
+  const handleLoginSuccess = () => {
+    console.log('Redirecting to:', from);
+    navigate(from, { replace: true });
+  };
 
   return (
     <div className="container-fluid bg-secondary text-dark mt-5 pt-5">
@@ -13,15 +25,15 @@ const SignIn = () => {
           <div className="card mb-4 border-0">
             <div className="card-body p-5 text-center">
               <h2 className="display-5 font-weight-semi-bold mb-4">Sign In</h2>
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={(e) => handleSubmit(e, handleLoginSuccess)}>
                 <InputField
                   id="email"
                   type="email"
                   name="email"
                   placeholder="Your Email"
-                  value={form.email} // Bind input value to state
+                  value={(form.email = 'test@test.com')}
                   error={error.email}
-                  onChange={handleChange} // Handle input changes
+                  onChange={handleChange}
                   label="Email"
                 />
                 <InputField
@@ -29,9 +41,9 @@ const SignIn = () => {
                   type="password"
                   name="password"
                   placeholder="Your Password"
-                  value={form.password} // Bind input value to state
+                  value={(form.password = 'testtest')}
                   error={error.password}
-                  onChange={handleChange} // Handle input changes
+                  onChange={handleChange}
                   label="Password"
                 />
                 <button

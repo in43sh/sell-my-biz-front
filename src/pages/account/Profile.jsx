@@ -5,6 +5,8 @@
 import { useAuth } from '../../contexts/AuthProvider';
 
 const Profile = () => {
+  console.log('Profile');
+
   const { userData } = useAuth();
   //   const { setAccountPage } = useAccount();
 

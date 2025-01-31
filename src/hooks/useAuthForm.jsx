@@ -23,21 +23,16 @@ const useAuthForm = () => {
     return errors;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, onSuccess) => {
     e.preventDefault();
 
     const validationErrors = validateForm();
     setError(validationErrors);
-    if (Object.keys(validationErrors).length > 0) {
-      return;
-    }
+    if (Object.keys(validationErrors).length > 0) return;
 
     setIsLoading(true);
     try {
-      const headers = {
-        'Content-Type': 'application/json',
-      };
-
+      const headers = { 'Content-Type': 'application/json' };
       const result = await login(headers, form);
 
       if (result.status === 200) {
@@ -45,7 +40,10 @@ const useAuthForm = () => {
           user: result.data.user,
           token: result.data.token,
         });
-        navigate('/');
+
+        if (onSuccess) {
+          onSuccess(); // Redirect to previous page
+        }
       }
     } catch (error) {
       setError((prevError) => ({
@@ -53,7 +51,6 @@ const useAuthForm = () => {
         form: error.message,
       }));
     }
-
     setIsLoading(false);
   };
 

@@ -1,5 +1,5 @@
-// import PropTypes from 'prop-types';
 import { useState } from 'react';
+import defaultCoverImage from '../../assets/images/default-cover.jpg';
 import { Link } from 'react-router-dom';
 import DeleteButton from './DeleteButton';
 import EditButton from './EditButton';
@@ -12,12 +12,13 @@ const BusinessCard = ({
   canViewDetails,
   canContact,
   updateList,
-  // isLink = false,
 }) => {
   const {
     _id: id,
     name,
     price,
+    category,
+    description,
     coverImageUrl,
     ownerName,
     contactEmail,
@@ -26,41 +27,72 @@ const BusinessCard = ({
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div key={business.id} className="col-lg-3 col-md-6 col-sm-12 pb-1">
-      <div className="card product-item mb-4 border-0">
-        <div className="card-header product-img position-relative overflow-hidden border bg-transparent p-0">
-          <img className="img-fluid w-100" src={coverImageUrl} alt={name} />
-        </div>
-        <div className="card-body border-left border-right p-0 pt-4 pb-3 text-center">
-          <h6 className="text-truncate mb-3">{name}</h6>
-          <div className="d-flex justify-content-center">
-            <h6>${price}</h6>
+    <div className="container mt-4">
+      <div className="card mb-3 shadow-sm" style={{ maxWidth: '800px' }}>
+        <div className="row g-0">
+          <div className="col-md-4">
+            <img
+              src={coverImageUrl || defaultCoverImage}
+              className="img-fluid rounded-start"
+              alt={business.name}
+            />
           </div>
-        </div>
-        <div className="card-footer d-flex justify-content-between bg-light border">
-          {canContact && (
-            <button
-              className="btn btn-sm text-dark p-0"
-              onClick={() => setShowModal(true)}
-            >
-              <i className="fas fa-shopping-cart text-primary mr-1"></i>Contact
-            </button>
-          )}
-          {canViewDetails && (
-            <Link to={`/business/${id}`} className="btn btn-sm text-dark p-0">
-              <i className="fas fa-eye text-primary mr-1"></i>View Detail
-            </Link>
-          )}
-          <div className="d-flex">
-            {canEdit && <EditButton id={id} />}
-            {canDelete && (
-              <DeleteButton id={id} name={name} updateList={updateList} />
-            )}
+          <div className="col-md-8">
+            <div className="card-body">
+              <h5 className="card-title">{name}</h5>
+              <p className="text-muted mb-1">
+                {business.state}, {category}
+              </p>
+              <p className="card-text">{description}</p>
+
+              <h6 className="fw-bold">${price.toLocaleString()}</h6>
+              <p>
+                <strong>Gross Revenue:</strong> $
+                {business.grossRevenue.toLocaleString()}
+              </p>
+              <p>
+                <strong>Date Listed:</strong>{' '}
+                {new Date(business.createdAt).toLocaleDateString()}
+              </p>
+
+              {/* <a
+                href={`/business/${business._id}`}
+                className="btn btn-primary me-2"
+              >
+                View Details
+              </a> */}
+
+              {canViewDetails && (
+                <Link
+                  to={`/business/${id}`}
+                  className="btn btn-primary text-dark mr-1"
+                >
+                  <i className="fas fa-eye text-primary"></i>View Detail
+                </Link>
+              )}
+              {/* <a href="#" className="btn btn-primary">
+                Contact
+              </a> */}
+              {canContact && (
+                <button
+                  className="btn btn-primary text-dark mr-1"
+                  onClick={() => setShowModal(true)}
+                >
+                  <i className="fas fa-shopping-cart text-primary mr-1"></i>
+                  Contact
+                </button>
+              )}
+
+              <div className="d-flex">
+                {canEdit && <EditButton id={id} />}
+                {canDelete && (
+                  <DeleteButton id={id} name={name} updateList={updateList} />
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
-      {/* Contact Modal Component */}
       {showModal && (
         <ContactModal
           ownerName={ownerName}

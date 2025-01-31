@@ -2,6 +2,8 @@ import { Outlet } from 'react-router-dom';
 import LeftMenu from '../../components/account/LeftMenu';
 
 const AccountLayout = () => {
+  console.log('account layout');
+
   return (
     <div className="container-fluid mt-5">
       <div className="row">

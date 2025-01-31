@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import {
+  useParams,
+  // useNavigate,
+  Navigate,
+} from 'react-router-dom';
 import { useAuth } from '../contexts/AuthProvider';
 import { getBusiness } from '../api/DBRequests';
 
 const BusinessDetail = () => {
   const { isLoggedIn } = useAuth();
   const { id } = useParams();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [business, setBusiness] = useState(null);
   const [showContactInfo, setShowContactInfo] = useState(false);
+  const [redirectToSignIn, setRedirectToSignIn] = useState(false);
 
   const getBusinessData = async () => {
     try {
@@ -26,13 +31,28 @@ const BusinessDetail = () => {
     if (isLoggedIn) {
       setShowContactInfo(true);
     } else {
-      navigate('/sign-in');
+      // Option 1: Use imperative navigation
+      // navigate('/sign-in');
+
+      // Option 2: Set state to trigger declarative navigation
+      setRedirectToSignIn(true);
     }
   };
 
   useEffect(() => {
     getBusinessData();
   }, [id]);
+
+  // Declaratively redirect if needed
+  if (redirectToSignIn) {
+    return (
+      <Navigate
+        to="/sign-in"
+        state={{ from: window.location.pathname }}
+        replace
+      />
+    );
+  }
 
   if (!business) {
     return <div className="container py-5 text-center">Loading...</div>;
