@@ -10,6 +10,8 @@ const Search = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Navigate to the businesses page with the search query as a URL parameter.
+    console.log('searchQuery ===> ', searchQuery);
+
     navigate({
       pathname: '/businesses',
       search: createSearchParams({

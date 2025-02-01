@@ -28,13 +28,13 @@ const BusinessListPage = () => {
   const [sortBy, setSortBy] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // Whenever 'categoryParam' or 'searchQueryFromParams' changes, re-fetch
+  // Whenever 'categoryParam' or 'searchQueryParam' changes, re-fetch
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
         // Here we only pass (sortBy, filters, searchQuery) or similar
-        const data = await getBusinesses(sortBy, filters, '');
+        const data = await getBusinesses(sortBy, filters, searchQueryParam);
         setBusinesses(data);
       } catch (error) {
         console.error('Error fetching businesses:', error);
@@ -44,23 +44,23 @@ const BusinessListPage = () => {
     };
 
     fetchData();
-  }, [sortBy, filters]);
+  }, [sortBy, filters, searchParams]);
 
   // Sorting, filters, etc.
   const handleSortChange = (e) => {
     const newSortBy = e.target.value;
     setSortBy(newSortBy);
-    fetchBusinesses(filters, newSortBy, searchQueryFromParams, categoryParam);
+    fetchBusinesses(filters, newSortBy, searchQueryParam, categoryParam);
   };
 
   const handleApplyFilters = () => {
-    fetchBusinesses(filters, sortBy, searchQueryFromParams, categoryParam);
+    fetchBusinesses(filters, sortBy, searchQueryParam, categoryParam);
   };
 
   const handleResetFilters = () => {
     setFilters(emptyFilters);
     setSortBy('');
-    fetchBusinesses(emptyFilters, '', searchQueryFromParams, categoryParam);
+    fetchBusinesses(emptyFilters, '', searchQueryParam, categoryParam);
   };
 
   // Render

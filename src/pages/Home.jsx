@@ -32,7 +32,7 @@ const Home = () => {
       <Hero />
       <div className="container-fluid mt-4">
         <CategoriesList />
-        <div className="container-fluid pt-5">
+        {/* <div className="container-fluid pt-5">
           <div className="mb-4 text-center">
             <h2 className="section-title px-5">
               <span className="bg-light text-dark px-3">Just Arrived</span>
@@ -53,7 +53,7 @@ const Home = () => {
               canContact={isLoggedIn ? true : false}
             />
           )}
-        </div>
+        </div> */}
         <Subscribe />
       </div>
     </>

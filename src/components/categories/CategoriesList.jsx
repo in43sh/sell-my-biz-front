@@ -2,14 +2,21 @@ import { Link } from 'react-router-dom';
 import defaultCover from '../../assets/images/default-cover.jpg';
 
 const CategoriesList = () => {
-  // Pretend these come from your API or static data
   const categoriesData = [
     { image: defaultCover, name: 'Automotive', url: '' },
     { image: defaultCover, name: 'Home Services', url: '' },
     { image: defaultCover, name: 'Retail', url: '' },
     { image: defaultCover, name: 'E-commerce', url: '' },
     { image: defaultCover, name: 'Food', url: '' },
-    { image: defaultCover, name: 'Hospitality', url: '' },
+    { image: defaultCover, name: 'Health & Wellness', url: '' },
+    { image: defaultCover, name: 'Education', url: '' },
+    { image: defaultCover, name: 'Childcare', url: '' },
+    { image: defaultCover, name: 'Entertainment & Events', url: '' },
+    { image: defaultCover, name: 'Technology', url: '' },
+    { image: defaultCover, name: 'Manufacturing', url: '' },
+    { image: defaultCover, name: 'Real Estate', url: '' },
+    { image: defaultCover, name: 'Construction', url: '' },
+    { image: defaultCover, name: 'Other', url: '' },
   ];
 
   return (
@@ -25,7 +32,7 @@ const CategoriesList = () => {
               />
               <div className="card-body">
                 <h5 className="card-title">{category.name}</h5>
-                {/* 
+                {/*
                   We link to /businesses, passing the category name as a query param.
                   e.g., /businesses?category=Automotive
                 */}
