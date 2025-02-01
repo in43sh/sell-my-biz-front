@@ -1,10 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { useAuth } from '../contexts/AuthProvider';
+import { getBusinesses } from '../api/DBRequests'; // adjust path if needed
 // import Navbar from './Navbar'; // adjust path if needed
 import Categories from '../components/Categories'; // adjust path if needed
 import BusinessesList from '../components/Businesses/BusinessesList'; // adjust path if needed
 import Subscribe from '../components/Subscribe'; // adjust path if needed
 
 const Home = () => {
+  const { isLoggedIn } = useAuth();
   // State for the search bar
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -13,7 +16,7 @@ const Home = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [businessesList, setBusinessesList] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleSearchChange = (e) => setSearchQuery(e.target.value);
 
@@ -23,11 +26,24 @@ const Home = () => {
     console.log('Searching for:', searchQuery);
   };
 
-  // (Optional) useEffect to load businesses data
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   // Fetch businesses and update state...
-  // }, []);
+  const fetchBusinesses = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const fetchedBusinesses = await getBusinesses(
+        '',
+        { isAvailable: true },
+        10
+      );
+      setBusinessesList(fetchedBusinesses);
+    } catch (error) {
+      setError('Failed to load businesses. Please try again later.');
+    }
+    setIsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    fetchBusinesses();
+  }, [fetchBusinesses]);
 
   return (
     <>
