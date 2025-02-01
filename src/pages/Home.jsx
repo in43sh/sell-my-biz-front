@@ -1,15 +1,16 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../contexts/AuthProvider';
-import { getBusinesses } from '../api/DBRequests'; // adjust path if needed
-// import Navbar from './Navbar'; // adjust path if needed
-import Categories from '../components/Categories'; // adjust path if needed
-import BusinessesList from '../components/Businesses/BusinessesList'; // adjust path if needed
-import Subscribe from '../components/Subscribe'; // adjust path if needed
+import { getBusinesses } from '../api/DBRequests';
+// import Navbar from './Navbar';
+import Hero from '../components/Hero';
+import Categories from '../components/Categories';
+import BusinessesList from '../components/Businesses/BusinessesList';
+import Subscribe from '../components/Subscribe';
 
 const Home = () => {
   const { isLoggedIn } = useAuth();
   // State for the search bar
-  const [searchQuery, setSearchQuery] = useState('');
+  // const [searchQuery, setSearchQuery] = useState('');
 
   // Dummy states for the "Just Arrived" section.
   // In a real app, these might come from an API request.
@@ -18,22 +19,18 @@ const Home = () => {
   const [businessesList, setBusinessesList] = useState([]);
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const handleSearchChange = (e) => setSearchQuery(e.target.value);
+  // const handleSearchChange = (e) => setSearchQuery(e.target.value);
 
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    // Add your search logic here
-    console.log('Searching for:', searchQuery);
-  };
+  // const handleSearchSubmit = (e) => {
+  //   e.preventDefault();
+  //   // Add your search logic here
+  //   console.log('Searching for:', searchQuery);
+  // };
 
   const fetchBusinesses = useCallback(async () => {
     setIsLoading(true);
     try {
-      const fetchedBusinesses = await getBusinesses(
-        '',
-        { isAvailable: true },
-        10
-      );
+      const fetchedBusinesses = await getBusinesses('', '', '', 10);
       setBusinessesList(fetchedBusinesses);
     } catch (error) {
       setError('Failed to load businesses. Please try again later.');
@@ -51,7 +48,7 @@ const Home = () => {
       {/* <Navbar /> */}
 
       {/* Main Hero Section */}
-      <div className="flex min-h-screen flex-col bg-gradient-to-br from-blue-100 via-white to-green-100">
+      {/* <div className="flex min-h-screen flex-col bg-gradient-to-br from-blue-100 via-white to-green-100">
         <div className="flex flex-grow flex-col items-center justify-center px-4 py-16 md:py-24">
           <h1 className="mb-4 text-5xl font-extrabold text-blue-800">
             Find Your Perfect Business
@@ -61,7 +58,6 @@ const Home = () => {
             new opportunities or find the perfect buyer for your business.
           </p>
 
-          {/* Search Bar */}
           <form onSubmit={handleSearchSubmit} className="w-full max-w-4xl">
             <div className="flex">
               <input
@@ -80,7 +76,8 @@ const Home = () => {
             </div>
           </form>
         </div>
-      </div>
+      </div> */}
+      <Hero />
 
       {/* Additional Content Section */}
       <div className="container-fluid mt-4">

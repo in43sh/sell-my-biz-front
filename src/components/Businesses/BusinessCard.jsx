@@ -26,7 +26,7 @@ const BusinessCard = ({
     isListedByOwner, // New property destructured from business
   } = business;
   const [showModal, setShowModal] = useState(false);
-  console.log('isListedByOwner ===> ', isListedByOwner);
+  // console.log('isListedByOwner ===> ', isListedByOwner);
 
   return (
     <div className="container mt-4">

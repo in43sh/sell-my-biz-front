@@ -22,11 +22,21 @@ const handleApiRequest = async (
       headers.Authorization = `Bearer ${token}`;
     }
 
+    // --- Transform searchQuery -> name here ---
+    let transformedParams = { ...config.params };
+    if (transformedParams?.searchQuery) {
+      transformedParams.name = transformedParams.searchQuery;
+      delete transformedParams.searchQuery;
+    }
+
     let queryParams = '';
-    if (config.params) {
-      queryParams = new URLSearchParams(config.params).toString();
+    if (transformedParams) {
+      queryParams = new URLSearchParams(transformedParams).toString();
+      console.log('queryParams ===>', queryParams);
+
       url = `${url}?${queryParams}`;
     }
+    // ------------------------------------------
 
     const options = {
       method,
@@ -66,6 +76,7 @@ export const register = (headers, userData) =>
 export const getBusinesses = async (
   sortBy = '',
   filters = {},
+  searchQuery = '',
   limit = BUSINESSES_LIMIT,
   skip = 0
 ) => {
@@ -79,6 +90,7 @@ export const getBusinesses = async (
     limit: limit,
     skip: skip,
     sortBy: sortBy || undefined,
+    searchQuery: searchQuery || undefined,
     ...stringFilters,
   };
 

@@ -13,7 +13,7 @@ const Navbar = () => {
   const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
 
   const { isLoggedIn, clearUserSession } = useAuth();
-  console.log('isLoggedIn ===> ', isLoggedIn);
+  // console.log('isLoggedIn ===> ', isLoggedIn);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleAccountMenu = () => setIsAccountMenuOpen(!isAccountMenuOpen);

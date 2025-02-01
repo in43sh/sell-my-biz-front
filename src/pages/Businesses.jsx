@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { getBusinesses } from '../api/DBRequests';
 import { useAuth } from '../contexts/AuthProvider';
 import BusinessesList from '../components/Businesses/BusinessesList';
 import InputField from '../components/Form/InputField';
+import Search from '../components/Search';
 // import BusinessCard from '../components/Businesses/BusinessCard';
 import emptyFilters from '../constants/emptyFilters';
 import usStates from '../constants/usStates';
@@ -16,14 +18,33 @@ const BusinessListPage = () => {
   const [sortBy, setSortBy] = useState('');
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    fetchBusinesses(emptyFilters, '');
-  }, []);
+  const [searchParams] = useSearchParams();
+  const searchQueryFromParams = searchParams.get('query') || '';
+  console.log('searchQueryFromParams ===> ', searchQueryFromParams);
 
-  const fetchBusinesses = async (filters, sortBy) => {
+  useEffect(() => {
+    console.log('businesses ===> ', businesses);
+  }, [businesses]);
+
+  // useEffect(() => {
+  //   fetchBusinesses(emptyFilters, '');
+  // }, []);
+  useEffect(() => {
+    // 2) Whenever the query param changes, refetch the businesses.
+    //    You could incorporate it into your filters or pass it separately:
+    fetchBusinesses(emptyFilters, sortBy, searchQueryFromParams);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchQueryFromParams]);
+
+  const fetchBusinesses = async (filters, sortBy, searchQuery) => {
     setLoading(true);
     try {
-      const businesses = await getBusinesses(sortBy, filters);
+      // const businesses = await getBusinesses(sortBy, filters);
+      const businesses = await getBusinesses(sortBy, filters, searchQuery);
+      console.log('sortBy ===> ', sortBy);
+      console.log('filters ===> ', filters);
+      console.log('searchQuery ===> ', searchQuery);
+
       setBusinesses(businesses);
     } catch (error) {
       console.error('Error fetching businesses:', error.message);
@@ -40,17 +61,17 @@ const BusinessListPage = () => {
   const handleSortChange = (e) => {
     const newSortBy = e.target.value;
     setSortBy(newSortBy);
-    fetchBusinesses(filters, newSortBy);
+    fetchBusinesses(filters, newSortBy, searchQueryFromParams);
   };
 
   const handleApplyFilters = () => {
-    fetchBusinesses(filters, sortBy);
+    fetchBusinesses(filters, sortBy, searchQueryFromParams);
   };
 
   const handleResetFilters = () => {
     setFilters(emptyFilters);
     setSortBy('');
-    fetchBusinesses(emptyFilters, '');
+    fetchBusinesses(emptyFilters, '', searchQueryFromParams);
   };
 
   return (
@@ -144,23 +165,32 @@ const BusinessListPage = () => {
         </div>
 
         <div className="col-md-9">
-          <div className="d-flex justify-content-end align-items-center mb-3">
-            <label htmlFor="sortBy" className="me-2">
-              Sort By:
-            </label>
-            <select
-              id="sortBy"
-              name="sortBy"
-              className="form-select w-auto"
-              value={sortBy}
-              onChange={handleSortChange}
-            >
-              {sortOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
+          {/* Row for Search + Sort */}
+          <div className="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+            {/* Search bar (left side) */}
+            <div className="mb-md-0 me-2 mb-2 flex-grow-1">
+              <Search />
+            </div>
+
+            {/* Sort dropdown (right side) */}
+            <div className="d-flex align-items-center">
+              <label htmlFor="sortBy" className="me-2 mb-0">
+                Sort By:
+              </label>
+              <select
+                id="sortBy"
+                name="sortBy"
+                className="form-select w-auto"
+                value={sortBy}
+                onChange={handleSortChange}
+              >
+                {sortOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
 
           {loading && <p className="d-block mx-auto">Loading...</p>}
@@ -171,9 +201,6 @@ const BusinessListPage = () => {
                 <p className="mt-4 text-center">No businesses found.</p>
               </div>
             )}
-            {/* {businesses.map((business) => (
-              <BusinessCard key={business._id} business={business} />
-            ))} */}
 
             <BusinessesList
               list={businesses}
