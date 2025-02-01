@@ -32,7 +32,7 @@ const handleApiRequest = async (
     let queryParams = '';
     if (transformedParams) {
       queryParams = new URLSearchParams(transformedParams).toString();
-      console.log('queryParams ===>', queryParams);
+      // console.log('queryParams ===>', queryParams);
 
       url = `${url}?${queryParams}`;
     }

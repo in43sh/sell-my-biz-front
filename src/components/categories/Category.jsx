@@ -5,7 +5,7 @@ const Category = ({ category }) => {
     padding: '30px',
   };
   return (
-    <div className="col-lg-4 col-md-6 pb-1" key={index}>
+    <div className="col-lg-4 col-md-6 pb-1">
       <div
         className="cat-item d-flex flex-column mb-4 border"
         style={catItemStyle}

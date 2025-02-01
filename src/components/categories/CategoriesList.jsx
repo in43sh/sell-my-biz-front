@@ -1,5 +1,5 @@
 import Category from './Category';
-import defaultCover from '../assets/images/default-cover.jpg';
+import defaultCover from '../../assets/images/default-cover.jpg';
 
 const CategoriesList = () => {
   // TODO
