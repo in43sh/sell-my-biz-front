@@ -1,7 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
-
-// Pages
 import Home from '../pages/Home';
 import NotFound from '../pages/NotFound';
 import SignIn from '../pages/auth/SignIn';

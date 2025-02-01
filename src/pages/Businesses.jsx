@@ -5,81 +5,72 @@ import { useAuth } from '../contexts/AuthProvider';
 import BusinessesList from '../components/Businesses/BusinessesList';
 import InputField from '../components/Form/InputField';
 import Search from '../components/Search';
-// import BusinessCard from '../components/Businesses/BusinessCard';
+
 import emptyFilters from '../constants/emptyFilters';
 import usStates from '../constants/usStates';
 import categories from '../constants/categories';
 import sortOptions from '../constants/sortOptions';
 
 const BusinessListPage = () => {
+  // 1) Get query params
+  const [searchParams] = useSearchParams();
+  // If /businesses?category=Automotive => categoryParam === 'Automotive'
+  const categoryParam = searchParams.get('category') || '';
+  // If /businesses?query=someSearch => searchQueryParam === 'someSearch'
+  const searchQueryParam = searchParams.get('query') || '';
+
   const { isLoggedIn } = useAuth();
   const [businesses, setBusinesses] = useState([]);
-  const [filters, setFilters] = useState(emptyFilters);
+  const [filters, setFilters] = useState({
+    ...emptyFilters,
+    category: categoryParam || '', // we can override it from the URL param
+  });
   const [sortBy, setSortBy] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const [searchParams] = useSearchParams();
-  const searchQueryFromParams = searchParams.get('query') || '';
-  console.log('searchQueryFromParams ===> ', searchQueryFromParams);
-
+  // Whenever 'categoryParam' or 'searchQueryFromParams' changes, re-fetch
   useEffect(() => {
-    console.log('businesses ===> ', businesses);
-  }, [businesses]);
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        // Here we only pass (sortBy, filters, searchQuery) or similar
+        const data = await getBusinesses(sortBy, filters, '');
+        setBusinesses(data);
+      } catch (error) {
+        console.error('Error fetching businesses:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  // useEffect(() => {
-  //   fetchBusinesses(emptyFilters, '');
-  // }, []);
-  useEffect(() => {
-    // 2) Whenever the query param changes, refetch the businesses.
-    //    You could incorporate it into your filters or pass it separately:
-    fetchBusinesses(emptyFilters, sortBy, searchQueryFromParams);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchQueryFromParams]);
+    fetchData();
+  }, [sortBy, filters]);
 
-  const fetchBusinesses = async (filters, sortBy, searchQuery) => {
-    setLoading(true);
-    try {
-      // const businesses = await getBusinesses(sortBy, filters);
-      const businesses = await getBusinesses(sortBy, filters, searchQuery);
-      console.log('sortBy ===> ', sortBy);
-      console.log('filters ===> ', filters);
-      console.log('searchQuery ===> ', searchQuery);
-
-      setBusinesses(businesses);
-    } catch (error) {
-      console.error('Error fetching businesses:', error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFilters((prevFilters) => ({ ...prevFilters, [name]: value }));
-  };
-
+  // Sorting, filters, etc.
   const handleSortChange = (e) => {
     const newSortBy = e.target.value;
     setSortBy(newSortBy);
-    fetchBusinesses(filters, newSortBy, searchQueryFromParams);
+    fetchBusinesses(filters, newSortBy, searchQueryFromParams, categoryParam);
   };
 
   const handleApplyFilters = () => {
-    fetchBusinesses(filters, sortBy, searchQueryFromParams);
+    fetchBusinesses(filters, sortBy, searchQueryFromParams, categoryParam);
   };
 
   const handleResetFilters = () => {
     setFilters(emptyFilters);
     setSortBy('');
-    fetchBusinesses(emptyFilters, '', searchQueryFromParams);
+    fetchBusinesses(emptyFilters, '', searchQueryFromParams, categoryParam);
   };
 
+  // Render
   return (
     <div className="container-fluid mt-4">
       <div className="row">
         <div className="col-md-3">
           <div className="bg-light border p-3">
             <h5>Filters</h5>
+            {/* -- Category Filter -- */}
             <div className="mb-3">
               <label htmlFor="category" className="form-label">
                 Category
@@ -89,7 +80,9 @@ const BusinessListPage = () => {
                 name="category"
                 className="form-control"
                 value={filters.category}
-                onChange={handleInputChange}
+                onChange={(e) =>
+                  setFilters((prev) => ({ ...prev, category: e.target.value }))
+                }
               >
                 <option value="">All Categories</option>
                 {categories.map((category, index) => (
@@ -99,6 +92,8 @@ const BusinessListPage = () => {
                 ))}
               </select>
             </div>
+
+            {/* -- Other filters (State, price, etc.) -- */}
             <div className="mb-3">
               <label htmlFor="state" className="form-label">
                 State
@@ -108,7 +103,9 @@ const BusinessListPage = () => {
                 name="state"
                 className="form-control"
                 value={filters.state}
-                onChange={handleInputChange}
+                onChange={(e) =>
+                  setFilters((prev) => ({ ...prev, state: e.target.value }))
+                }
               >
                 {usStates.map((state) => (
                   <option key={state.value} value={state.value}>
@@ -117,12 +114,15 @@ const BusinessListPage = () => {
                 ))}
               </select>
             </div>
+            {/* Price/Revenue filters */}
             <InputField
               id="minPrice"
               name="minPrice"
               type="number"
               value={filters.minPrice}
-              onChange={handleInputChange}
+              onChange={(e) =>
+                setFilters((prev) => ({ ...prev, minPrice: e.target.value }))
+              }
               label="Min Price"
             />
             <InputField
@@ -130,7 +130,9 @@ const BusinessListPage = () => {
               name="maxPrice"
               type="number"
               value={filters.maxPrice}
-              onChange={handleInputChange}
+              onChange={(e) =>
+                setFilters((prev) => ({ ...prev, maxPrice: e.target.value }))
+              }
               label="Max Price"
             />
             <InputField
@@ -138,7 +140,9 @@ const BusinessListPage = () => {
               name="minRevenue"
               type="number"
               value={filters.minRevenue}
-              onChange={handleInputChange}
+              onChange={(e) =>
+                setFilters((prev) => ({ ...prev, minRevenue: e.target.value }))
+              }
               label="Min Revenue"
             />
             <InputField
@@ -146,9 +150,12 @@ const BusinessListPage = () => {
               name="maxRevenue"
               type="number"
               value={filters.maxRevenue}
-              onChange={handleInputChange}
+              onChange={(e) =>
+                setFilters((prev) => ({ ...prev, maxRevenue: e.target.value }))
+              }
               label="Max Revenue"
             />
+
             <button
               className="btn btn-primary btn-block"
               onClick={handleApplyFilters}

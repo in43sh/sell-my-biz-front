@@ -1,10 +1,8 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import BusinessForm from '../../components/Businesses/BusinessForm';
+import BusinessForm from '../../components/businesses/BusinessForm';
 
 const AddBusiness = () => {
-  console.log('add business');
-
   const location = useLocation();
   const { state } = location; // Extract result and details passed via navigate
 

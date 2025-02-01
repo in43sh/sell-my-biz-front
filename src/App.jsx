@@ -3,6 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import MainLayout from './components/layouts/MainLayout';
 import { AccountProvider } from './contexts/AccountProvider';
 import { AuthProvider } from './contexts/AuthProvider';
+import ScrollToTopLayout from './components/ScrollToTopLayout';
 import Router from './routes/Router';
 
 function App() {
@@ -15,9 +16,11 @@ function App() {
             v7_relativeSplatPath: true,
           }}
         >
-          <MainLayout>
-            <Router />
-          </MainLayout>
+          <ScrollToTopLayout>
+            <MainLayout>
+              <Router />
+            </MainLayout>
+          </ScrollToTopLayout>
         </BrowserRouter>
       </AuthProvider>
     </AccountProvider>

@@ -10,15 +10,22 @@ const Category = ({ category }) => {
         className="cat-item d-flex flex-column mb-4 border"
         style={catItemStyle}
       >
-        <p className="text-right">{category.count} Products</p>
-        <Link to="/" className="cat-img position-relative mb-3 overflow-hidden">
-          <img
-            className="img-fluid"
-            src={category.image}
-            alt={category.title}
-          />
+        <Link
+          to={`businesses?${category.name}`}
+          className="cat-img position-relative mb-3 overflow-hidden"
+          state={{
+            name: category.name,
+          }}
+        >
+          <img className="img-fluid" src={category.image} alt={category.name} />
         </Link>
-        <h5 className="font-weight-semi-bold m-0">{category.title}</h5>
+        {/* <Link
+          to={`/businesses?category=${category.id}`}
+          state={{ name: category.name }}
+        >
+          Go to Category
+        </Link> */}
+        <h5 className="font-weight-semi-bold m-0">{category.name}</h5>
       </div>
     </div>
   );
