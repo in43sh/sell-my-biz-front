@@ -1,4 +1,3 @@
-// In Hero.jsx or another component
 import Search from './Search';
 
 const Hero = () => (

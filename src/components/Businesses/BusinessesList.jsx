@@ -10,7 +10,7 @@ const BusinessesList = ({
   // canDeleteSaved = false,
   // showListings = false,
   updateList,
-  isLinkList = false,
+  // isLinkList = false,
 }) => {
   return (
     <div className="container-fluid pt-5">
@@ -20,7 +20,7 @@ const BusinessesList = ({
             business
             // index
           ) => (
-            // todo
+            // TODO
             // is it safe to use index?
             // figure out if it's okay to do key={business._id || index}
             <BusinessCard
@@ -31,7 +31,7 @@ const BusinessesList = ({
               canViewDetails={canViewDetails}
               canContact={canContact}
               updateList={updateList}
-              isLink={isLinkList}
+              // isLink={isLinkList}
             />
           )
         )}

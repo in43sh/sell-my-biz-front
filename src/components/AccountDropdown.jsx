@@ -25,7 +25,6 @@ const AccountDropdown = ({ onClose, clearUserSession }) => {
     onClose();
   };
 
-  // Handler for logout: clear user session then close the dropdown
   const handleLogoutClick = () => {
     clearUserSession();
     onClose();

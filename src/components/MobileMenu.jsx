@@ -5,8 +5,8 @@ import AccountDropdown from './AccountDropdown'; // adjust path as needed
 const MobileMenu = ({
   isLoggedIn,
   clearUserSession,
-  isAccountMenuOpen,
-  toggleAccountMenu,
+  // isAccountMenuOpen,
+  // toggleAccountMenu,
   onClose, // function to close the mobile menu
 }) => {
   const handleLinkClick = () => {
@@ -60,8 +60,8 @@ const MobileMenu = ({
             My Businesses
           </Link>
           <button
-            onClick={clearUserSession}
             className="w-full px-4 py-2 text-left text-white hover:underline"
+            onClick={clearUserSession}
             // onClick={handleLinkClick}
           >
             Log Out

@@ -1,6 +1,6 @@
-import React from 'react';
-
 const AddBusinessButton = () => {
+  // TODO
+  // check why there is no logic for this button
   const handleAddBusiness = () => {
     // Logic to handle adding a business
     console.log('Add Business button clicked');

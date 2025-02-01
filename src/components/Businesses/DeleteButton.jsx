@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import Modal from './Modal';
 import { deleteBusiness } from '../../api/DBRequests';
 import { useAuth } from '../../contexts/AuthProvider';
@@ -29,7 +29,8 @@ const DeleteButton = ({ id, name, updateList }) => {
         className="btn btn-sm btn-outline-danger d-flex align-items-center"
         style={{ padding: '0.4rem 0.8rem', fontSize: '0.9rem', gap: '0.4rem' }}
       >
-        <i className="fas fa-trash"></i> Delete
+        {/* <i className="fas fa-trash"></i> */}
+        Delete
       </button>
       <Modal
         isOpen={isOpen}

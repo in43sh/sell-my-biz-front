@@ -10,26 +10,21 @@ const InputField = ({
 }) => {
   return (
     <div className="form-group">
-      {/* Render label if provided */}
       {label && (
         <label htmlFor={id} className="form-label">
           {label}
         </label>
       )}
-
-      {/* Input field */}
       <input
         id={id}
-        name={name} // Ensure this is passed to correctly identify the field
+        name={name}
         type={type}
-        className={`form-control border-0 py-4 ${error ? 'is-invalid' : ''}`} // Add is-invalid class for Bootstrap error styling
+        className={`form-control border-0 py-4 ${error ? 'is-invalid' : ''}`}
         placeholder={placeholder}
-        value={value || ''} // Default to an empty string if value is undefined
-        onChange={onChange} // Pass the onChange handler directly
+        value={value || ''}
+        onChange={onChange}
         // required
       />
-
-      {/* Error message */}
       {error && <div className="invalid-feedback">{error}</div>}
     </div>
   );

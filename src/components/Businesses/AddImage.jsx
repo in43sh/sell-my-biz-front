@@ -29,6 +29,7 @@ const AddImage = ({
           <input
             type="file"
             accept="image/*"
+            className="form-control"
             onChange={(event) => {
               handleFileUpload(event);
               const file = event.target.files[0];
@@ -41,7 +42,6 @@ const AddImage = ({
                 reader.readAsDataURL(file);
               }
             }}
-            className="form-control"
           />
         </div>
       )}

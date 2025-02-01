@@ -1,4 +1,5 @@
-import React from 'react';
+// TODO
+// TO BE DELETED
 import { Link } from 'react-router-dom';
 
 const Home = () => {

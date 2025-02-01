@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/logo.svg';
 import { useAuth } from '../../contexts/AuthProvider';
 
+// TO BE DELETED
 const Topbar = () => {
   const { clearUserSession } = useAuth();
   return (

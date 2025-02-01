@@ -23,10 +23,10 @@ const Search = () => {
       <input
         type="text"
         value={searchQuery}
-        onChange={handleChange}
         // placeholder="Enter business name, category or location"
         placeholder="Enter business name"
         className="w-full rounded-l-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-600 focus:outline-none"
+        onChange={handleChange}
       />
       <button
         type="submit"

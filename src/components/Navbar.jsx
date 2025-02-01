@@ -7,7 +7,6 @@ const Navbar = () => {
             className="btn d-flex align-items-center justify-content-between bg-primary w-100 text-white shadow-none"
             data-toggle="collapse"
             href="#navbar-vertical"
-            // style="height: 65px; margin-top: -1px; padding: 0 30px"
             style={{ height: '65px', marginTop: '-1px', padding: '0 30px' }}
           >
             <h6 className="m-0">Categories</h6>
@@ -19,7 +18,6 @@ const Navbar = () => {
           >
             <div
               className="navbar-nav w-100 overflow-hidden"
-              //   style="height: 410px"
               style={{ height: '410px' }}
             >
               <div className="nav-item dropdown">
@@ -138,20 +136,14 @@ const Navbar = () => {
             data-ride="carousel"
           >
             <div className="carousel-inner">
-              <div
-                className="carousel-item active"
-                //   style="height: 410px"
-              >
+              <div className="carousel-item active">
                 <img
                   className="img-fluid"
                   src="img/carousel-1.jpg"
                   alt="Image"
                 />
                 <div className="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                  <div
-                    className="p-3"
-                    //   style="max-width: 700px"
-                  >
+                  <div className="p-3">
                     <h4 className="text-light text-uppercase font-weight-medium mb-3">
                       10% Off Your First Order
                     </h4>
@@ -164,21 +156,14 @@ const Navbar = () => {
                   </div>
                 </div>
               </div>
-              <div
-                className="carousel-item"
-                //   style="height: 410px"
-              >
+              <div className="carousel-item">
                 <img
                   className="img-fluid"
                   src="img/carousel-2.jpg"
                   alt="Image"
                 />
                 <div className="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                  <div
-                    className="p-3"
-                    //   style="max-width: 700px"
-                    style={{ maxWidth: '700px' }}
-                  >
+                  <div className="p-3" style={{ maxWidth: '700px' }}>
                     <h4 className="text-light text-uppercase font-weight-medium mb-3">
                       10% Off Your First Order
                     </h4>
@@ -199,7 +184,6 @@ const Navbar = () => {
             >
               <div
                 className="btn btn-dark"
-                //   style="width: 45px; height: 45px"
                 style={{ width: '45px', height: '45px' }}
               >
                 <span className="carousel-control-prev-icon mb-n2"></span>
@@ -212,7 +196,6 @@ const Navbar = () => {
             >
               <div
                 className="btn btn-dark"
-                //   style="width: 45px; height: 45px"
                 style={{ width: '45px', height: '45px' }}
               >
                 <span className="carousel-control-next-icon mb-n2"></span>
