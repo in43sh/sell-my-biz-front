@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../contexts/AuthProvider';
 import { getBusinesses } from '../api/DBRequests';
 import Hero from '../components/Hero';
-import CategoriesList from '../components/CategoriesList';
+import CategoriesList from '../components/categories/CategoriesList';
 import BusinessesList from '../components/Businesses/BusinessesList';
 import Subscribe from '../components/Subscribe';
 
