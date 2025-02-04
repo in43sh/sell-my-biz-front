@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthProvider';
 import HamburgerMenu from '../HamburgerMenu';
@@ -24,10 +24,6 @@ const Navbar = () => {
       setIsAccountMenuOpen(false);
     }
   };
-
-  useEffect(() => {
-    console.log('isAccountMenuOpen ===> ', isAccountMenuOpen);
-  }, [isAccountMenuOpen]);
 
   return (
     <>
