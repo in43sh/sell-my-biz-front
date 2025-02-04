@@ -1,30 +1,22 @@
 const Subscribe = () => {
   return (
-    <div className="container-fluid bg-secondary my-5">
-      <div className="row justify-content-md-center px-xl-5 py-5">
-        <div className="col-md-6 col-12 py-5">
-          <div className="mb-2 pb-2 text-center">
-            <h2 className="section-title mb-3 px-5">
-              <span className="bg-secondary px-2">Stay Updated</span>
-            </h2>
-            <p>
-              Amet lorem at rebum amet dolores. Elitr lorem dolor sed amet diam
-              labore at justo ipsum eirmod duo labore labore.
-            </p>
-          </div>
-          <form action="">
-            <div className="input-group">
-              <input
-                type="text"
-                className="form-control border-white p-4"
-                placeholder="Email Goes Here"
-              />
-              <div className="input-group-append">
-                <button className="btn btn-primary px-4">Subscribe</button>
-              </div>
-            </div>
-          </form>
-        </div>
+    <div className="my-10 w-full bg-gray-200 py-10">
+      <div className="mx-auto max-w-2xl text-center">
+        <h2 className="mb-3 text-3xl font-bold">Stay Updated</h2>
+        <p className="mb-6 text-gray-600">
+          Amet lorem at rebum amet dolores. Elitr lorem dolor sed amet diam
+          labore at justo ipsum eirmod duo labore labore.
+        </p>
+        <form className="flex flex-col justify-center gap-4 sm:flex-row">
+          <input
+            type="email"
+            className="w-full rounded-md border border-gray-300 p-3 sm:w-auto"
+            placeholder="Email Goes Here"
+          />
+          <button className="rounded-md bg-blue-600 px-6 py-3 text-white transition duration-300 hover:bg-blue-700">
+            Subscribe
+          </button>
+        </form>
       </div>
     </div>
   );

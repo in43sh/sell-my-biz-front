@@ -6,36 +6,27 @@ const BusinessesList = ({
   canDelete = false,
   canViewDetails = false,
   canContact = false,
-  // showPrice = false,
-  // canDeleteSaved = false,
-  // showListings = false,
   updateList,
-  // isLinkList = false,
 }) => {
   return (
-    <div className="container-fluid pt-5">
-      <div className="row px-xl-5 pb-3">
-        {list.map(
-          (
-            business
-            // index
-          ) => (
-            // TODO
-            // is it safe to use index?
-            // figure out if it's okay to do key={business._id || index}
+    <div className="mx-auto max-w-6xl px-4 py-6">
+      {list.length === 0 ? (
+        <p className="text-center text-gray-600">No businesses found.</p>
+      ) : (
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2">
+          {list.map((business) => (
             <BusinessCard
-              key={business._id} // Use _id if available, or fallback to index
+              key={business._id}
               business={business}
               canEdit={canEdit}
               canDelete={canDelete}
               canViewDetails={canViewDetails}
               canContact={canContact}
               updateList={updateList}
-              // isLink={isLinkList}
             />
-          )
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

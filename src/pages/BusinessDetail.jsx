@@ -12,10 +12,10 @@ const BusinessDetail = () => {
 
   const getBusinessData = async () => {
     try {
-      const headers = {
-        'Content-Type': 'application/json',
-      };
-      const businessData = await getBusiness(headers, id);
+      const businessData = await getBusiness(
+        { 'Content-Type': 'application/json' },
+        id
+      );
       setBusiness(businessData);
     } catch (error) {
       console.error('Error fetching business data:', error);
@@ -34,7 +34,6 @@ const BusinessDetail = () => {
     getBusinessData();
   }, [id]);
 
-  // Declaratively redirect if needed
   if (redirectToSignIn) {
     return (
       <Navigate
@@ -46,108 +45,90 @@ const BusinessDetail = () => {
   }
 
   if (!business) {
-    return <div className="container py-5 text-center">Loading...</div>;
+    return <div className="w-full py-10 text-center">Loading...</div>;
   }
 
   return (
-    <div>
-      <div className="container py-5">
-        <div className="row px-xl-5">
-          <div className="col-lg-8">
-            <div className="mb-5">
-              <h3 className="font-weight-semi-bold">{business.name}</h3>
-              <ul className="list-group list-group-flush">
-                <li className="list-group-item">
-                  <strong>Category:</strong> {business.category}
-                </li>
-                <li className="list-group-item">
-                  <strong>Price:</strong> ${business.price}
-                </li>
-                <li className="list-group-item">
-                  <strong>Revenue:</strong> ${business.grossRevenue}
-                </li>
-                <li className="list-group-item">
-                  <strong>Profit:</strong> ${business.profit}
-                </li>
-                <li className="list-group-item">
-                  <strong>Cash Flow:</strong> ${business.cashFlow}
-                </li>
-                <li className="list-group-item">
-                  <strong>Inventory Value:</strong> ${business.inventoryValue}
-                </li>
-                <li className="list-group-item">
-                  <strong>Address:</strong> {business.address}
-                </li>
-                <li className="list-group-item">
-                  <strong>City:</strong> {business.city}
-                </li>
-                <li className="list-group-item">
-                  <strong>State:</strong> {business.state}
-                </li>
-                <li className="list-group-item">
-                  <strong>ZipCode:</strong> {business.zipCode}
-                </li>
-                <li className="list-group-item">
-                  <strong>Owner Name:</strong> {business.ownerName}
-                </li>
-                {/* Display listing source if posted by owner */}
-                {business.isListedByOwner && (
-                  <li className="list-group-item">
-                    <i className="fa fa-check-circle text-success me-2"></i>
-                    Posted by Owner
-                  </li>
-                )}
-                <li className="list-group-item">
-                  <strong>Contact Email:</strong> {business.contactEmail}
-                </li>
-                <li className="list-group-item">
-                  <strong>Years Established:</strong>{' '}
-                  {business.yearsEstablished}
-                </li>
-                <li className="list-group-item">
-                  <strong>Employees:</strong> {business.employees}
-                </li>
-                <li className="list-group-item">
-                  <strong>Reason for Selling:</strong>{' '}
-                  {business.reasonForSelling}
-                </li>
-              </ul>
-            </div>
-            <h4 className="font-weight-semi-bold mb-3">Description</h4>
-            <p>{business.description}</p>
-          </div>
-
-          <div className="col-lg-4">
-            <div className="card mb-4 border-0">
-              <div className="card-body text-center">
-                <p>
-                  If you're interested in this business, please get in touch
-                  with the seller for more information.
-                </p>
-                <button
-                  onClick={handleContactSeller}
-                  className="btn btn-primary"
-                >
-                  Contact Seller
-                </button>
-              </div>
-            </div>
-            {showContactInfo && (
-              <div className="card mb-4">
-                <div className="card-body">
-                  <h5>Contact Information</h5>
-                  <p>
-                    <i className="fa fa-user text-primary me-2"></i>
-                    {business.ownerName}
-                  </p>
-                  <p>
-                    <i className="fa fa-envelope text-primary me-2"></i>
-                    {business.contactEmail}
-                  </p>
-                </div>
-              </div>
+    <div className="w-full px-4 py-10">
+      <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 lg:grid-cols-3">
+        <div className="lg:col-span-2">
+          <h3 className="text-3xl font-semibold">{business.name}</h3>
+          <ul className="mt-4 space-y-3">
+            <li>
+              <strong>Category:</strong> {business.category}
+            </li>
+            <li>
+              <strong>Price:</strong> ${business.price}
+            </li>
+            <li>
+              <strong>Revenue:</strong> ${business.grossRevenue}
+            </li>
+            <li>
+              <strong>Profit:</strong> ${business.profit}
+            </li>
+            <li>
+              <strong>Cash Flow:</strong> ${business.cashFlow}
+            </li>
+            <li>
+              <strong>Inventory Value:</strong> ${business.inventoryValue}
+            </li>
+            <li>
+              <strong>Address:</strong> {business.address}
+            </li>
+            <li>
+              <strong>City:</strong> {business.city}
+            </li>
+            <li>
+              <strong>State:</strong> {business.state}
+            </li>
+            <li>
+              <strong>ZipCode:</strong> {business.zipCode}
+            </li>
+            <li>
+              <strong>Owner Name:</strong> {business.ownerName}
+            </li>
+            {business.isListedByOwner && (
+              <li className="font-semibold text-green-600">Posted by Owner</li>
             )}
-          </div>
+            <li>
+              <strong>Contact Email:</strong> {business.contactEmail}
+            </li>
+            <li>
+              <strong>Years Established:</strong> {business.yearsEstablished}
+            </li>
+            <li>
+              <strong>Employees:</strong> {business.employees}
+            </li>
+            <li>
+              <strong>Reason for Selling:</strong> {business.reasonForSelling}
+            </li>
+          </ul>
+          <h4 className="mt-6 text-2xl font-semibold">Description</h4>
+          <p className="mt-2">{business.description}</p>
+        </div>
+
+        <div className="rounded-lg bg-gray-100 p-6 shadow lg:col-span-1">
+          <p className="text-center">
+            If you're interested, contact the seller for more details.
+          </p>
+          <button
+            onClick={handleContactSeller}
+            className="mt-4 w-full rounded-md bg-blue-600 py-2 font-semibold text-white transition duration-300 hover:bg-blue-700"
+          >
+            Contact Seller
+          </button>
+
+          {showContactInfo && (
+            <div className="mt-4 rounded-lg bg-white p-4 shadow">
+              <h5 className="text-lg font-semibold">Contact Information</h5>
+              <p className="mt-2">
+                <strong>Owner:</strong> {business.ownerName}
+              </p>
+              <p>
+                <strong>Email:</strong> {business.contactEmail}
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>

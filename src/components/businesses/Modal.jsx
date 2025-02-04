@@ -4,31 +4,35 @@ const Modal = ({ isOpen, onDelete, onClose, title, description }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="modal show d-block" tabIndex="-1" role="dialog">
-      <div className="modal-dialog" role="document">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title">{title}</h5>
-            <button
-              type="button"
-              className="close"
-              onClick={onClose}
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div className="modal-body">
-            <p>{description}</p>
-          </div>
-          <div className="modal-footer">
-            <button className="btn btn-secondary" onClick={onClose}>
-              Cancel
-            </button>
-            <button className="btn btn-danger" onClick={onDelete}>
-              Delete
-            </button>
-          </div>
+    <div className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center">
+      <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
+        <div className="flex items-center justify-between border-b pb-3">
+          <h5 className="text-lg font-semibold">{title}</h5>
+          <button
+            type="button"
+            className="text-gray-500 hover:text-gray-700"
+            onClick={onClose}
+            aria-label="Close"
+          >
+            &times;
+          </button>
+        </div>
+        <div className="py-4">
+          <p className="text-gray-700">{description}</p>
+        </div>
+        <div className="flex justify-end space-x-3 border-t pt-3">
+          <button
+            className="rounded-md bg-gray-300 px-4 py-2 font-medium text-gray-800 hover:bg-gray-400"
+            onClick={onClose}
+          >
+            Cancel
+          </button>
+          <button
+            className="rounded-md bg-red-600 px-4 py-2 font-medium text-white hover:bg-red-700"
+            onClick={onDelete}
+          >
+            Delete
+          </button>
         </div>
       </div>
     </div>

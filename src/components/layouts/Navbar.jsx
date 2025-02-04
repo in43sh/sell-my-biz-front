@@ -1,19 +1,16 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthProvider';
-import HamburgerMenu from '../HamburgerMenu'; // adjust path if needed
-import Logo from '../../assets/images/logo.svg'; // adjust path if needed
-import AccountDropdown from '../AccountDropdown'; // adjust path if needed
-import MobileMenu from '../MobileMenu'; // adjust path if needed
+import HamburgerMenu from '../HamburgerMenu';
+import Logo from '../../assets/images/logo.svg';
+import AccountDropdown from '../AccountDropdown';
+import MobileMenu from '../MobileMenu';
 
 const Navbar = () => {
-  // State for the mobile hamburger menu
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // State for the account dropdown menu (for both desktop and mobile)
   const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
 
   const { isLoggedIn, clearUserSession } = useAuth();
-  // console.log('isLoggedIn ===> ', isLoggedIn);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleAccountMenu = () => setIsAccountMenuOpen(!isAccountMenuOpen);
@@ -22,18 +19,16 @@ const Navbar = () => {
     <>
       <nav className="bg-blue-600 p-4 shadow-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
-          {/* Logo */}
           <Link to="/">
             <img src={Logo} alt="Logo" className="h-12" />
           </Link>
 
-          {/* Desktop Right Side: either Account dropdown or Sign In/Sign Up */}
           <div className="hidden items-center space-x-4 md:flex">
             {isLoggedIn ? (
               <div className="relative">
                 <button
                   onClick={toggleAccountMenu}
-                  className="text-white focus:outline-none"
+                  className="font-semibold text-white focus:outline-none"
                 >
                   My Account
                 </button>
@@ -48,13 +43,13 @@ const Navbar = () => {
               <>
                 <Link
                   to="/sign-in"
-                  className="rounded-lg px-6 py-2 text-white transition duration-300 hover:bg-blue-700"
+                  className="rounded-md bg-blue-700 px-6 py-2 text-white transition duration-300 hover:bg-blue-800"
                 >
                   Sign In
                 </Link>
                 <Link
                   to="/sign-up"
-                  className="rounded-lg px-6 py-2 text-white transition duration-300 hover:bg-green-700"
+                  className="rounded-md bg-green-600 px-6 py-2 text-white transition duration-300 hover:bg-green-700"
                 >
                   Sign Up
                 </Link>
@@ -62,18 +57,14 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Hamburger menu for mobile */}
-          <HamburgerMenu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+          <HamburgerMenu toggleMenu={toggleMenu} />
         </div>
       </nav>
 
-      {/* Mobile Menu (extracted to a separate component) */}
       {isMenuOpen && (
         <MobileMenu
           isLoggedIn={isLoggedIn}
           clearUserSession={clearUserSession}
-          isAccountMenuOpen={isAccountMenuOpen}
-          toggleAccountMenu={toggleAccountMenu}
           onClose={() => setIsMenuOpen(false)}
         />
       )}

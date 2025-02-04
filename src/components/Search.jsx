@@ -9,8 +9,6 @@ const Search = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Navigate to the businesses page with the search query as a URL parameter.
-    console.log('searchQuery ===> ', searchQuery);
 
     navigate({
       pathname: '/businesses',
@@ -25,14 +23,13 @@ const Search = () => {
       <input
         type="text"
         value={searchQuery}
-        // placeholder="Enter business name, category or location"
         placeholder="Enter business name"
         className="w-full rounded-l-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-600 focus:outline-none"
         onChange={handleChange}
       />
       <button
         type="submit"
-        className="rounded-r-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+        className="rounded-r-lg bg-blue-600 px-4 py-2 text-white transition duration-300 hover:bg-blue-700"
       >
         Search
       </button>

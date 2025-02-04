@@ -11,25 +11,23 @@ const AddImage = ({
   const [isPanelOpen, setIsPanelOpen] = useState(false);
 
   return (
-    <div className="mb-3 flex w-full flex-col gap-4">
-      <p>Cover image</p>
+    <div className="mb-4 flex flex-col gap-4">
+      <p className="font-semibold">Cover Image</p>
 
-      {/* Button to toggle File Upload */}
       <button
-        className="btn btn-outline-secondary w-100"
+        className="rounded-md border border-gray-400 px-4 py-2 text-gray-700 transition duration-300 hover:bg-gray-100"
         onClick={() => setIsPanelOpen(!isPanelOpen)}
         type="button"
       >
         Upload a file
       </button>
 
-      {/* File Upload Panel */}
       {isPanelOpen && (
         <div className="mt-2">
           <input
             type="file"
             accept="image/*"
-            className="form-control"
+            className="w-full rounded-md border border-gray-300 p-2"
             onChange={(event) => {
               handleFileUpload(event);
               const file = event.target.files[0];
@@ -46,15 +44,17 @@ const AddImage = ({
         </div>
       )}
 
-      {/* Error Message */}
       {error.coverImageUrl && (
-        <p className="text-danger">{error.coverImageUrl}</p>
+        <p className="text-red-600">{error.coverImageUrl}</p>
       )}
 
-      {/* Image Preview */}
       {imageSrc && (
-        <div className="text-center">
-          <img src={imageSrc} alt="Preview" className="img-fluid max-h-200" />
+        <div className="mt-3 text-center">
+          <img
+            src={imageSrc}
+            alt="Preview"
+            className="mx-auto max-h-52 rounded-md shadow-md"
+          />
         </div>
       )}
     </div>

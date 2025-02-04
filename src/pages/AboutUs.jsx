@@ -1,16 +1,17 @@
 const AboutUs = () => {
   return (
     <div>
-      <header className="bg-dark text-warning py-4 text-center">
-        <h1>About Us</h1>
-        <p>Your trusted platform to buy and sell businesses</p>
+      <header className="bg-gray-900 py-6 text-center text-yellow-400">
+        <h1 className="text-3xl font-bold">About Us</h1>
+        <p className="text-lg">
+          Your trusted platform to buy and sell businesses
+        </p>
       </header>
 
-      <div className="container my-5">
-        {/* Mission Section */}
-        <section className="mb-5">
-          <h2 className="text-dark mb-3">Our Mission</h2>
-          <p className="text-secondary">
+      <div className="mx-auto my-10 max-w-5xl px-6">
+        <section className="mb-10">
+          <h2 className="mb-3 text-2xl font-semibold">Our Mission</h2>
+          <p className="text-gray-600">
             At SellMyBiz, our mission is to connect entrepreneurs, business
             owners, and buyers in a seamless and trustworthy environment. We
             strive to make the process of buying and selling businesses
@@ -19,10 +20,9 @@ const AboutUs = () => {
           </p>
         </section>
 
-        {/* What We Do Section */}
-        <section className="mb-5">
-          <h2 className="text-dark mb-3">What We Do</h2>
-          <p className="text-secondary">
+        <section className="mb-10">
+          <h2 className="mb-3 text-2xl font-semibold">What We Do</h2>
+          <p className="text-gray-600">
             SellMyBiz provides a platform that allows business owners to list
             their businesses for sale and connect with interested buyers. Our
             user-friendly interface, advanced filtering tools, and secure
@@ -31,33 +31,30 @@ const AboutUs = () => {
           </p>
         </section>
 
-        {/* Team Section */}
-        <section className="mb-5">
-          <h2 className="text-dark mb-3">Our Team</h2>
-          <div className="row g-4">
+        <section className="mb-10">
+          <h2 className="mb-6 text-center text-2xl font-semibold">Our Team</h2>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {teamMembers.map((member) => (
-              <div key={member.name} className="col-md-4 text-center">
-                <div className="card border-light h-100 shadow-sm">
-                  <div className="card-body">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="rounded-circle mb-3"
-                      style={{ width: '100px', height: '100px' }}
-                    />
-                    <h5 className="card-title">{member.name}</h5>
-                    <p className="card-text text-muted">{member.role}</p>
-                  </div>
-                </div>
+              <div
+                key={member.name}
+                className="rounded-lg bg-white p-6 text-center shadow-md"
+              >
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  className="mx-auto mb-4 rounded-full"
+                  style={{ width: '100px', height: '100px' }}
+                />
+                <h5 className="text-lg font-semibold">{member.name}</h5>
+                <p className="text-gray-500">{member.role}</p>
               </div>
             ))}
           </div>
         </section>
 
-        {/* Why Choose Us Section */}
-        <section className="mb-5">
-          <h2 className="text-dark mb-3">Why Choose Us</h2>
-          <p className="text-secondary">
+        <section className="mb-10">
+          <h2 className="mb-3 text-2xl font-semibold">Why Choose Us</h2>
+          <p className="text-gray-600">
             SellMyBiz stands out with our dedication to simplicity,
             transparency, and efficiency. Whether you're a seller looking to
             find the right buyer or a buyer searching for your next investment,
@@ -66,15 +63,13 @@ const AboutUs = () => {
         </section>
       </div>
 
-      {/* Footer */}
-      <footer className="bg-dark py-3 text-center text-white">
+      <footer className="bg-gray-900 py-4 text-center text-white">
         <p className="mb-0">&copy; 2025 SellMyBiz. All rights reserved.</p>
       </footer>
     </div>
   );
 };
 
-// Sample team data
 const teamMembers = [
   {
     name: 'John Doe',

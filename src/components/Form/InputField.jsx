@@ -9,9 +9,12 @@ const InputField = ({
   label,
 }) => {
   return (
-    <div className="form-group">
+    <div className="mb-4">
       {label && (
-        <label htmlFor={id} className="form-label">
+        <label
+          htmlFor={id}
+          className="mb-1 block text-sm font-medium text-gray-700"
+        >
           {label}
         </label>
       )}
@@ -19,13 +22,14 @@ const InputField = ({
         id={id}
         name={name}
         type={type}
-        className={`form-control border-0 py-4 ${error ? 'is-invalid' : ''}`}
+        className={`w-full rounded-md border border-gray-300 p-3 focus:ring-2 focus:ring-blue-600 focus:outline-none ${
+          error ? 'border-red-500' : ''
+        }`}
         placeholder={placeholder}
         value={value || ''}
         onChange={onChange}
-        // required
       />
-      {error && <div className="invalid-feedback">{error}</div>}
+      {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
     </div>
   );
 };

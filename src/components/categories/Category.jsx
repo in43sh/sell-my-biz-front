@@ -1,34 +1,24 @@
+// src/components/categories/CategoryCard.jsx
 import { Link } from 'react-router-dom';
 
-const Category = ({ category }) => {
-  const catItemStyle = {
-    padding: '30px',
-  };
+const CategoryCard = ({ category }) => {
   return (
-    <div className="col-lg-4 col-md-6 pb-1">
-      <div
-        className="cat-item d-flex flex-column mb-4 border"
-        style={catItemStyle}
-      >
-        <Link
-          to={`businesses?${category.name}`}
-          className="cat-img position-relative mb-3 overflow-hidden"
-          state={{
-            name: category.name,
-          }}
-        >
-          <img className="img-fluid" src={category.image} alt={category.name} />
-        </Link>
-        {/* <Link
-          to={`/businesses?category=${category.id}`}
-          state={{ name: category.name }}
-        >
-          Go to Category
-        </Link> */}
-        <h5 className="font-weight-semi-bold m-0">{category.name}</h5>
+    <Link
+      to={`/businesses?category=${encodeURIComponent(category.name)}`}
+      className="group block overflow-hidden rounded-lg bg-white shadow-md transition duration-300 hover:shadow-lg"
+    >
+      <img
+        src={category.image}
+        alt={category.name}
+        className="h-40 w-full object-cover transition duration-300 group-hover:scale-105"
+      />
+      <div className="p-4 text-center">
+        <h5 className="text-lg font-semibold text-gray-700 group-hover:text-blue-600">
+          {category.name}
+        </h5>
       </div>
-    </div>
+    </Link>
   );
 };
 
-export default Category;
+export default CategoryCard;

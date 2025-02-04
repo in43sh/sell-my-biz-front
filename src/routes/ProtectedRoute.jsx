@@ -4,7 +4,6 @@ import { useAuth } from '../contexts/AuthProvider';
 const ProtectedRoute = ({ element }) => {
   const { isLoggedIn } = useAuth();
   const location = useLocation();
-  // console.log('isLoggedIn ===> ', isLoggedIn);
 
   if (!isLoggedIn) {
     return (

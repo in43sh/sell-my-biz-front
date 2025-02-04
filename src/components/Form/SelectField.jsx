@@ -1,15 +1,18 @@
 const SelectField = ({ id, name, value, options, onChange, label }) => {
   return (
-    <div className="form-group">
+    <div className="mb-4">
       {label && (
-        <label htmlFor={id} className="form-label">
+        <label
+          htmlFor={id}
+          className="mb-1 block text-sm font-medium text-gray-700"
+        >
           {label}
         </label>
       )}
       <select
         id={id}
         name={name}
-        className="form-control border-0 py-4"
+        className="w-full rounded-md border border-gray-300 p-3 focus:ring-2 focus:ring-blue-600 focus:outline-none"
         value={value}
         onChange={onChange}
       >

@@ -26,10 +26,9 @@ const DeleteButton = ({ id, name, updateList }) => {
     <>
       <button
         onClick={handleButton}
-        className="btn btn-sm btn-outline-danger d-flex align-items-center"
-        style={{ padding: '0.4rem 0.8rem', fontSize: '0.9rem', gap: '0.4rem' }}
+        className="flex items-center gap-2 rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white transition duration-300 hover:bg-red-700"
       >
-        {/* <i className="fas fa-trash"></i> */}
+        {/* <i className="fas fa-trash" /> */}
         Delete
       </button>
       <Modal

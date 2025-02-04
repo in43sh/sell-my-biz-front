@@ -1,12 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
-
 import { getBusinesses } from '../../api/DBRequests';
-import AddBusinessButton from '../../components/account/AddBusinessButton';
 import BusinessesList from '../../components/Businesses/BusinessesList';
-// import LoadMoreButton from '../../components/Businesses/LoadMoreButton';
 import Spinner from '../../components/layouts/Spinner';
 import { useAuth } from '../../contexts/AuthProvider';
-// import { sortingOptions } from '../../utils/selectUtils';
 
 const MyBusinesses = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -25,20 +21,16 @@ const MyBusinesses = () => {
         const fetchBusinesses = await getBusinesses(
           sortBy,
           { userId: userId },
+          '',
           BUSINESSES_LIMIT,
           skip
         );
 
-        skip === 0
-          ? setBusinessesList(fetchBusinesses)
-          : setBusinessesList((prevBusinesses) => [
-              ...prevBusinesses,
-              ...fetchBusinesses,
-            ]);
+        setBusinessesList((prevBusinesses) =>
+          skip === 0 ? fetchBusinesses : [...prevBusinesses, ...fetchBusinesses]
+        );
 
-        fetchBusinesses.length < BUSINESSES_LIMIT
-          ? setShowLoadMore(false)
-          : setShowLoadMore(true);
+        setShowLoadMore(fetchBusinesses.length >= BUSINESSES_LIMIT);
       } catch (error) {
         setError('Failed to load businesses. Please try again later.');
       }
@@ -47,59 +39,42 @@ const MyBusinesses = () => {
     [sortBy, userId]
   );
 
-  // const handleLoadMoreBusinesses = () => {
-  //   fetchBusinesses(businessesList.length);
-  // };
-
   useEffect(() => {
     fetchBusinesses();
   }, [fetchBusinesses]);
 
-  // const handleSortSelect = (name, value) => {
-  //   setSortBy(value);
-  // };
-
   return (
-    <>
-      <div className="d-flex justify-content-center justify-content-sm-end mb-4 gap-2">
-        <div className="d-sm-none">
-          <AddBusinessButton />
-        </div>
-
-        {/* <div className="w-auto">
-          <LabelAndSelect
-            id="sortBy"
-            name="sortBy"
-            value={sortBy}
-            data={sortingOptions}
-            onChange={handleSortSelect}
-            className="form-control"
-          ></LabelAndSelect>
-        </div> */}
-      </div>
+    <div className="mx-auto w-full max-w-6xl px-4 py-6">
+      <h2 className="mb-6 text-center text-2xl font-semibold">My Businesses</h2>
 
       {error ? (
-        <p className="text-danger">{error}</p>
+        <p className="text-center text-red-600">{error}</p>
       ) : isLoading ? (
         <Spinner />
+      ) : businessesList.length === 0 ? (
+        <p className="text-center text-gray-600">No businesses found.</p>
       ) : (
-        <>
-          <BusinessesList
-            list={businessesList}
-            canEdit={true}
-            canDelete={true}
-            canViewDetails={false}
-            canContact={false}
-            updateList={fetchBusinesses}
-          />
-          {/* {showLoadMore && (
-            <div className="d-flex justify-content-center mt-3">
-              <LoadMoreButton onClick={handleLoadMoreBusinesses} />
-            </div>
-          )} */}
-        </>
+        <BusinessesList
+          list={businessesList}
+          canEdit={true}
+          canDelete={true}
+          canViewDetails={false}
+          canContact={false}
+          updateList={fetchBusinesses}
+        />
       )}
-    </>
+
+      {showLoadMore && !isLoading && (
+        <div className="mt-4 flex justify-center">
+          <button
+            onClick={() => fetchBusinesses(businessesList.length)}
+            className="rounded-md bg-blue-600 px-4 py-2 font-medium text-white transition duration-300 hover:bg-blue-700"
+          >
+            Load More
+          </button>
+        </div>
+      )}
+    </div>
   );
 };
 

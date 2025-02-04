@@ -2,10 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthProvider';
 
-const FormulaCalculator = () => {
+const BusinessEvaluate = () => {
   const { isLoggedIn } = useAuth();
-  console.log('isLoggedIn ===> ', isLoggedIn);
-
   const [formData, setFormData] = useState({
     profit: '',
     inventory: '',
@@ -58,9 +56,9 @@ const FormulaCalculator = () => {
 
     const multiple =
       INDUSTRY_MULTIPLIERS[industry] || INDUSTRY_MULTIPLIERS.Other;
-    const ageFactor = Math.min(parseInt(businessAge), 20) * 0.02; // Max +20% for 20+ years
-    const repeatCustomerFactor = parseFloat(repeatCustomers) * 0.01; // 1% per repeat customer rate
-    const revenueFactor = parseFloat(grossRevenue) * 0.3; // 30% of gross revenue
+    const ageFactor = Math.min(parseInt(businessAge), 20) * 0.02;
+    const repeatCustomerFactor = parseFloat(repeatCustomers) * 0.01;
+    const revenueFactor = parseFloat(grossRevenue) * 0.3;
 
     const valuation =
       parseFloat(profit) * multiple +
@@ -89,116 +87,99 @@ const FormulaCalculator = () => {
       alert('Please log in to create a listing.');
       return;
     }
-
     navigate('/account/add-business', { state: { result, details } });
   };
 
   return (
-    <div className="container mt-5">
-      <h2 className="mb-4 text-center">Business Valuation Calculator</h2>
-      <form onSubmit={handleSubmit} className="bg-light border p-4 shadow-sm">
-        <div className="mb-3">
-          <label htmlFor="profit" className="form-label">
-            Profit A Year:
-          </label>
-          <input
-            type="number"
-            className="form-control"
-            id="profit"
-            name="profit"
-            value={formData.profit}
-            onChange={handleChange}
-            placeholder="Enter Profit (e.g., 150000)"
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="inventory" className="form-label">
-            Inventory Value:
-          </label>
-          <input
-            type="number"
-            className="form-control"
-            id="inventory"
-            name="inventory"
-            value={formData.inventory}
-            onChange={handleChange}
-            placeholder="Enter Inventory Value (e.g., 20000)"
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="grossRevenue" className="form-label">
-            Gross Revenue:
-          </label>
-          <input
-            type="number"
-            className="form-control"
-            id="grossRevenue"
-            name="grossRevenue"
-            value={formData.grossRevenue}
-            onChange={handleChange}
-            placeholder="Enter Gross Revenue (e.g., 500000)"
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="businessAge" className="form-label">
-            Business Age (Years):
-          </label>
-          <input
-            type="number"
-            className="form-control"
-            id="businessAge"
-            name="businessAge"
-            value={formData.businessAge}
-            onChange={handleChange}
-            placeholder="Enter Business Age (e.g., 10)"
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="repeatCustomers" className="form-label">
-            Repeat Customers (%):
-          </label>
-          <input
-            type="number"
-            className="form-control"
-            id="repeatCustomers"
-            name="repeatCustomers"
-            value={formData.repeatCustomers}
-            onChange={handleChange}
-            placeholder="Enter Repeat Customer Rate (e.g., 80)"
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="industry" className="form-label">
-            Industry:
-          </label>
-          <select
-            className="form-select"
-            id="industry"
-            name="industry"
-            value={formData.industry}
-            onChange={handleChange}
-          >
-            <option value="">Select an Industry</option>
-            {Object.keys(INDUSTRY_MULTIPLIERS).map((industry) => (
-              <option key={industry} value={industry}>
-                {industry}
-              </option>
-            ))}
-          </select>
-        </div>
-        <button type="submit" className="btn btn-primary w-100">
+    <div className="mx-auto mt-10 w-full max-w-lg px-4">
+      <h2 className="mb-6 text-center text-2xl font-semibold">
+        Business Valuation Calculator
+      </h2>
+      <form
+        onSubmit={handleSubmit}
+        className="rounded-lg bg-gray-100 p-6 shadow-md"
+      >
+        <label className="mb-2 block text-sm font-medium">Profit A Year:</label>
+        <input
+          type="number"
+          className="mb-4 w-full rounded border p-2"
+          name="profit"
+          value={formData.profit}
+          onChange={handleChange}
+          placeholder="Enter Profit (e.g., 150000)"
+        />
+        <label className="mb-2 block text-sm font-medium">
+          Inventory Value:
+        </label>
+        <input
+          type="number"
+          className="mb-4 w-full rounded border p-2"
+          name="inventory"
+          value={formData.inventory}
+          onChange={handleChange}
+          placeholder="Enter Inventory Value (e.g., 20000)"
+        />
+        <label className="mb-2 block text-sm font-medium">Gross Revenue:</label>
+        <input
+          type="number"
+          className="mb-4 w-full rounded border p-2"
+          name="grossRevenue"
+          value={formData.grossRevenue}
+          onChange={handleChange}
+          placeholder="Enter Gross Revenue (e.g., 500000)"
+        />
+        <label className="mb-2 block text-sm font-medium">
+          Business Age (Years):
+        </label>
+        <input
+          type="number"
+          className="mb-4 w-full rounded border p-2"
+          name="businessAge"
+          value={formData.businessAge}
+          onChange={handleChange}
+          placeholder="Enter Business Age (e.g., 10)"
+        />
+        <label className="mb-2 block text-sm font-medium">
+          Repeat Customers (%):
+        </label>
+        <input
+          type="number"
+          className="mb-4 w-full rounded border p-2"
+          name="repeatCustomers"
+          value={formData.repeatCustomers}
+          onChange={handleChange}
+          placeholder="Enter Repeat Customer Rate (e.g., 80)"
+        />
+        <label className="mb-2 block text-sm font-medium">Industry:</label>
+        <select
+          className="w-full rounded border p-2"
+          name="industry"
+          value={formData.industry}
+          onChange={handleChange}
+        >
+          <option value="">Select an Industry</option>
+          {Object.keys(INDUSTRY_MULTIPLIERS).map((industry) => (
+            <option key={industry} value={industry}>
+              {industry}
+            </option>
+          ))}
+        </select>
+        <button
+          type="submit"
+          className="mt-4 w-full rounded-md bg-blue-600 py-2 font-semibold text-white transition duration-300 hover:bg-blue-700"
+        >
           Calculate Valuation
         </button>
       </form>
 
       {result !== null && (
-        <div className="bg-light mt-5 border p-4 shadow-sm">
-          <h4>Valuation Result</h4>
-          <p>
+        <div className="mt-6 rounded-lg bg-white p-6 shadow-md">
+          <h4 className="text-xl font-semibold">Valuation Result</h4>
+          <p className="mt-2 text-lg">
             <strong>Estimated Valuation:</strong> ${result.toLocaleString()}
           </p>
-          <h5>Breakdown</h5>
-          <ul>
+          <h5 className="mt-4 text-lg font-semibold">Breakdown</h5>
+          <ul className="mt-2 space-y-2">
             <li>
               <strong>Profit (SDE):</strong> $
               {parseFloat(details.profit).toLocaleString()}
@@ -227,7 +208,7 @@ const FormulaCalculator = () => {
             </li>
           </ul>
           <button
-            className="btn btn-success mt-3"
+            className="mt-4 w-full rounded-md bg-green-600 py-2 font-semibold text-white transition duration-300 hover:bg-green-700"
             onClick={handleCreateListing}
           >
             Create Listing
@@ -238,4 +219,4 @@ const FormulaCalculator = () => {
   );
 };
 
-export default FormulaCalculator;
+export default BusinessEvaluate;

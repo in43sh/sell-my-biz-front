@@ -1,56 +1,32 @@
-// import envelopeIcon from '../../assets/images/envelope.png';
-// import locationIcon from '../../assets/images/location.png';
-// import userIcon from '../../assets/images/user.png';
-// import { useAccount } from '../../context/AccountProvider';
 import { useAuth } from '../../contexts/AuthProvider';
 
 const Profile = () => {
-  console.log('Profile');
-
   const { userData } = useAuth();
-  //   const { setAccountPage } = useAccount();
-
-  //   const handleEditProfile = useCallback(() => {
-  //     setAccountPage('EditProfile');
-  //   }, [setAccountPage]);
 
   return (
-    <div className="col-lg-9 col-md-8">
-      <div className="card border-0 p-4 shadow-sm">
-        <div className="card-header border-bottom mb-4 bg-transparent">
-          <h1 className="font-headings text-center text-2xl font-bold">
+    <div className="mx-auto w-full max-w-xl p-4 md:w-2/3 lg:w-3/4">
+      <div className="rounded-lg bg-white p-6 shadow-lg">
+        <div className="mb-4 border-b pb-3">
+          <h1 className="text-center text-2xl font-bold text-gray-800">
             Personal Profile
           </h1>
         </div>
-        <div className="card-body">
-          <div className="border-bottom mb-4 flex items-center pb-3">
-            {/* <img src={userIcon} alt="User Icon" className="h-6 w-6" /> */}
-            <p className="ml-3 text-xl">{`${userData.firstName} ${userData.lastName}`}</p>
+        <div className="space-y-4">
+          <div className="flex items-center border-b border-gray-200 pb-3">
+            <p className="ml-3 text-xl text-gray-700">
+              {`${userData.firstName} ${userData.lastName}`}
+            </p>
           </div>
-          <div className="border-bottom mb-4 flex items-center pb-3">
-            {/* <img
-                  src={envelopeIcon}
-                  alt="Envelope Icon"
-                  className="h-6 w-6"
-                /> */}
-            <p className="ml-3 text-xl">{userData.email}</p>
+          <div className="flex items-center border-b border-gray-200 pb-3">
+            <p className="ml-3 text-xl text-gray-700">{userData.email}</p>
           </div>
-          <div className="border-bottom mb-4 flex items-center pb-3">
-            {/* <img
-                  src={locationIcon}
-                  alt="Location Icon"
-                  className="h-6 w-6"
-                /> */}
-            <p className="ml-3 text-xl">
+          <div className="flex items-center border-b border-gray-200 pb-3">
+            <p className="ml-3 text-xl text-gray-700">
               {userData.location || 'Not specified'}
             </p>
           </div>
           <div className="text-center">
-            <button
-              as="button"
-              //   onClick={handleEditProfile}
-              className="btn btn-primary w-100"
-            >
+            <button className="w-full rounded-md bg-blue-600 py-2 font-semibold text-white shadow-sm transition duration-300 hover:bg-blue-700">
               Edit Profile
             </button>
           </div>

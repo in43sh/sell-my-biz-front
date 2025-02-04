@@ -3,11 +3,11 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 
 const MainLayout = ({ children }) => (
-  <>
+  <div className="flex min-h-screen flex-col">
     <Navbar />
-    {children}
+    <main className="flex-grow">{children}</main>
     <Footer />
-  </>
+  </div>
 );
 
 MainLayout.propTypes = {
