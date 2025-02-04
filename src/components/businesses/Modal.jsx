@@ -10,7 +10,7 @@ const Modal = ({ isOpen, onDelete, onClose, title, description }) => {
           <h5 className="text-lg font-semibold">{title}</h5>
           <button
             type="button"
-            className="text-gray-500 hover:text-gray-700"
+            className="cursor-pointer text-gray-500 hover:text-gray-700"
             onClick={onClose}
             aria-label="Close"
           >
@@ -22,13 +22,13 @@ const Modal = ({ isOpen, onDelete, onClose, title, description }) => {
         </div>
         <div className="flex justify-end space-x-3 border-t pt-3">
           <button
-            className="rounded-md bg-gray-300 px-4 py-2 font-medium text-gray-800 hover:bg-gray-400"
+            className="cursor-pointer rounded-md bg-gray-300 px-4 py-2 font-medium text-gray-800 hover:bg-gray-400"
             onClick={onClose}
           >
             Cancel
           </button>
           <button
-            className="rounded-md bg-red-600 px-4 py-2 font-medium text-white hover:bg-red-700"
+            className="cursor-pointer rounded-md bg-red-600 px-4 py-2 font-medium text-white hover:bg-red-700"
             onClick={onDelete}
           >
             Delete

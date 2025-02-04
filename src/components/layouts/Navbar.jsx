@@ -28,13 +28,13 @@ const Navbar = () => {
               <div className="relative">
                 <button
                   onClick={toggleAccountMenu}
-                  className="font-semibold text-white focus:outline-none"
+                  className="cursor-pointer font-semibold text-white focus:outline-none"
                 >
                   My Account
                 </button>
                 {isAccountMenuOpen && (
                   <AccountDropdown
-                    onClose={() => setIsAccountMenuOpen(false)}
+                    onClick={() => setIsAccountMenuOpen(false)}
                     clearUserSession={clearUserSession}
                   />
                 )}

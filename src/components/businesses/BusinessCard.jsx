@@ -31,7 +31,7 @@ const BusinessCard = ({
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg">
+    <div className="business-card flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg">
       <div className="relative w-full">
         <img
           src={coverImageUrl || defaultCoverImage}

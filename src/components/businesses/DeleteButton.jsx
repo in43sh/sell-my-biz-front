@@ -26,7 +26,7 @@ const DeleteButton = ({ id, name, updateList }) => {
     <>
       <button
         onClick={handleButton}
-        className="flex items-center gap-2 rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white transition duration-300 hover:bg-red-700"
+        className="flex cursor-pointer items-center gap-2 rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white transition duration-300 hover:bg-red-700"
       >
         {/* <i className="fas fa-trash" /> */}
         Delete

@@ -26,7 +26,7 @@ const Profile = () => {
             </p>
           </div>
           <div className="text-center">
-            <button className="w-full rounded-md bg-blue-600 py-2 font-semibold text-white shadow-sm transition duration-300 hover:bg-blue-700">
+            <button className="w-full cursor-pointer rounded-md bg-blue-600 py-2 font-semibold text-white shadow-sm transition duration-300 hover:bg-blue-700">
               Edit Profile
             </button>
           </div>

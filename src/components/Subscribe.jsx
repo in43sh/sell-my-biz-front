@@ -13,7 +13,7 @@ const Subscribe = () => {
             className="w-full rounded-md border border-gray-300 p-3 sm:w-auto"
             placeholder="Email Goes Here"
           />
-          <button className="rounded-md bg-blue-600 px-6 py-3 text-white transition duration-300 hover:bg-blue-700">
+          <button className="cursor-pointer rounded-md bg-blue-600 px-6 py-3 text-white transition duration-300 hover:bg-blue-700">
             Subscribe
           </button>
         </form>
