@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { getBusinesses } from '../api/DBRequests';
 import { useAuth } from '../contexts/AuthProvider';
-import BusinessesList from '../components/Businesses/BusinessesList';
+import BusinessesList from '../components/businesses/BusinessesList';
 import InputField from '../components/Form/InputField';
 import Search from '../components/Search';
 
