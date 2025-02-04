@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { getBusinesses } from '../../api/DBRequests';
-import BusinessesList from '../../components/Businesses/BusinessesList';
+import BusinessesList from '../../components/businesses/BusinessesList';
 import Spinner from '../../components/layouts/Spinner';
 import { useAuth } from '../../contexts/AuthProvider';
 
