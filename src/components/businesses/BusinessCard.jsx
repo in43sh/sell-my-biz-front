@@ -78,7 +78,7 @@ const BusinessCard = ({
           {canContact && (
             <button
               onClick={() => setShowModal(true)}
-              className="rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-green-700"
+              className="cursor-pointer rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-green-700"
             >
               Contact Seller
             </button>

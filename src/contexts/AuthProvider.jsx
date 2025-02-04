@@ -27,7 +27,6 @@ export const AuthProvider = ({ children }) => {
     setIsLoggedIn(true);
     setUserData(user);
     setToken(token);
-    console.log('userData ===> ', userData);
   };
 
   const clearUserSession = () => {

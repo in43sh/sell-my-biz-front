@@ -35,7 +35,6 @@ const handleApiRequest = async (
 
       url = `${url}?${queryParams}`;
     }
-    // ------------------------------------------
 
     const options = {
       method,
@@ -47,7 +46,6 @@ const handleApiRequest = async (
           }
         : {}),
     };
-
     const response = await fetch(`${API_BASE_URL}${url}`, options);
 
     if (!response.ok) {
@@ -64,12 +62,37 @@ const handleApiRequest = async (
   }
 };
 
-// auth
+// users
 export const login = (headers, credentials) =>
   handleApiRequest('/api/v1/login', { headers }, credentials);
 
 export const register = (headers, userData) =>
   handleApiRequest('/api/v1/register', { headers }, userData);
+
+export const updateProfile = (headers, userData, token) => {
+  return handleApiRequest(
+    '/api/v1/update',
+    { headers: headers },
+    userData,
+    token,
+    'PATCH'
+  );
+};
+
+// export const updatePassword = async ({ newPassword, token }) =>
+//   await handleApiRequest(`/api/v1/password-reset`, null, {
+//     newPassword,
+//     token,
+//   });
+
+export const updatePassword = (headers, passwordData, token) =>
+  handleApiRequest(
+    '/api/v1/update-password',
+    { headers },
+    passwordData,
+    token,
+    'PATCH'
+  );
 
 // businesses
 export const getBusinesses = async (
@@ -100,7 +123,7 @@ export const getBusinesses = async (
     { params },
     null,
     null,
-    'get'
+    'GET'
   );
 
   return businesses;
@@ -145,6 +168,6 @@ export const deleteBusiness = async (id, token) => {
     { headers: {} },
     null,
     token,
-    'delete'
+    'DELETE'
   );
 };

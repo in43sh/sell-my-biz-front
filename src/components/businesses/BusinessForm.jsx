@@ -61,6 +61,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.name}
             error={error.name}
             onChange={handleChange}
+            tooltip="Use a clear, searchable name like 'Reliable HVAC Service'."
           />
           {/* If you want 'description' as a textarea, replace `InputField` with a custom component or <textarea> */}
           <InputField

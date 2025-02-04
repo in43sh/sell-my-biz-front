@@ -115,6 +115,19 @@ const BusinessListPage = () => {
 
           <div className="mb-3">
             <InputField
+              id="city"
+              name="city"
+              type="text"
+              label="City"
+              value={filters.city}
+              onChange={(e) =>
+                setFilters((prev) => ({ ...prev, city: e.target.value }))
+              }
+            />
+          </div>
+
+          <div className="mb-3">
+            <InputField
               id="minPrice"
               name="minPrice"
               type="number"

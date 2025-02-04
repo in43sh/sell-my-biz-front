@@ -76,7 +76,7 @@ const Footer = () => {
               required
             />
             <button
-              className="w-full rounded-md bg-blue-600 py-2 font-semibold text-white transition duration-300 hover:bg-blue-700"
+              className="w-full cursor-pointer rounded-md bg-blue-600 py-2 font-semibold text-white transition duration-300 hover:bg-blue-700"
               type="submit"
             >
               Subscribe

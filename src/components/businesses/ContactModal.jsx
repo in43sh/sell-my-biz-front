@@ -1,3 +1,5 @@
+import { formatPhoneNumber } from '../../utils/phoneFormatter';
+
 const ContactModal = ({ ownerName, contactEmail, phoneNumber, onClose }) => {
   const handleOverlayClick = (e) => {
     if (e.target.classList.contains('modal-overlay')) {
@@ -18,7 +20,7 @@ const ContactModal = ({ ownerName, contactEmail, phoneNumber, onClose }) => {
           <h5 className="text-lg font-semibold">Contact Information</h5>
           <button
             type="button"
-            className="text-gray-500 hover:text-gray-700"
+            className="cursor-pointer text-gray-500 hover:text-gray-700"
             onClick={onClose}
           >
             &times;
@@ -29,16 +31,23 @@ const ContactModal = ({ ownerName, contactEmail, phoneNumber, onClose }) => {
             <strong>Name:</strong> {ownerName || 'N/A'}
           </p>
           <p>
-            <strong>Email:</strong> {contactEmail || 'N/A'}
+            <strong>Email:</strong>{' '}
+            <a
+              className="text-blue-700"
+              href={`mailto:${contactEmail}` || 'N/A'}
+            >
+              {contactEmail}
+            </a>
           </p>
-          <p>
-            <strong>Phone:</strong> {phoneNumber || 'N/A'}
+          <p className="mt-2">
+            <strong>Phone:</strong>{' '}
+            <a href={`tel:${phoneNumber}`}>{formatPhoneNumber(phoneNumber)}</a>
           </p>
         </div>
         <div className="flex justify-end border-t pt-3">
           <button
             type="button"
-            className="rounded-md bg-gray-300 px-4 py-2 font-medium text-gray-800 hover:bg-gray-400"
+            className="cursor-pointer rounded-md bg-gray-300 px-4 py-2 font-medium text-gray-800 hover:bg-gray-400"
             onClick={onClose}
           >
             Close

@@ -6,7 +6,11 @@ const AccountDropdown = ({ onClose, clearUserSession }) => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target) &&
+        !event.target.closest('.account-button') // Ignore clicks on "My Account"
+      ) {
         onClose();
       }
     };

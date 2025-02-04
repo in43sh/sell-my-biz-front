@@ -29,7 +29,7 @@ const Search = () => {
       />
       <button
         type="submit"
-        className="rounded-r-lg bg-blue-600 px-4 py-2 text-white transition duration-300 hover:bg-blue-700"
+        className="cursor-pointer rounded-r-lg bg-blue-600 px-4 py-2 text-white transition duration-300 hover:bg-blue-700"
       >
         Search
       </button>

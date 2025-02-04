@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthProvider';
 import HamburgerMenu from '../HamburgerMenu';
@@ -13,7 +13,21 @@ const Navbar = () => {
   const { isLoggedIn, clearUserSession } = useAuth();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  const toggleAccountMenu = () => setIsAccountMenuOpen(!isAccountMenuOpen);
+
+  const toggleAccountMenu = (event) => {
+    event.stopPropagation();
+    setIsAccountMenuOpen((prev) => !prev);
+  };
+
+  const handleAccountMenuClose = () => {
+    if (isAccountMenuOpen) {
+      setIsAccountMenuOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    console.log('isAccountMenuOpen ===> ', isAccountMenuOpen);
+  }, [isAccountMenuOpen]);
 
   return (
     <>
@@ -34,7 +48,7 @@ const Navbar = () => {
                 </button>
                 {isAccountMenuOpen && (
                   <AccountDropdown
-                    onClick={() => setIsAccountMenuOpen(false)}
+                    onClose={handleAccountMenuClose}
                     clearUserSession={clearUserSession}
                   />
                 )}

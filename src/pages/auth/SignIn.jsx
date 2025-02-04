@@ -23,7 +23,7 @@ const SignIn = () => {
               type="email"
               name="email"
               placeholder="Your Email"
-              value={(form.email = 'test@test.com')}
+              value={(form.email = 'test12312@test.com')}
               error={error.email}
               onChange={handleChange}
               label="Email"

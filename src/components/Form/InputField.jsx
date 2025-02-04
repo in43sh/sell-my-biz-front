@@ -1,3 +1,6 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
 const InputField = ({
   id,
   name,
@@ -7,15 +10,28 @@ const InputField = ({
   error,
   onChange,
   label,
+  tooltip,
 }) => {
   return (
-    <div className="mb-4">
+    <div className="relative mb-4">
       {label && (
         <label
           htmlFor={id}
           className="mb-1 block text-sm font-medium text-gray-700"
         >
           {label}
+          {tooltip && (
+            <span className="group relative ml-2 inline-block">
+              {/* Info icon */}
+              <span className="cursor-pointer text-blue-600">&#9432;</span>
+              {/* Tooltip container */}
+              <div className="invisible absolute bottom-full left-1/2 mb-2 w-56 -translate-x-1/2 rounded-md bg-gray-800 p-2 text-xs text-white opacity-0 shadow-lg transition-all duration-200 group-hover:visible group-hover:opacity-100">
+                {tooltip}
+                {/* Tooltip arrow */}
+                <div className="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-gray-800" />
+              </div>
+            </span>
+          )}
         </label>
       )}
       <input
@@ -32,6 +48,18 @@ const InputField = ({
       {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
     </div>
   );
+};
+
+InputField.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  placeholder: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  error: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  label: PropTypes.string,
+  tooltip: PropTypes.string,
 };
 
 export default InputField;

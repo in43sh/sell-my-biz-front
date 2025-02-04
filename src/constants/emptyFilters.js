@@ -1,6 +1,7 @@
 const emptyFilters = {
   category: '',
   state: '',
+  city: '',
   minPrice: '',
   maxPrice: '',
   minRevenue: '',
