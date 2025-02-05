@@ -34,6 +34,12 @@ const Navbar = () => {
           </Link>
 
           <div className="hidden items-center space-x-4 md:flex">
+            <Link
+              to="/evaluate"
+              className="rounded-md bg-blue-700 px-5 py-2 font-medium text-white transition duration-300 hover:bg-blue-800"
+            >
+              Evaluate Your Business
+            </Link>
             {isLoggedIn ? (
               <div className="relative">
                 <button
@@ -52,13 +58,13 @@ const Navbar = () => {
             ) : (
               <>
                 <Link
-                  to="/sign-in"
+                  to="/signin"
                   className="rounded-md bg-blue-700 px-6 py-2 text-white transition duration-300 hover:bg-blue-800"
                 >
                   Sign In
                 </Link>
                 <Link
-                  to="/sign-up"
+                  to="/signup"
                   className="rounded-md bg-green-600 px-6 py-2 text-white transition duration-300 hover:bg-green-700"
                 >
                   Sign Up

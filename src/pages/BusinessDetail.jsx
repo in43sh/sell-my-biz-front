@@ -38,7 +38,7 @@ const BusinessDetail = () => {
   if (redirectToSignIn) {
     return (
       <Navigate
-        to="/sign-in"
+        to="/signin"
         state={{ from: window.location.pathname }}
         replace
       />

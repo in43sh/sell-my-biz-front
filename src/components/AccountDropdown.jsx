@@ -58,7 +58,7 @@ const AccountDropdown = ({ onClose, clearUserSession }) => {
       </Link>
       <button
         onClick={handleLogoutClick}
-        className="w-full rounded-b-lg px-4 py-2 text-left text-gray-700 hover:bg-red-100"
+        className="w-full cursor-pointer rounded-b-lg px-4 py-2 text-left text-gray-700 hover:bg-red-100"
       >
         Log Out
       </button>

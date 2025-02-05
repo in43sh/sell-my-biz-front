@@ -31,7 +31,7 @@ const MobileMenu = ({ isLoggedIn, clearUserSession, onClose }) => {
             My Businesses
           </Link>
           <button
-            className="w-full rounded-md px-4 py-2 text-left text-white transition duration-300 hover:bg-red-600"
+            className="w-full cursor-pointer rounded-md px-4 py-2 text-left text-white transition duration-300 hover:bg-red-600"
             onClick={clearUserSession}
           >
             Log Out
@@ -40,13 +40,13 @@ const MobileMenu = ({ isLoggedIn, clearUserSession, onClose }) => {
       ) : (
         <div className="space-y-2">
           <Link
-            to="/sign-in"
+            to="/signin"
             className="block rounded-md bg-blue-700 px-6 py-2 text-white transition duration-300 hover:bg-blue-800"
           >
             Sign In
           </Link>
           <Link
-            to="/sign-up"
+            to="/signup"
             className="block rounded-md bg-green-600 px-6 py-2 text-white transition duration-300 hover:bg-green-700"
           >
             Sign Up

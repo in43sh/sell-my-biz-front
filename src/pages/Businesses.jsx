@@ -15,7 +15,6 @@ const BusinessListPage = () => {
   const [searchParams] = useSearchParams();
   const searchQueryFromParams = searchParams.get('query') || '';
   const categoryParam = searchParams.get('category') || '';
-  const searchQueryParam = searchParams.get('query') || '';
 
   const { isLoggedIn } = useAuth();
   const [businesses, setBusinesses] = useState([]);
@@ -26,23 +25,16 @@ const BusinessListPage = () => {
   const [sortBy, setSortBy] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleSortChange = (e) => {
-    const newSortBy = e.target.value;
-    setSortBy(newSortBy);
-    fetchBusinesses(filters, newSortBy, searchQueryParam, categoryParam);
-  };
-  const handleApplyFilters = () => {
-    fetchBusinesses(filters, sortBy, searchQueryParam, categoryParam);
-  };
-  const handleResetFilters = () => {
-    setFilters(emptyFilters);
-    setSortBy('');
-    fetchBusinesses(emptyFilters, '', searchQueryParam, categoryParam);
-  };
+  useEffect(() => {
+    setFilters((prev) => ({
+      ...prev,
+      category: categoryParam || '',
+    }));
+  }, [categoryParam]);
 
   useEffect(() => {
-    fetchBusinesses(emptyFilters, sortBy, searchQueryFromParams);
-  }, [searchQueryFromParams]);
+    fetchBusinesses(filters, sortBy, searchQueryFromParams);
+  }, [filters, sortBy, searchQueryFromParams]);
 
   const fetchBusinesses = async (filters, sortBy, searchQuery) => {
     setLoading(true);
@@ -54,6 +46,20 @@ const BusinessListPage = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleSortChange = (e) => {
+    const newSortBy = e.target.value;
+    setSortBy(newSortBy);
+  };
+
+  const handleApplyFilters = () => {
+    fetchBusinesses(filters, sortBy, searchQueryFromParams);
+  };
+
+  const handleResetFilters = () => {
+    setFilters(emptyFilters);
+    setSortBy('');
   };
 
   return (

@@ -23,7 +23,7 @@ const SignIn = () => {
               type="email"
               name="email"
               placeholder="Your Email"
-              value={(form.email = 'test12312@test.com')}
+              value={(form.email = 'test@test.com')}
               error={error.email}
               onChange={handleChange}
               label="Email"
@@ -39,7 +39,7 @@ const SignIn = () => {
               label="Password"
             />
             <button
-              className="mt-4 w-full rounded-md bg-blue-600 py-3 font-semibold text-white transition duration-300 hover:bg-blue-700"
+              className="mt-4 w-full cursor-pointer rounded-md bg-blue-600 py-3 font-semibold text-white transition duration-300 hover:bg-blue-700"
               type="submit"
             >
               Sign In

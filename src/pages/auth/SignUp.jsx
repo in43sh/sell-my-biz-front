@@ -58,7 +58,7 @@ const SignUp = () => {
               label="Confirm Password"
             />
             <button
-              className="mt-4 w-full rounded-md bg-blue-600 py-3 font-semibold text-white transition duration-300 hover:bg-blue-700 disabled:bg-gray-400"
+              className="mt-4 w-full cursor-pointer rounded-md bg-blue-600 py-3 font-semibold text-white transition duration-300 hover:bg-blue-700 disabled:bg-gray-400"
               type="submit"
               disabled={isLoading}
             >
