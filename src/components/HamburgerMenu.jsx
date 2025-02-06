@@ -1,7 +1,7 @@
 const HamburgerMenu = ({ toggleMenu }) => {
   return (
     <button
-      className="text-white focus:outline-none md:hidden"
+      className="cursor-pointer text-white focus:outline-none md:hidden"
       onClick={toggleMenu}
     >
       <svg

@@ -79,20 +79,19 @@ export const updateProfile = (headers, userData, token) => {
   );
 };
 
-// export const updatePassword = async ({ newPassword, token }) =>
-//   await handleApiRequest(`/api/v1/password-reset`, null, {
-//     newPassword,
-//     token,
-//   });
-
-export const updatePassword = (headers, passwordData, token) =>
-  handleApiRequest(
+export const updatePassword = (headers, passwordData, token) => {
+  return handleApiRequest(
     '/api/v1/update-password',
     { headers },
     passwordData,
     token,
     'PATCH'
   );
+};
+
+export const deleteAccount = async (headers, token) => {
+  return handleApiRequest('/api/v1/delete', { headers }, null, token, 'DELETE');
+};
 
 // businesses
 export const getBusinesses = async (
@@ -115,6 +114,8 @@ export const getBusinesses = async (
     searchQuery: searchQuery || undefined,
     ...stringFilters,
   };
+
+  console.log('params ===> ', params);
 
   const {
     data: { businesses },

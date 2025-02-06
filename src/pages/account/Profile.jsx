@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import { useAuth } from '../../contexts/AuthProvider';
-import { updateProfile, updatePassword } from '../../api/DBRequests';
+import {
+  updateProfile,
+  updatePassword,
+  deleteAccount,
+} from '../../api/DBRequests';
 
 const Profile = () => {
-  const { token, userData, setUserData } = useAuth();
+  const { token, userData, setUserData, clearUserSession } = useAuth();
   const [firstName, setFirstName] = useState(userData.firstName);
   const [lastName, setLastName] = useState(userData.lastName);
   const [email] = useState(userData.email); // Email should not be editable
@@ -18,7 +22,9 @@ const Profile = () => {
   const [isEditingProfile, setIsEditingProfile] = useState(false);
   const [isEditingPassword, setIsEditingPassword] = useState(false);
 
-  // Save profile changes
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deleteError, setDeleteError] = useState('');
+
   const handleProfileSave = async () => {
     try {
       const headers = {
@@ -77,6 +83,22 @@ const Profile = () => {
     } catch (err) {
       console.error('Error updating password:', err);
       setPasswordError(err.message || 'Failed to update password');
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    try {
+      const headers = {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      };
+
+      await deleteAccount(headers);
+      setSuccessMessage('Your account has been deleted.');
+      clearUserSession();
+    } catch (error) {
+      console.error('Error deleting account:', error);
+      setDeleteError(error.message || 'Failed to delete account.');
     }
   };
 
@@ -244,6 +266,46 @@ const Profile = () => {
               </button>
             )}
           </div>
+        </div>
+
+        {/* Success Message */}
+        {successMessage && (
+          <p className="mt-4 text-sm text-green-600">{successMessage}</p>
+        )}
+
+        {/* Account Deletion Section */}
+        <div className="mt-8 space-y-6 border-t pt-6">
+          <h2 className="text-lg font-semibold text-red-600">Delete Account</h2>
+          <p className="text-sm text-gray-600">
+            Warning: This action is irreversible. Once you delete your account,
+            all your data will be lost.
+          </p>
+
+          {deleteError && <p className="text-sm text-red-500">{deleteError}</p>}
+
+          {showDeleteConfirm ? (
+            <div className="flex justify-between">
+              <button
+                onClick={() => setShowDeleteConfirm(false)}
+                className="w-1/2 cursor-pointer rounded-md bg-gray-300 py-2 font-semibold text-gray-700 transition hover:bg-gray-400"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDeleteAccount}
+                className="ml-2 w-1/2 cursor-pointer rounded-md bg-red-600 py-2 font-semibold text-white transition hover:bg-red-700"
+              >
+                Confirm Delete
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => setShowDeleteConfirm(true)}
+              className="w-full cursor-pointer rounded-md bg-red-600 py-2 font-semibold text-white shadow-sm transition hover:bg-red-700"
+            >
+              Delete My Account
+            </button>
+          )}
         </div>
 
         {/* Success Message */}
