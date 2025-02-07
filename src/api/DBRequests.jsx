@@ -79,6 +79,28 @@ export const updateProfile = (headers, userData, token) => {
   );
 };
 
+export const requestPasswordReset = async (email) => {
+  return handleApiRequest(
+    '/api/v1/forgot-password',
+    {
+      headers: { 'Content-Type': 'application/json' },
+    },
+    { email },
+    null,
+    'POST'
+  );
+};
+
+export const resetPassword = (headers, passwordData, token) => {
+  return handleApiRequest(
+    '/api/v1/reset-password',
+    { headers },
+    passwordData,
+    token,
+    'PATCH'
+  );
+};
+
 export const updatePassword = (headers, passwordData, token) => {
   return handleApiRequest(
     '/api/v1/update-password',

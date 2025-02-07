@@ -23,7 +23,7 @@ const SignIn = () => {
               type="email"
               name="email"
               placeholder="Your Email"
-              value={(form.email = 'test1@test.com')}
+              value={(form.email = 'sherstobitovdev@gmail.com')}
               error={error.email}
               onChange={handleChange}
               label="Email"
@@ -33,7 +33,7 @@ const SignIn = () => {
               type="password"
               name="password"
               placeholder="Your Password"
-              value={(form.password = 'testtest')}
+              value={(form.password = 'testtest1234')}
               error={error.password}
               onChange={handleChange}
               label="Password"
@@ -45,6 +45,16 @@ const SignIn = () => {
               Sign In
             </button>
           </form>
+
+          <p className="mt-2 text-center">
+            <Link
+              to="/forgot-password"
+              className="text-blue-600 hover:underline"
+            >
+              Forgot your password?
+            </Link>
+          </p>
+
           <p className="mt-4 text-center">
             Don't have an account?{' '}
             <Link to="/signup" className="text-blue-600 hover:underline">

@@ -12,6 +12,8 @@ import EditBusiness from '../pages/account/EditBusiness';
 import Businesses from '../pages/Businesses';
 import BusinessDetail from '../pages/BusinessDetail';
 import BusinessEvaluate from '../pages/BusinessEvaluate';
+import ResetPassword from '../pages/auth/ResetPassword';
+import ForgotPassword from '../pages/auth/ForgotPassword';
 
 const Router = () => {
   return (
@@ -37,6 +39,9 @@ const Router = () => {
       <Route path="/business/:id" element={<BusinessDetail />} />
 
       <Route path="/evaluate" element={<BusinessEvaluate />} />
+
+      <Route path="/password/edit" element={<ResetPassword />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
 
       {/* 404 Route */}
       <Route path="*" element={<NotFound />} />

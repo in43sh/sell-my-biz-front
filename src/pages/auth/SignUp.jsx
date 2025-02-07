@@ -34,7 +34,8 @@ const SignUp = () => {
               id="email"
               type="email"
               placeholder="Your Email"
-              value={(form.email = 'test1@test.com')}
+              // value={(form.email = 'test1@test.com')}
+              value={(form.email = 'sherstobitovdev@gmail.com')}
               error={error.email}
               onChange={handleChange}
               label="Email"
