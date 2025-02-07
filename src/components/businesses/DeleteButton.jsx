@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import Modal from './Modal';
-import { deleteBusiness } from '../../api/DBRequests';
+import { deleteBusiness, markBusinessAsSold } from '../../api/DBRequests';
 import { useAuth } from '../../contexts/AuthProvider';
 
 const DeleteButton = ({ id, name, updateList }) => {
@@ -10,13 +10,21 @@ const DeleteButton = ({ id, name, updateList }) => {
 
   const handleButton = () => setIsOpen(true);
 
-  const handleDelete = async () => {
+  const handleAction = async (action) => {
     try {
-      await deleteBusiness(id, token);
+      if (action === 'sell') {
+        await markBusinessAsSold(id, token);
+      } else if (action === 'delete') {
+        await deleteBusiness(id, token);
+      }
+
       setIsOpen(false);
       updateList();
     } catch (error) {
-      console.error('Failed to delete business:', error);
+      console.error(
+        `Failed to ${action === 'sell' ? 'mark as sold' : 'delete'} business:`,
+        error
+      );
     }
   };
 
@@ -28,15 +36,16 @@ const DeleteButton = ({ id, name, updateList }) => {
         onClick={handleButton}
         className="flex cursor-pointer items-center gap-2 rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white transition duration-300 hover:bg-red-700"
       >
-        {/* <i className="fas fa-trash" /> */}
         Delete
       </button>
+
       <Modal
         isOpen={isOpen}
-        onDelete={handleDelete}
+        onSell={() => handleAction('sell')}
+        onDelete={() => handleAction('delete')}
         onClose={handleCancel}
-        title="Delete Business"
-        description={`Are you sure you want to permanently delete "${name}"?`}
+        title="Sell or Delete Business"
+        description={`Do you want to mark "${name}" as sold or permanently delete it?`}
       />
     </>
   );

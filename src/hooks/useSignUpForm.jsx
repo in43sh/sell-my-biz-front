@@ -45,7 +45,7 @@ const useSignUpForm = () => {
       const { data, status } = await register(headers, form);
       if (status === 201) {
         setUserSession({
-          user: data.userData,
+          user: data.user,
           token: data.token,
         });
         navigate('/');

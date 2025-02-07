@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { getBusinesses } from '../../api/DBRequests';
+import { getUserBusinesses } from '../../api/DBRequests';
 import BusinessesList from '../../components/businesses/BusinessesList';
 import Spinner from '../../components/layouts/Spinner';
 import { useAuth } from '../../contexts/AuthProvider';
@@ -8,7 +8,7 @@ const MyBusinesses = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [businessesList, setBusinessesList] = useState([]);
   const [sortBy, setSortBy] = useState('-createdAt');
-  const { userId } = useAuth();
+  const { userId, token } = useAuth();
   const [error, setError] = useState('');
   const [showLoadMore, setShowLoadMore] = useState(true);
 
@@ -18,12 +18,13 @@ const MyBusinesses = () => {
     async (skip = 0) => {
       setIsLoading(true);
       try {
-        const fetchBusinesses = await getBusinesses(
+        const fetchBusinesses = await getUserBusinesses(
           sortBy,
           { userId: userId },
           '',
           BUSINESSES_LIMIT,
-          skip
+          skip,
+          token
         );
 
         setBusinessesList((prevBusinesses) =>

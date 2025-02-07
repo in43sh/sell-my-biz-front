@@ -22,8 +22,8 @@ export const AuthProvider = ({ children }) => {
   const userId = token ? jwtDecode(token).userId : '';
 
   const setUserSession = ({ user, token }) => {
-    sessionStorage.setItem('user', JSON.stringify(user));
     sessionStorage.setItem('token', JSON.stringify(token));
+    sessionStorage.setItem('user', JSON.stringify(user));
     setIsLoggedIn(true);
     setUserData(user);
     setToken(token);

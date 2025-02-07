@@ -10,7 +10,7 @@ const Profile = () => {
   const { token, userData, setUserData, clearUserSession } = useAuth();
   const [firstName, setFirstName] = useState(userData.firstName);
   const [lastName, setLastName] = useState(userData.lastName);
-  const [email] = useState(userData.email); // Email should not be editable
+  const [email] = useState(userData.email);
 
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -29,7 +29,7 @@ const Profile = () => {
     try {
       const headers = {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`, // If your API requires authorization
+        Authorization: `Bearer ${token}`,
       };
 
       const profileData = {

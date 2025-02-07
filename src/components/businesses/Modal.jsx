@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const Modal = ({ isOpen, onDelete, onClose, title, description }) => {
+const Modal = ({ isOpen, onSell, onDelete, onClose, title, description }) => {
   if (!isOpen) return null;
 
   return (
@@ -28,10 +28,16 @@ const Modal = ({ isOpen, onDelete, onClose, title, description }) => {
             Cancel
           </button>
           <button
+            className="cursor-pointer rounded-md bg-yellow-500 px-4 py-2 font-medium text-white hover:bg-yellow-600"
+            onClick={onSell}
+          >
+            Mark as Sold
+          </button>
+          <button
             className="cursor-pointer rounded-md bg-red-600 px-4 py-2 font-medium text-white hover:bg-red-700"
             onClick={onDelete}
           >
-            Delete
+            Delete Permanently
           </button>
         </div>
       </div>
@@ -41,6 +47,7 @@ const Modal = ({ isOpen, onDelete, onClose, title, description }) => {
 
 Modal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
+  onSell: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,

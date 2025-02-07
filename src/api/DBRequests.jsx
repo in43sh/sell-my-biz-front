@@ -130,6 +130,43 @@ export const getBusinesses = async (
   return businesses;
 };
 
+export const getUserBusinesses = async (
+  sortBy = '',
+  filters = {},
+  searchQuery = '',
+  limit = BUSINESSES_LIMIT,
+  skip = 0,
+  token
+) => {
+  const stringFilters = Object.fromEntries(
+    Object.entries(filters).map(([key, values]) =>
+      Array.isArray(values) ? [key, values.join(',')] : [key, values]
+    )
+  );
+
+  const params = {
+    limit: limit,
+    skip: skip,
+    sortBy: sortBy || undefined,
+    searchQuery: searchQuery || undefined,
+    ...stringFilters,
+  };
+
+  console.log('params ===> ', params);
+
+  const {
+    data: { businesses },
+  } = await handleApiRequest(
+    '/api/v1/businesses/my-businesses',
+    { params },
+    null,
+    token,
+    'GET'
+  );
+
+  return businesses;
+};
+
 export const getBusiness = async (headers, id) => {
   const {
     data: { business },
@@ -158,6 +195,16 @@ export const updateBusiness = (headers, businessData, token) => {
     `/api/v1/businesses/${businessData._id}`,
     { headers: headers },
     businessData,
+    token,
+    'PATCH'
+  );
+};
+
+export const markBusinessAsSold = async (id, token) => {
+  await handleApiRequest(
+    `/api/v1/businesses/${id}/sell`,
+    { headers: {} },
+    null,
     token,
     'PATCH'
   );
