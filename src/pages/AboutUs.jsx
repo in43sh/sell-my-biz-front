@@ -1,87 +1,50 @@
-const AboutUs = () => {
+export default function AboutUs() {
   return (
-    <div>
-      <header className="bg-gray-900 py-6 text-center text-yellow-400">
-        <h1 className="text-3xl font-bold">About Us</h1>
-        <p className="text-lg">
-          Your trusted platform to buy and sell businesses
+    <div className="mx-auto max-w-4xl bg-blue-50 p-6 text-blue-900">
+      <div className="rounded-lg border border-blue-300 bg-blue-100 p-6 shadow-md">
+        <h1 className="mb-4 text-3xl font-bold text-blue-700">About Us</h1>
+        <p className="mb-4">
+          Welcome to Sell My Biz! We are a dedicated team of professionals
+          committed to helping business owners sell their companies quickly and
+          efficiently. Our platform connects sellers with the right buyers,
+          ensuring a smooth and profitable transaction.
         </p>
-      </header>
 
-      <div className="mx-auto my-10 max-w-5xl px-6">
-        <section className="mb-10">
-          <h2 className="mb-3 text-2xl font-semibold">Our Mission</h2>
-          <p className="text-gray-600">
-            At SellMyBiz, our mission is to connect entrepreneurs, business
-            owners, and buyers in a seamless and trustworthy environment. We
-            strive to make the process of buying and selling businesses
-            straightforward and secure, while fostering a community of
-            like-minded individuals.
-          </p>
-        </section>
+        <h2 className="mt-6 mb-2 text-2xl font-semibold text-blue-700">
+          Our Mission
+        </h2>
+        <p>
+          Our mission is to simplify the business selling process by providing
+          an intuitive, transparent, and secure platform for entrepreneurs.
+        </p>
 
-        <section className="mb-10">
-          <h2 className="mb-3 text-2xl font-semibold">What We Do</h2>
-          <p className="text-gray-600">
-            SellMyBiz provides a platform that allows business owners to list
-            their businesses for sale and connect with interested buyers. Our
-            user-friendly interface, advanced filtering tools, and secure
-            messaging system make the process simple for both sellers and
-            buyers.
-          </p>
-        </section>
+        <h2 className="mt-6 mb-2 text-2xl font-semibold text-blue-700">
+          Why Choose Us?
+        </h2>
+        <ul className="list-disc pl-6 text-blue-800">
+          <li>Expert guidance from experienced professionals.</li>
+          <li>Secure and confidential transactions.</li>
+          <li>Access to a wide network of buyers.</li>
+          <li>Streamlined process to save you time and effort.</li>
+        </ul>
 
-        <section className="mb-10">
-          <h2 className="mb-6 text-center text-2xl font-semibold">Our Team</h2>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {teamMembers.map((member) => (
-              <div
-                key={member.name}
-                className="rounded-lg bg-white p-6 text-center shadow-md"
-              >
-                <img
-                  src={member.image}
-                  alt={member.name}
-                  className="mx-auto mb-4 rounded-full"
-                  style={{ width: '100px', height: '100px' }}
-                />
-                <h5 className="text-lg font-semibold">{member.name}</h5>
-                <p className="text-gray-500">{member.role}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+        <h2 className="mt-6 mb-2 text-2xl font-semibold text-blue-700">
+          Our Team
+        </h2>
+        <p>
+          Our team consists of self-starters and busisnessowners with vast
+          expirience .
+        </p>
 
-        <section className="mb-10">
-          <h2 className="mb-3 text-2xl font-semibold">Why Choose Us</h2>
-          <p className="text-gray-600">
-            SellMyBiz stands out with our dedication to simplicity,
-            transparency, and efficiency. Whether you're a seller looking to
-            find the right buyer or a buyer searching for your next investment,
-            we're here to make it happen.
-          </p>
-        </section>
+        <h2 className="mt-6 mb-2 text-2xl font-semibold text-blue-700">
+          Contact Us
+        </h2>
+        <p>
+          Have questions or need assistance? Reach out to us at
+          <strong className="text-blue-800"> support@sellmybiz.com</strong>, and
+          we’ll be happy to help!
+        </p>
       </div>
-
-      <footer className="bg-gray-900 py-4 text-center text-white">
-        <p className="mb-0">&copy; 2025 SellMyBiz. All rights reserved.</p>
-      </footer>
     </div>
   );
-};
-
-const teamMembers = [
-  {
-    name: 'John Doe',
-    role: 'Founder & CEO',
-    image: 'https://via.placeholder.com/100',
-  },
-  { name: 'Jane Smith', role: 'CTO', image: 'https://via.placeholder.com/100' },
-  {
-    name: 'Emily Johnson',
-    role: 'Marketing Director',
-    image: 'https://via.placeholder.com/100',
-  },
-];
-
-export default AboutUs;
+}

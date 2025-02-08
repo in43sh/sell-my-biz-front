@@ -13,17 +13,17 @@ const Footer = () => {
             Connect with potential buyers and sellers in a seamless platform.
           </p>
           <p className="mt-2">
-            <i className="fas fa-map-marker-alt mr-2 text-blue-400"></i>
-            123 Business St, Startup City
+            {/* <i className="fas fa-map-marker-alt mr-2 text-blue-400"></i> */}
+            Seattle, WA
           </p>
-          <p>
+          {/* <p>
             <i className="fas fa-envelope mr-2 text-blue-400"></i>
             support@sellmybiz.com
-          </p>
-          <p>
+          </p> */}
+          {/* <p>
             <i className="fas fa-phone-alt mr-2 text-blue-400"></i>
             +1 800 123 4567
-          </p>
+          </p> */}
         </div>
 
         <div>
@@ -50,9 +50,9 @@ const Footer = () => {
               </a>
             </li>
             <li>
-              <a className="text-gray-400 hover:text-white" href="/contact">
+              {/* <a className="text-gray-400 hover:text-white" href="/contact">
                 Contact Us
-              </a>
+              </a> */}
             </li>
           </ul>
         </div>

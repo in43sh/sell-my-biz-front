@@ -14,6 +14,9 @@ import BusinessDetail from '../pages/BusinessDetail';
 import BusinessEvaluate from '../pages/BusinessEvaluate';
 import ResetPassword from '../pages/auth/ResetPassword';
 import ForgotPassword from '../pages/auth/ForgotPassword';
+import PrivacyPolicy from '../pages/PrivacyPolicy2';
+import AboutUs from '../pages/AboutUs';
+import Help from '../pages/Help';
 
 const Router = () => {
   return (
@@ -42,6 +45,10 @@ const Router = () => {
 
       <Route path="/password/edit" element={<ResetPassword />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
+
+      <Route path="/privacy" element={<PrivacyPolicy />} />
+      <Route path="/about-us" element={<AboutUs />} />
+      <Route path="/help" element={<Help />} />
 
       {/* 404 Route */}
       <Route path="*" element={<NotFound />} />

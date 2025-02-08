@@ -34,7 +34,7 @@ const BusinessListPage = () => {
 
   useEffect(() => {
     fetchBusinesses(filters, sortBy, searchQueryFromParams);
-  }, [filters, sortBy, searchQueryFromParams]);
+  }, [sortBy, searchQueryFromParams]);
 
   const fetchBusinesses = async (filters, sortBy, searchQuery) => {
     setLoading(true);
@@ -64,6 +64,11 @@ const BusinessListPage = () => {
 
   return (
     <div className="mt-6 w-full px-4">
+      {/* Search Bar on Mobile (sm and smaller) */}
+      <div className="mb-4 block sm:hidden">
+        <Search />
+      </div>
+
       {/* Main Container: Two-column layout on medium screens */}
       <div className="flex flex-col gap-6 md:flex-row">
         {/* Left Sidebar: Filters */}
@@ -200,9 +205,8 @@ const BusinessListPage = () => {
 
         {/* Right Content: Search, Sort, and Business List */}
         <div className="w-full md:w-3/4">
-          {/* Top Bar: Search & Sort */}
-          <div className="mb-4 flex flex-col items-center justify-between gap-4 sm:flex-row">
-            {/* Updated to make search bigger on sm+ screens */}
+          {/* Top Bar: Search & Sort (Desktop Only) */}
+          <div className="mb-4 hidden flex-col items-center justify-between gap-4 sm:flex sm:flex-row">
             <div className="w-full sm:w-2/3">
               <Search />
             </div>
