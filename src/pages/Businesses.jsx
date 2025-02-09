@@ -81,26 +81,53 @@ const BusinessListPage = () => {
       <div className="flex flex-col gap-6 md:flex-row">
         <div className="w-full rounded-lg bg-white p-4 shadow md:w-1/4">
           <h5 className="mb-4 text-lg font-semibold text-gray-800">Filters</h5>
-          <InputField
-            id="category"
-            label="Category"
-            type="select"
-            options={categories}
-            value={filters.category}
-            onChange={(e) =>
-              setFilters((prev) => ({ ...prev, category: e.target.value }))
-            }
-          />
-          <InputField
-            id="state"
-            label="State"
-            type="select"
-            options={usStates}
-            value={filters.state}
-            onChange={(e) =>
-              setFilters((prev) => ({ ...prev, state: e.target.value }))
-            }
-          />
+          <div className="mb-3">
+            <label
+              htmlFor="category"
+              className="mb-1 block text-sm font-medium text-gray-700"
+            >
+              Category
+            </label>
+            <select
+              id="category"
+              name="category"
+              className="w-full rounded border border-gray-300 p-2 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-none"
+              value={filters.category}
+              onChange={(e) =>
+                setFilters((prev) => ({ ...prev, category: e.target.value }))
+              }
+            >
+              <option value="">All Categories</option>
+              {categories.map((category, index) => (
+                <option key={index} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="mb-3">
+            <label
+              htmlFor="state"
+              className="mb-1 block text-sm font-medium text-gray-700"
+            >
+              State
+            </label>
+            <select
+              id="state"
+              name="state"
+              className="w-full rounded border border-gray-300 p-2 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-none"
+              value={filters.state}
+              onChange={(e) =>
+                setFilters((prev) => ({ ...prev, state: e.target.value }))
+              }
+            >
+              {usStates.map((state) => (
+                <option key={state.value} value={state.value}>
+                  {state.label}
+                </option>
+              ))}
+            </select>
+          </div>
           <InputField
             id="city"
             label="City"
@@ -151,13 +178,13 @@ const BusinessListPage = () => {
             />
           </div>
           <button
-            className="mt-3 w-full bg-blue-600 p-2 text-sm font-medium text-white hover:bg-blue-700"
+            className="mt-3 w-full cursor-pointer bg-blue-600 p-2 text-sm font-medium text-white hover:bg-blue-700"
             onClick={handleApplyFilters}
           >
             Apply Filters
           </button>
           <button
-            className="mt-2 w-full bg-gray-400 p-2 text-sm font-medium text-white hover:bg-gray-500"
+            className="mt-2 w-full cursor-pointer bg-gray-400 p-2 text-sm font-medium text-white hover:bg-gray-500"
             onClick={handleResetFilters}
           >
             Reset Filters

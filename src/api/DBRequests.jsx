@@ -137,8 +137,6 @@ export const getBusinesses = async (
     ...stringFilters,
   };
 
-  console.log('params ===> ', params);
-
   const {
     data: { businesses },
   } = await handleApiRequest(
@@ -173,8 +171,6 @@ export const getUserBusinesses = async (
     searchQuery: searchQuery || undefined,
     ...stringFilters,
   };
-
-  console.log('params ===> ', params);
 
   const {
     data: { businesses },

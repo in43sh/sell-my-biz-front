@@ -15,7 +15,6 @@ const ResetPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('token ===> ', token);
 
     if (!token) {
       setError('Invalid or expired reset link.');
@@ -35,7 +34,6 @@ const ResetPassword = () => {
 
       setLoading(true);
       setError('');
-      console.log('password ===> ', password);
       const passwordData = {
         newPassword: password,
       };
