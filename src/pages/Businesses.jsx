@@ -60,6 +60,7 @@ const BusinessListPage = () => {
   const handleResetFilters = () => {
     setFilters(emptyFilters);
     setSortBy('');
+    fetchBusinesses(emptyFilters, '', '');
   };
 
   return (
@@ -137,7 +138,7 @@ const BusinessListPage = () => {
             />
           </div>
 
-          <div className="mb-3">
+          <div className="mb-3 grid grid-cols-2 gap-2">
             <InputField
               id="minPrice"
               name="minPrice"
@@ -148,9 +149,6 @@ const BusinessListPage = () => {
                 setFilters((prev) => ({ ...prev, minPrice: e.target.value }))
               }
             />
-          </div>
-
-          <div className="mb-3">
             <InputField
               id="maxPrice"
               name="maxPrice"
@@ -163,7 +161,7 @@ const BusinessListPage = () => {
             />
           </div>
 
-          <div className="mb-3">
+          <div className="mb-3 grid grid-cols-2 gap-2">
             <InputField
               id="minRevenue"
               name="minRevenue"
@@ -174,9 +172,6 @@ const BusinessListPage = () => {
                 setFilters((prev) => ({ ...prev, minRevenue: e.target.value }))
               }
             />
-          </div>
-
-          <div className="mb-3">
             <InputField
               id="maxRevenue"
               name="maxRevenue"
