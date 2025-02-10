@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthProvider';
-import InputField from '../components/Form/InputField';
 
 const BusinessEvaluate = () => {
   const { isLoggedIn } = useAuth();
@@ -92,62 +91,77 @@ const BusinessEvaluate = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-white p-6">
-      <div className="w-full max-w-lg rounded-xl border border-gray-200 bg-white p-8 shadow-lg">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-700 to-blue-900 p-6">
+      <div className="w-full max-w-lg rounded-2xl bg-white p-8 shadow-xl">
         <h2 className="mb-6 text-center text-3xl font-semibold text-gray-900">
           Business Valuation Calculator
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <InputField
-            id="profit"
-            name="profit"
-            type="number"
-            label="Profit (Yearly)"
-            placeholder="Enter Profit (e.g., 150000)"
-            value={formData.profit}
-            onChange={handleChange}
-            tooltip="Annual net profit of your business before tax."
-          />
-          <InputField
-            id="inventory"
-            name="inventory"
-            type="number"
-            label="Inventory Value"
-            placeholder="Enter Inventory Value (e.g., 20000)"
-            value={formData.inventory}
-            onChange={handleChange}
-            tooltip="Total value of your business's inventory."
-          />
-          <InputField
-            id="grossRevenue"
-            name="grossRevenue"
-            type="number"
-            label="Gross Revenue"
-            placeholder="Enter Gross Revenue (e.g., 500000)"
-            value={formData.grossRevenue}
-            onChange={handleChange}
-            tooltip="Total yearly revenue before expenses."
-          />
-          <InputField
-            id="businessAge"
-            name="businessAge"
-            type="number"
-            label="Business Age (Years)"
-            placeholder="Enter Business Age (e.g., 10)"
-            value={formData.businessAge}
-            onChange={handleChange}
-            tooltip="How many years your business has been operating."
-          />
-          <InputField
-            id="repeatCustomers"
-            name="repeatCustomers"
-            type="number"
-            label="Repeat Customers (%)"
-            placeholder="Enter Repeat Customer Rate (e.g., 80)"
-            value={formData.repeatCustomers}
-            onChange={handleChange}
-            tooltip="Percentage of your customers that are returning customers."
-          />
+          <div>
+            <label className="mb-2 block text-sm font-medium">
+              Profit (Yearly)
+            </label>
+            <input
+              type="number"
+              className="w-full rounded-lg border p-3"
+              name="profit"
+              value={formData.profit}
+              onChange={handleChange}
+              placeholder="Enter Profit (e.g., 150000)"
+            />
+          </div>
+          <div>
+            <label className="mb-2 block text-sm font-medium">
+              Inventory Value
+            </label>
+            <input
+              type="number"
+              className="w-full rounded-lg border p-3"
+              name="inventory"
+              value={formData.inventory}
+              onChange={handleChange}
+              placeholder="Enter Inventory Value (e.g., 20000)"
+            />
+          </div>
+          <div>
+            <label className="mb-2 block text-sm font-medium">
+              Gross Revenue
+            </label>
+            <input
+              type="number"
+              className="w-full rounded-lg border p-3"
+              name="grossRevenue"
+              value={formData.grossRevenue}
+              onChange={handleChange}
+              placeholder="Enter Gross Revenue (e.g., 500000)"
+            />
+          </div>
+          <div>
+            <label className="mb-2 block text-sm font-medium">
+              Business Age (Years)
+            </label>
+            <input
+              type="number"
+              className="w-full rounded-lg border p-3"
+              name="businessAge"
+              value={formData.businessAge}
+              onChange={handleChange}
+              placeholder="Enter Business Age (e.g., 10)"
+            />
+          </div>
+          <div>
+            <label className="mb-2 block text-sm font-medium">
+              Repeat Customers (%)
+            </label>
+            <input
+              type="number"
+              className="w-full rounded-lg border p-3"
+              name="repeatCustomers"
+              value={formData.repeatCustomers}
+              onChange={handleChange}
+              placeholder="Enter Repeat Customer Rate (e.g., 80)"
+            />
+          </div>
           <div>
             <label className="mb-2 block text-sm font-medium">Industry</label>
             <select
