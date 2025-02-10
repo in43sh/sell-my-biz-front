@@ -4,7 +4,7 @@ const CancelButton = ({ onClick }) => {
   return (
     <button
       onClick={onClick}
-      className="w-1/2 rounded-md bg-gray-300 py-2 font-semibold text-gray-700 transition hover:bg-gray-400"
+      className="w-1/2 cursor-pointer rounded-md bg-gray-300 py-2 font-semibold text-gray-700 transition hover:bg-gray-400"
     >
       Cancel
     </button>

@@ -62,6 +62,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             error={error.name}
             onChange={handleChange}
             tooltip="Use a clear, searchable name like 'Reliable HVAC Service'."
+            required
           />
           {/* If you want 'description' as a textarea, replace `InputField` with a custom component or <textarea> */}
           <InputField
@@ -72,6 +73,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.description}
             error={error.description}
             onChange={handleChange}
+            required
           />
           <div>
             <label
@@ -88,6 +90,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
               }`}
               value={form.category}
               onChange={handleChange}
+              required
             >
               <option value="">Select a category</option>
               {categories.map((category) => (
@@ -117,6 +120,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.price}
             error={error.price}
             onChange={handleChange}
+            required
           />
           <InputField
             id="grossRevenue"
@@ -127,6 +131,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.grossRevenue}
             error={error.grossRevenue}
             onChange={handleChange}
+            required
           />
           <InputField
             id="profit"
@@ -137,6 +142,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.profit}
             error={error.profit}
             onChange={handleChange}
+            required
           />
           <InputField
             id="cashFlow"
@@ -147,6 +153,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.cashFlow}
             error={error.cashFlow}
             onChange={handleChange}
+            required
           />
           <InputField
             id="inventoryValue"
@@ -157,6 +164,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.inventoryValue}
             error={error.inventoryValue}
             onChange={handleChange}
+            required
           />
         </div>
       </section>
@@ -173,6 +181,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.address}
             error={error.address}
             onChange={handleChange}
+            required
           />
           <InputField
             id="city"
@@ -182,6 +191,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.city}
             error={error.city}
             onChange={handleChange}
+            required
           />
           <InputField
             id="state"
@@ -191,6 +201,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.state}
             error={error.state}
             onChange={handleChange}
+            required
           />
           <InputField
             id="zipCode"
@@ -200,6 +211,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.zipCode}
             error={error.zipCode}
             onChange={handleChange}
+            required
           />
         </div>
       </section>
@@ -216,6 +228,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.ownerName}
             error={error.ownerName}
             onChange={handleChange}
+            required
           />
           <InputField
             id="contactEmail"
@@ -225,6 +238,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.contactEmail}
             error={error.contactEmail}
             onChange={handleChange}
+            required
           />
           <InputField
             id="phoneNumber"
@@ -234,6 +248,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.phoneNumber}
             error={error.phoneNumber}
             onChange={handleChange}
+            required
           />
           <InputField
             id="preferredContactMethod"
@@ -243,6 +258,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.preferredContactMethod}
             error={error.preferredContactMethod}
             onChange={handleChange}
+            required
           />
         </div>
       </section>
@@ -261,6 +277,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.yearsEstablished}
             error={error.yearsEstablished}
             onChange={handleChange}
+            required
           />
           <InputField
             id="employees"
@@ -271,6 +288,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.employees}
             error={error.employees}
             onChange={handleChange}
+            required
           />
           <InputField
             id="reasonForSelling"
@@ -280,10 +298,11 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.reasonForSelling}
             error={error.reasonForSelling}
             onChange={handleChange}
+            required
           />
           <div className="flex items-center">
             <input
-              className="mr-2 h-5 w-5 rounded border-gray-300 focus:ring-2 focus:ring-blue-600"
+              className="mr-2 h-5 w-5 cursor-pointer rounded border-gray-300 focus:ring-2 focus:ring-blue-600"
               type="checkbox"
               id="isListedByOwner"
               name="isListedByOwner"
@@ -293,6 +312,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
                   target: { name: 'isListedByOwner', value: e.target.checked },
                 })
               }
+              // required
             />
             <label
               htmlFor="isListedByOwner"
@@ -312,6 +332,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
           setImageSrc={setImageSrc}
           handleFileUpload={handleFileUpload}
           setFile={setFile}
+          required
         />
       </section>
 

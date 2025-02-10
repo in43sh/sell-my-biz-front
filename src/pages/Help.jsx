@@ -59,7 +59,7 @@ export default function HelpPage() {
           </div>
           <button
             type="submit"
-            className="rounded-lg bg-blue-700 px-4 py-2 text-white"
+            className="cursor-pointer rounded-lg bg-blue-700 px-4 py-2 text-white"
           >
             Send
           </button>

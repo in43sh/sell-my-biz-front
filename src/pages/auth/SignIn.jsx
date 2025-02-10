@@ -32,6 +32,7 @@ const SignIn = () => {
             error={error.email}
             onChange={handleChange}
             label="Email"
+            required
           />
           <InputField
             id="password"
@@ -42,10 +43,17 @@ const SignIn = () => {
             error={error.password}
             onChange={handleChange}
             label="Password"
+            required
           />
 
+          {error.form && (
+            <p className="mt-2 text-center text-sm text-red-500">
+              {error.form}
+            </p>
+          )}
+
           <button
-            className="w-full rounded-lg bg-blue-600 py-3 font-semibold text-white transition duration-300 hover:bg-blue-700"
+            className="w-full cursor-pointer rounded-lg bg-blue-600 py-3 font-semibold text-white transition duration-300 hover:bg-blue-700"
             type="submit"
           >
             Sign In

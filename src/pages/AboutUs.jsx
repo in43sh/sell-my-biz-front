@@ -41,8 +41,15 @@ export default function AboutUs() {
         </h2>
         <p>
           Have questions or need assistance? Reach out to us at
-          <strong className="text-blue-800"> support@sellmybiz.com</strong>, and
-          we’ll be happy to help!
+          <strong>
+            <a
+              href="mailto:support@sellmybiz.com"
+              className="text-blue-800 underline"
+            >
+              support@sellmybiz.com
+            </a>
+          </strong>
+          , and we’ll be happy to help!
         </p>
       </div>
     </div>

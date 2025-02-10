@@ -45,7 +45,7 @@ const SignIn = () => {
           />
 
           <button
-            className="w-full rounded-lg bg-blue-600 py-3 font-semibold text-white transition duration-300 hover:bg-blue-700"
+            className="w-full cursor-pointer rounded-lg bg-blue-600 py-3 font-semibold text-white transition duration-300 hover:bg-blue-700"
             type="submit"
           >
             Sign In

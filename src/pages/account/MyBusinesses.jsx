@@ -69,7 +69,7 @@ const MyBusinesses = () => {
         <div className="mt-4 flex justify-center">
           <button
             onClick={() => fetchBusinesses(businessesList.length)}
-            className="rounded-md bg-blue-600 px-4 py-2 font-medium text-white transition duration-300 hover:bg-blue-700"
+            className="cursor-pointer rounded-md bg-blue-600 px-4 py-2 font-medium text-white transition duration-300 hover:bg-blue-700"
           >
             Load More
           </button>

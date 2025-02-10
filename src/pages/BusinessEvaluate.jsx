@@ -107,6 +107,7 @@ const BusinessEvaluate = () => {
             value={formData.profit}
             onChange={handleChange}
             tooltip="Annual net profit of your business before tax."
+            required
           />
           <InputField
             id="inventory"
@@ -117,6 +118,7 @@ const BusinessEvaluate = () => {
             value={formData.inventory}
             onChange={handleChange}
             tooltip="Total value of your business's inventory."
+            required
           />
           <InputField
             id="grossRevenue"
@@ -127,6 +129,7 @@ const BusinessEvaluate = () => {
             value={formData.grossRevenue}
             onChange={handleChange}
             tooltip="Total yearly revenue before expenses."
+            required
           />
           <InputField
             id="businessAge"
@@ -137,6 +140,7 @@ const BusinessEvaluate = () => {
             value={formData.businessAge}
             onChange={handleChange}
             tooltip="How many years your business has been operating."
+            required
           />
           <InputField
             id="repeatCustomers"
@@ -147,6 +151,7 @@ const BusinessEvaluate = () => {
             value={formData.repeatCustomers}
             onChange={handleChange}
             tooltip="Percentage of your customers that are returning customers."
+            required
           />
           <div>
             <label className="mb-2 block text-sm font-medium">Industry</label>
@@ -155,6 +160,7 @@ const BusinessEvaluate = () => {
               name="industry"
               value={formData.industry}
               onChange={handleChange}
+              // required
             >
               <option value="">Select an Industry</option>
               {Object.keys(INDUSTRY_MULTIPLIERS).map((industry) => (
@@ -166,7 +172,7 @@ const BusinessEvaluate = () => {
           </div>
           <button
             type="submit"
-            className="w-full rounded-lg bg-blue-600 py-3 font-semibold text-white transition duration-300 hover:bg-blue-700"
+            className="w-full cursor-pointer rounded-lg bg-blue-600 py-3 font-semibold text-white transition duration-300 hover:bg-blue-700"
           >
             Calculate Valuation
           </button>
@@ -208,7 +214,7 @@ const BusinessEvaluate = () => {
               </li>
             </ul>
             <button
-              className="mt-4 w-full rounded-lg bg-green-600 py-3 font-semibold text-white transition duration-300 hover:bg-green-700"
+              className="mt-4 w-full cursor-pointer rounded-lg bg-green-600 py-3 font-semibold text-white transition duration-300 hover:bg-green-700"
               onClick={handleCreateListing}
             >
               Create Listing

@@ -165,13 +165,13 @@ const Profile = () => {
               <>
                 <button
                   onClick={() => setIsEditingProfile(false)}
-                  className="w-1/2 rounded-md bg-gray-300 py-2 font-semibold text-gray-700 transition hover:bg-gray-400"
+                  className="w-1/2 cursor-pointer rounded-md bg-gray-300 py-2 font-semibold text-gray-700 transition hover:bg-gray-400"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleProfileSave}
-                  className="ml-2 w-1/2 rounded-md bg-blue-600 py-2 font-semibold text-white transition hover:bg-blue-700"
+                  className="ml-2 w-1/2 cursor-pointer rounded-md bg-blue-600 py-2 font-semibold text-white transition hover:bg-blue-700"
                 >
                   Save
                 </button>
@@ -246,13 +246,13 @@ const Profile = () => {
               <>
                 <button
                   onClick={() => setIsEditingPassword(false)}
-                  className="w-1/2 rounded-md bg-gray-300 py-2 font-semibold text-gray-700 transition hover:bg-gray-400"
+                  className="w-1/2 cursor-pointer rounded-md bg-gray-300 py-2 font-semibold text-gray-700 transition hover:bg-gray-400"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handlePasswordSave}
-                  className="ml-2 w-1/2 rounded-md bg-blue-600 py-2 font-semibold text-white transition hover:bg-blue-700"
+                  className="ml-2 w-1/2 cursor-pointer rounded-md bg-blue-600 py-2 font-semibold text-white transition hover:bg-blue-700"
                 >
                   Save
                 </button>

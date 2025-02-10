@@ -11,6 +11,7 @@ const InputField = ({
   onChange,
   label,
   tooltip,
+  required = false,
 }) => {
   return (
     <div className="relative mb-4">
@@ -20,6 +21,7 @@ const InputField = ({
           className="mb-1 block text-sm font-medium text-gray-700"
         >
           {label}
+          {required && <span className="text-red-500"> *</span>}
           {tooltip && (
             <span className="group relative ml-2 inline-block">
               {/* Info icon */}
@@ -44,6 +46,7 @@ const InputField = ({
         placeholder={placeholder}
         value={value || ''}
         onChange={onChange}
+        required={required}
       />
       {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
     </div>
@@ -60,6 +63,7 @@ InputField.propTypes = {
   onChange: PropTypes.func.isRequired,
   label: PropTypes.string,
   tooltip: PropTypes.string,
+  required: PropTypes.bool,
 };
 
 export default InputField;

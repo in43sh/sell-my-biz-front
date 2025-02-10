@@ -180,7 +180,7 @@ const BusinessEvaluate = () => {
           </div>
           <button
             type="submit"
-            className="w-full rounded-lg bg-blue-600 py-3 font-semibold text-white transition duration-300 hover:bg-blue-700"
+            className="w-full cursor-pointer rounded-lg bg-blue-600 py-3 font-semibold text-white transition duration-300 hover:bg-blue-700"
           >
             Calculate Valuation
           </button>
@@ -222,7 +222,7 @@ const BusinessEvaluate = () => {
               </li>
             </ul>
             <button
-              className="mt-4 w-full rounded-lg bg-green-600 py-3 font-semibold text-white transition duration-300 hover:bg-green-700"
+              className="mt-4 w-full cursor-pointer rounded-lg bg-green-600 py-3 font-semibold text-white transition duration-300 hover:bg-green-700"
               onClick={handleCreateListing}
             >
               Create Listing

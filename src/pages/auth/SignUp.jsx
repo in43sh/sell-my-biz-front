@@ -16,6 +16,7 @@ const SignUp = () => {
         <form onSubmit={handleSubmit} className="space-y-4">
           <InputField
             id="firstName"
+            name="firstName"
             type="text"
             placeholder="First Name"
             value={form.firstName}
@@ -25,6 +26,7 @@ const SignUp = () => {
           />
           <InputField
             id="lastName"
+            name="lastName"
             type="text"
             placeholder="Last Name"
             value={form.lastName}
@@ -34,6 +36,7 @@ const SignUp = () => {
           />
           <InputField
             id="email"
+            name="email"
             type="email"
             placeholder="Email Address"
             value={form.email}
@@ -43,6 +46,7 @@ const SignUp = () => {
           />
           <InputField
             id="password"
+            name="password"
             type="password"
             placeholder="Password"
             value={form.password}
@@ -52,6 +56,7 @@ const SignUp = () => {
           />
           <InputField
             id="confirmPassword"
+            name="confirmPassword"
             type="password"
             placeholder="Confirm Password"
             value={form.confirmPassword}
@@ -60,8 +65,14 @@ const SignUp = () => {
             label="Confirm Password"
           />
 
+          {error.form && (
+            <p className="mt-2 text-center text-sm text-red-500">
+              {error.form}
+            </p>
+          )}
+
           <button
-            className="w-full rounded-lg bg-blue-600 py-3 font-semibold text-white transition duration-300 hover:bg-blue-700 disabled:bg-gray-400"
+            className="w-full cursor-pointer rounded-lg bg-blue-600 py-3 font-semibold text-white transition duration-300 hover:bg-blue-700 disabled:bg-gray-400"
             type="submit"
             disabled={isLoading}
           >

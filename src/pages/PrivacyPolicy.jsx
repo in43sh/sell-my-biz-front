@@ -68,7 +68,16 @@ export default function PrivacyPolicy() {
         </h2>
         <p>
           If you have any questions about this Privacy Policy, please contact us
-          at <strong className="text-blue-800">support@sellmybiz.com</strong>.
+          at{' '}
+          <strong>
+            <a
+              href="mailto:support@sellmybiz.com"
+              className="text-blue-800 underline"
+            >
+              support@sellmybiz.com
+            </a>
+          </strong>
+          .
         </p>
       </div>
     </div>

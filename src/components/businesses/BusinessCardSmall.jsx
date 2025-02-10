@@ -37,7 +37,7 @@ const BusinessCardSmall = ({
       <div className="flex items-center justify-between bg-gray-100 p-3">
         {canContact && (
           <button
-            className="text-blue-600 transition hover:text-blue-800"
+            className="cursor-pointer text-blue-600 transition hover:text-blue-800"
             onClick={() => setShowModal(true)}
           >
             {/* <i className="fas fa-envelope mr-1"></i> */}

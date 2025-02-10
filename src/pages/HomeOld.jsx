@@ -10,7 +10,7 @@ const Home = () => {
           <Link className="text-xl font-semibold text-white" to="/">
             BizBuySell
           </Link>
-          <button className="text-white focus:outline-none md:hidden">
+          <button className="cursor-pointer text-white focus:outline-none md:hidden">
             ☰
           </button>
           <ul className="hidden space-x-6 md:flex">
@@ -59,7 +59,7 @@ const Home = () => {
               className="flex-1 rounded-l-md border-none p-3 text-black"
               placeholder="Search businesses..."
             />
-            <button className="rounded-r-md bg-white px-4 py-3 text-blue-600 hover:bg-gray-200">
+            <button className="cursor-pointer rounded-r-md bg-white px-4 py-3 text-blue-600 hover:bg-gray-200">
               Search
             </button>
           </div>

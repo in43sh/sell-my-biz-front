@@ -97,9 +97,6 @@ const useBusinessForm = (id) => {
     if (isSubmitting) return;
     setIsSubmitting(true);
 
-    const formData = new FormData();
-
-    // Validate form before submitting
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setError(validationErrors);
@@ -107,30 +104,57 @@ const useBusinessForm = (id) => {
       return;
     }
 
-    // Append the file if it exists
-    if (file) {
-      formData.append('file', file);
-    }
-
-    // Append the form fields (removing empty/null/undefined values)
-    Object.entries(form).forEach(([key, value]) => {
-      if (value !== null && value !== undefined && value !== '') {
-        formData.append(key, value);
-      }
-    });
-
     try {
-      if (id) {
-        await updateBusiness(headers, formData, token, id);
-      } else {
-        const result = await addBusiness({}, formData, token);
-        if (result.status === 201) {
-          navigate('/account/my-businesses');
+      const formData = new FormData();
+
+      // Append image file if exists
+      if (file) {
+        formData.append('file', file);
+      }
+
+      // Append form fields, excluding empty ones
+      Object.entries(form).forEach(([key, value]) => {
+        if (value !== null && value !== undefined && value !== '') {
+          formData.append(key, value);
         }
+      });
+
+      let result;
+      if (id) {
+        result = await updateBusiness({}, formData, token, id);
+      } else {
+        result = await addBusiness({}, formData, token);
+      }
+
+      if (result.status === 201 || result.status === 200) {
+        navigate('/account/my-businesses');
       }
     } catch (error) {
       console.error(error);
-      setError({ form: 'Failed to add business.' });
+
+      // Handle specific validation errors
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        const rawMessage = error.response.data.message;
+
+        // Extract readable validation messages
+        const readableMessage = rawMessage
+          .replace('ValidationError: Business validation failed: ', '')
+          .replace(/:/g, ' -')
+          .replace(/description -/g, 'Description: ')
+          .replace(/price -/g, 'Price: ')
+          .replace(/category -/g, 'Category: ')
+          .replace(/grossRevenue -/g, 'Gross Revenue: ')
+          .replace(/profit -/g, 'Profit: ')
+          .replace(/inventoryValue -/g, 'Inventory Value: ');
+
+        setError({ form: readableMessage });
+      } else {
+        setError({ form: 'An error occurred. Please try again.' });
+      }
     } finally {
       setIsSubmitting(false);
     }

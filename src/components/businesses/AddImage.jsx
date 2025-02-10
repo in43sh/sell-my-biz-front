@@ -7,6 +7,7 @@ const AddImage = ({
   setFile,
   setImageSrc,
   handleFileUpload,
+  required = false,
 }) => {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
 
@@ -15,7 +16,7 @@ const AddImage = ({
       <p className="font-semibold">Cover Image</p>
 
       <button
-        className="rounded-md border border-gray-400 px-4 py-2 text-gray-700 transition duration-300 hover:bg-gray-100"
+        className="cursor-pointer rounded-md border border-gray-400 px-4 py-2 text-gray-700 transition duration-300 hover:bg-gray-100"
         onClick={() => setIsPanelOpen(!isPanelOpen)}
         type="button"
       >
@@ -40,6 +41,7 @@ const AddImage = ({
                 reader.readAsDataURL(file);
               }
             }}
+            required={required}
           />
         </div>
       )}
