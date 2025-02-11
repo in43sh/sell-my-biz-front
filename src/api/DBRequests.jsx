@@ -23,6 +23,7 @@ const handleApiRequest = async (
     }
 
     // --- Transform searchQuery -> name here ---
+    // what is name?
     let transformedParams = { ...config.params };
     if (transformedParams?.searchQuery) {
       transformedParams.name = transformedParams.searchQuery;
@@ -32,7 +33,6 @@ const handleApiRequest = async (
     let queryParams = '';
     if (transformedParams) {
       queryParams = new URLSearchParams(transformedParams).toString();
-
       url = `${url}?${queryParams}`;
     }
 
@@ -46,10 +46,18 @@ const handleApiRequest = async (
           }
         : {}),
     };
+
     const response = await fetch(`${API_BASE_URL}${url}`, options);
 
     if (!response.ok) {
       const errorResponse = await response.json();
+      if (response.status === 401 && errorResponse?.redirect) {
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('user');
+        window.location.href = '/signin';
+        return;
+      }
+
       const errorMessage =
         errorResponse?.msg || errorResponse?.error || UNEXPECTED_ERROR_MESSAGE;
       throw new Error(errorMessage);

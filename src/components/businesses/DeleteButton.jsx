@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import Modal from './Modal';
+import DeleteModal from './DeleteModal';
 import { deleteBusiness, markBusinessAsSold } from '../../api/DBRequests';
 import { useAuth } from '../../contexts/AuthProvider';
 
@@ -39,7 +39,7 @@ const DeleteButton = ({ id, name, updateList }) => {
         Delete
       </button>
 
-      <Modal
+      <DeleteModal
         isOpen={isOpen}
         onSell={() => handleAction('sell')}
         onDelete={() => handleAction('delete')}

@@ -1,6 +1,13 @@
 import PropTypes from 'prop-types';
 
-const Modal = ({ isOpen, onSell, onDelete, onClose, title, description }) => {
+const DeleteModal = ({
+  isOpen,
+  onSell,
+  onDelete,
+  onClose,
+  title,
+  description,
+}) => {
   if (!isOpen) return null;
 
   return (
@@ -45,7 +52,7 @@ const Modal = ({ isOpen, onSell, onDelete, onClose, title, description }) => {
   );
 };
 
-Modal.propTypes = {
+DeleteModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onSell: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
@@ -54,4 +61,4 @@ Modal.propTypes = {
   description: PropTypes.string.isRequired,
 };
 
-export default Modal;
+export default DeleteModal;

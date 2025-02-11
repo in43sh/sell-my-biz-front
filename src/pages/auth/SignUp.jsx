@@ -23,6 +23,7 @@ const SignUp = () => {
             error={error.firstName}
             onChange={handleChange}
             label="First Name"
+            required
           />
           <InputField
             id="lastName"
@@ -33,6 +34,7 @@ const SignUp = () => {
             error={error.lastName}
             onChange={handleChange}
             label="Last Name"
+            required
           />
           <InputField
             id="email"
@@ -43,6 +45,7 @@ const SignUp = () => {
             error={error.email}
             onChange={handleChange}
             label="Email"
+            required
           />
           <InputField
             id="password"
@@ -53,6 +56,7 @@ const SignUp = () => {
             error={error.password}
             onChange={handleChange}
             label="Password"
+            required
           />
           <InputField
             id="confirmPassword"
@@ -63,6 +67,7 @@ const SignUp = () => {
             error={error.confirmPassword}
             onChange={handleChange}
             label="Confirm Password"
+            required
           />
 
           {error.form && (
