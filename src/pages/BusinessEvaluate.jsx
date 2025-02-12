@@ -1,229 +1,201 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthProvider';
-import InputField from '../components/form/InputField';
 
-const BusinessEvaluate = () => {
-  const { isLoggedIn } = useAuth();
-  const [formData, setFormData] = useState({
-    profit: '',
-    inventory: '',
-    industry: '',
-    grossRevenue: '',
-    businessAge: '',
-    repeatCustomers: '',
-  });
-  const [result, setResult] = useState(null);
-  const [details, setDetails] = useState(null);
-  const navigate = useNavigate();
+const categoryMultiples = {
+  Retail: 2.5,
+  'Food & Beverage': 2.2,
+  'Health & Wellness': 2.8,
+  Technology: 3.5,
+  Manufacturing: 2.0,
+  Services: 2.0,
+  Education: 2.2,
+  Entertainment: 2.5,
+  Other: 1.8,
+};
 
-  const INDUSTRY_MULTIPLIERS = {
-    Retail: 2.5,
-    'Food & Beverage': 2.2,
-    'Health & Wellness': 2.8,
-    Technology: 3.5,
-    Manufacturing: 2.0,
-    Services: 2.0,
-    Education: 2.2,
-    Entertainment: 2.5,
-    Other: 1.8,
-  };
+export default function BusinessValuation() {
+  const [sde, setSde] = useState('');
+  const [inventory, setInventory] = useState('');
+  const [revenue, setRevenue] = useState('');
+  const [category, setCategory] = useState('');
+  const [businessAge, setBusinessAge] = useState('');
+  const [repeatCustomers, setRepeatCustomers] = useState('');
+  const [employees, setEmployees] = useState('');
+  const [valuation, setValuation] = useState(null);
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const calculateValuation = () => {
+    let estimatedValue = 0;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+    if (employees === 0) {
+      if (businessAge === 0) {
+        estimatedValue = 0;
+      } else if (businessAge < 2) {
+        estimatedValue =
+          0.15 * (revenue + parseFloat(inventory || 0)) + 0.5 * sde;
+      } else if (businessAge < 5) {
+        estimatedValue =
+          0.2 * (revenue + parseFloat(inventory || 0)) + 0.75 * sde;
+      } else {
+        estimatedValue = 0.25 * (revenue + parseFloat(inventory || 0)) + sde;
+      }
+    } else {
+      let baseMultiple = categoryMultiples[category] || 2.0;
+      let repeatCustomerMultiplier = 1.0;
+      if (repeatCustomers >= 50) repeatCustomerMultiplier = 1.4;
+      else if (repeatCustomers >= 30) repeatCustomerMultiplier = 1.3;
+      else if (repeatCustomers >= 10) repeatCustomerMultiplier = 1.2;
 
-    const {
-      profit,
-      inventory,
-      industry,
-      grossRevenue,
-      businessAge,
-      repeatCustomers,
-    } = formData;
-    if (
-      !profit ||
-      !industry ||
-      !grossRevenue ||
-      !businessAge ||
-      !repeatCustomers
-    ) {
-      alert('Please provide all required fields.');
-      return;
+      let ageMultiplier = businessAge >= 5 ? 1.1 : 1.0;
+      let employeeMultiplier =
+        employees > 10
+          ? 1.2
+          : employees > 5
+            ? 1.1
+            : employees === 1
+              ? 0.8
+              : 1.0;
+
+      let riskMultiplier = 1.0;
+      if (businessAge === 0) riskMultiplier = 0.3;
+      else if (businessAge < 2 && employees === 1) riskMultiplier = 0.5;
+      else if (businessAge < 2 && employees <= 3) riskMultiplier = 0.65;
+      else if (businessAge < 5 && employees === 1) riskMultiplier = 0.6;
+      else if (businessAge < 5 && employees <= 3) riskMultiplier = 0.75;
+      else if (businessAge === 5 && employees === 1) riskMultiplier = 0.7;
+
+      estimatedValue =
+        (sde * baseMultiple + 0.3 * revenue + parseFloat(inventory || 0)) *
+        ageMultiplier *
+        employeeMultiplier *
+        riskMultiplier;
     }
 
-    const multiple =
-      INDUSTRY_MULTIPLIERS[industry] || INDUSTRY_MULTIPLIERS.Other;
-    const ageFactor = Math.min(parseInt(businessAge), 20) * 0.02;
-    const repeatCustomerFactor = parseFloat(repeatCustomers) * 0.01;
-    const revenueFactor = parseFloat(grossRevenue) * 0.3;
-
-    const valuation =
-      parseFloat(profit) * multiple +
-      parseFloat(inventory || 0) +
-      revenueFactor +
-      parseFloat(profit) * ageFactor +
-      parseFloat(profit) * repeatCustomerFactor;
-
-    setResult(valuation);
-    setDetails({
-      profit,
-      inventory,
-      industry,
-      industryMultiple: multiple,
-      grossRevenue,
-      businessAge,
-      repeatCustomers,
-      ageFactor,
-      repeatCustomerFactor,
-      revenueFactor,
-    });
-  };
-
-  const handleCreateListing = () => {
-    if (!isLoggedIn) {
-      alert('Please log in to create a listing.');
-      return;
-    }
-    navigate('/account/add-business', { state: { result, details } });
+    setValuation(estimatedValue);
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-white p-6">
-      <div className="w-full max-w-lg rounded-xl border border-gray-200 bg-white p-8 shadow-lg">
-        <h2 className="mb-6 text-center text-3xl font-semibold text-gray-900">
-          Business Valuation Calculator
+    <div className="flex min-h-screen flex-col items-center bg-blue-100 p-6">
+      <div className="w-full max-w-lg rounded-2xl bg-white p-8 shadow-lg">
+        <h2 className="mb-6 text-center text-3xl font-semibold text-blue-700">
+          Business Valuation Estimator
         </h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <InputField
-            id="profit"
-            name="profit"
-            type="number"
-            label="Profit (Yearly)"
-            placeholder="Enter Profit (e.g., 150000)"
-            value={formData.profit}
-            onChange={handleChange}
-            tooltip="Annual net profit of your business before tax."
-            required
-          />
-          <InputField
-            id="inventory"
-            name="inventory"
-            type="number"
-            label="Inventory Value"
-            placeholder="Enter Inventory Value (e.g., 20000)"
-            value={formData.inventory}
-            onChange={handleChange}
-            tooltip="Total value of your business's inventory."
-            required
-          />
-          <InputField
-            id="grossRevenue"
-            name="grossRevenue"
-            type="number"
-            label="Gross Revenue"
-            placeholder="Enter Gross Revenue (e.g., 500000)"
-            value={formData.grossRevenue}
-            onChange={handleChange}
-            tooltip="Total yearly revenue before expenses."
-            required
-          />
-          <InputField
-            id="businessAge"
-            name="businessAge"
-            type="number"
-            label="Business Age (Years)"
-            placeholder="Enter Business Age (e.g., 10)"
-            value={formData.businessAge}
-            onChange={handleChange}
-            tooltip="How many years your business has been operating."
-            required
-          />
-          <InputField
-            id="repeatCustomers"
-            name="repeatCustomers"
-            type="number"
-            label="Repeat Customers (%)"
-            placeholder="Enter Repeat Customer Rate (e.g., 80)"
-            value={formData.repeatCustomers}
-            onChange={handleChange}
-            tooltip="Percentage of your customers that are returning customers."
-            required
-          />
+
+        <form className="space-y-4">
           <div>
-            <label className="mb-2 block text-sm font-medium">Industry</label>
+            <label className="text-sm font-medium text-blue-600">
+              SDE (Profit):
+            </label>
+            <input
+              type="number"
+              value={sde}
+              onChange={(e) => setSde(parseFloat(e.target.value) || '')}
+              className="mt-1 w-full rounded-md border border-gray-300 p-2 text-lg text-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter Profit (e.g., 150000)"
+            />
+          </div>
+
+          <div>
+            <label className="text-sm font-medium text-blue-600">
+              Inventory Value:
+            </label>
+            <input
+              type="number"
+              value={inventory}
+              onChange={(e) => setInventory(parseFloat(e.target.value) || '')}
+              className="mt-1 w-full rounded-md border border-gray-300 p-2 text-lg text-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter Inventory Value (e.g., 20000)"
+            />
+          </div>
+
+          <div>
+            <label className="text-sm font-medium text-blue-600">
+              Revenue:
+            </label>
+            <input
+              type="number"
+              value={revenue}
+              onChange={(e) => setRevenue(parseFloat(e.target.value) || '')}
+              className="mt-1 w-full rounded-md border border-gray-300 p-2 text-lg text-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter Gross Revenue (e.g., 500000)"
+            />
+          </div>
+
+          <div>
+            <label className="text-sm font-medium text-blue-600">
+              Category:
+            </label>
             <select
-              className="w-full rounded-lg border p-3"
-              name="industry"
-              value={formData.industry}
-              onChange={handleChange}
-              // required
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="mt-1 w-full rounded-md border border-gray-300 p-3 text-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
             >
-              <option value="">Select an Industry</option>
-              {Object.keys(INDUSTRY_MULTIPLIERS).map((industry) => (
-                <option key={industry} value={industry}>
-                  {industry}
+              <option value="">Select a Category</option>
+              {Object.keys(categoryMultiples).map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat}
                 </option>
               ))}
             </select>
           </div>
+
+          <div>
+            <label className="text-sm font-medium text-blue-600">
+              Business Age (Years):
+            </label>
+            <input
+              type="number"
+              value={businessAge}
+              onChange={(e) => setBusinessAge(parseFloat(e.target.value) || '')}
+              className="mt-1 w-full rounded-md border border-gray-300 p-2 text-lg text-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter Business Age (e.g., 10)"
+            />
+          </div>
+
+          <div>
+            <label className="text-sm font-medium text-blue-600">
+              Repeat Customers (%):
+            </label>
+            <input
+              type="number"
+              value={repeatCustomers}
+              onChange={(e) =>
+                setRepeatCustomers(parseFloat(e.target.value) || '')
+              }
+              className="mt-1 w-full rounded-md border border-gray-300 p-2 text-lg text-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter Repeat Customer Rate (e.g., 80)"
+            />
+          </div>
+
+          <div>
+            <label className="text-sm font-medium text-blue-600">
+              Number of Employees:
+            </label>
+            <input
+              type="number"
+              value={employees}
+              onChange={(e) => setEmployees(parseFloat(e.target.value) || '')}
+              className="mt-1 w-full rounded-md border border-gray-300 p-2 text-lg text-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter Number of Employees (e.g., 5)"
+            />
+          </div>
+
           <button
-            type="submit"
-            className="w-full cursor-pointer rounded-lg bg-blue-600 py-3 font-semibold text-white transition duration-300 hover:bg-blue-700"
+            type="button"
+            onClick={calculateValuation}
+            className="mt-4 w-full cursor-pointer rounded-md bg-blue-600 py-3 font-semibold text-white transition duration-300 hover:bg-blue-700"
           >
             Calculate Valuation
           </button>
         </form>
 
-        {result !== null && (
+        {valuation !== null && (
           <div className="mt-6 rounded-lg bg-gray-100 p-6 shadow-md">
-            <h4 className="text-xl font-semibold">Valuation Result</h4>
-            <p className="mt-2 text-lg">
-              <strong>Estimated Valuation:</strong> ${result.toLocaleString()}
+            <h4 className="text-xl font-semibold">Estimated Valuation:</h4>
+            <p className="mt-2 text-lg font-bold text-blue-700">
+              ${valuation.toLocaleString()}
             </p>
-            <h5 className="mt-4 text-lg font-semibold">Breakdown</h5>
-            <ul className="mt-2 space-y-2">
-              <li>
-                <strong>Profit (SDE):</strong> $
-                {parseFloat(details.profit).toLocaleString()}
-              </li>
-              <li>
-                <strong>Gross Revenue Factor:</strong> $
-                {details.revenueFactor.toLocaleString()}
-              </li>
-              <li>
-                <strong>Business Age Factor:</strong> +
-                {(details.ageFactor * 100).toFixed(1)}%
-              </li>
-              <li>
-                <strong>Repeat Customers Factor:</strong> +
-                {(details.repeatCustomerFactor * 100).toFixed(1)}%
-              </li>
-              <li>
-                <strong>Industry:</strong> {details.industry}
-              </li>
-              <li>
-                <strong>Industry Multiple:</strong> {details.industryMultiple}x
-              </li>
-              <li>
-                <strong>Inventory Value:</strong> $
-                {parseFloat(details.inventory || 0).toLocaleString()}
-              </li>
-            </ul>
-            <button
-              className="mt-4 w-full cursor-pointer rounded-lg bg-green-600 py-3 font-semibold text-white transition duration-300 hover:bg-green-700"
-              onClick={handleCreateListing}
-            >
-              Create Listing
-            </button>
           </div>
         )}
       </div>
     </div>
   );
-};
-
-export default BusinessEvaluate;
+}
