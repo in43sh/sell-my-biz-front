@@ -272,8 +272,8 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
                   type="radio"
                   id="preferredContactPhone"
                   name="preferredContactMethod"
-                  value="Phone"
-                  checked={form.preferredContactMethod === 'Phone'}
+                  value="phone"
+                  checked={form.preferredContactMethod === 'phone'}
                   onChange={handleChange}
                   className="h-4 w-4 text-blue-600 focus:ring-2 focus:ring-blue-600"
                 />
@@ -289,8 +289,8 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
                   type="radio"
                   id="preferredContactEmail"
                   name="preferredContactMethod"
-                  value="Email"
-                  checked={form.preferredContactMethod === 'Email'}
+                  value="email"
+                  checked={form.preferredContactMethod === 'email'}
                   onChange={handleChange}
                   className="h-4 w-4 text-blue-600 focus:ring-2 focus:ring-blue-600"
                 />
