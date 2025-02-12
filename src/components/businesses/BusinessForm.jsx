@@ -321,7 +321,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             type="number"
             min={0}
             max={new Date().getFullYear()}
-            label="Years Established"
+            label="Year Established"
             value={form.yearEstablished}
             error={error.yearEstablished}
             onChange={handleChange}
