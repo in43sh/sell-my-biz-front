@@ -79,7 +79,7 @@ export const register = (headers, userData) =>
 
 export const updateProfile = (headers, userData, token) => {
   return handleApiRequest(
-    '/api/v1/update',
+    '/api/v1/update-profile',
     { headers: headers },
     userData,
     token,
@@ -217,8 +217,11 @@ export const addBusiness = (headers, businessData, token) => {
 };
 
 export const updateBusiness = (headers, businessData, token) => {
+  const businessId = businessData.get('_id');
+  console.log('businessData.get(_id); ===> ', businessData.get('_id'));
+
   return handleApiRequest(
-    `/api/v1/businesses/${businessData._id}`,
+    `/api/v1/businesses/${businessId}`,
     { headers: headers },
     businessData,
     token,
