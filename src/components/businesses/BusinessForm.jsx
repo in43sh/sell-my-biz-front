@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import useBusinessForm from '../../hooks/useBusinessForm';
 import Spinner from '../../components/layouts/Spinner';
-import InputField from '../Form/InputField';
+import InputField from '../form/InputField';
 import AddImage from './AddImage';
 import categories from '../../constants/categories';
 
@@ -31,7 +31,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
         grossRevenue: evaluationData.details?.grossRevenue || '',
         profit: evaluationData.details?.profit || '',
         inventoryValue: evaluationData.details?.inventory || '',
-        yearsEstablished: evaluationData.details?.businessAge || '',
+        yearEstablished: evaluationData.details?.businessAge || '',
         employees: '',
         reasonForSelling: '',
         isListedByOwner: false,
@@ -250,7 +250,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             onChange={handleChange}
             required
           />
-          <InputField
+          {/* <InputField
             id="preferredContactMethod"
             name="preferredContactMethod"
             type="text"
@@ -259,7 +259,55 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             error={error.preferredContactMethod}
             onChange={handleChange}
             required
-          />
+          /> */}
+
+          {/* Replace Preferred Contact Method with Radio Buttons */}
+          <div>
+            <label className="mb-1 block text-sm font-medium text-gray-700">
+              Preferred Contact Method
+            </label>
+            <div className="flex space-x-4">
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  id="preferredContactPhone"
+                  name="preferredContactMethod"
+                  value="Phone"
+                  checked={form.preferredContactMethod === 'Phone'}
+                  onChange={handleChange}
+                  className="h-4 w-4 text-blue-600 focus:ring-2 focus:ring-blue-600"
+                />
+                <label
+                  htmlFor="preferredContactPhone"
+                  className="ml-2 text-sm font-medium text-gray-700"
+                >
+                  Phone
+                </label>
+              </div>
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  id="preferredContactEmail"
+                  name="preferredContactMethod"
+                  value="Email"
+                  checked={form.preferredContactMethod === 'Email'}
+                  onChange={handleChange}
+                  className="h-4 w-4 text-blue-600 focus:ring-2 focus:ring-blue-600"
+                />
+                <label
+                  htmlFor="preferredContactEmail"
+                  className="ml-2 text-sm font-medium text-gray-700"
+                >
+                  Email
+                </label>
+              </div>
+            </div>
+            {error.preferredContactMethod && (
+              <p className="mt-1 text-sm text-red-600">
+                {error.preferredContactMethod}
+              </p>
+            )}
+          </div>
         </div>
       </section>
 
@@ -268,14 +316,14 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
         <h3 className="mb-4 text-lg font-medium">Additional Info</h3>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <InputField
-            id="yearsEstablished"
-            name="yearsEstablished"
+            id="yearEstablished"
+            name="yearEstablished"
             type="number"
             min={0}
             max={new Date().getFullYear()}
             label="Years Established"
-            value={form.yearsEstablished}
-            error={error.yearsEstablished}
+            value={form.yearEstablished}
+            error={error.yearEstablished}
             onChange={handleChange}
             required
           />

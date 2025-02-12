@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import InputField from '../../components/Form/InputField';
+import InputField from '../../components/form/InputField';
 import useAuthForm from '../../hooks/useAuthForm';
 
 const SignIn = () => {

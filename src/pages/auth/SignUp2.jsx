@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import InputField from '../../components/Form/InputField';
+import InputField from '../../components/form/InputField';
 import useSignUpForm from '../../hooks/useSignUpForm';
 
 const SignUp = () => {

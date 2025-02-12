@@ -22,7 +22,7 @@ const useBusinessForm = (id) => {
     zipCode: '',
     ownerName: '',
     contactEmail: '',
-    yearsEstablished: '',
+    yearEstablished: '',
     employees: '',
     reasonForSelling: '',
     isListedByOwner: false,

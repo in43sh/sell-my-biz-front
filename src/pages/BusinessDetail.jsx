@@ -58,7 +58,7 @@ const BusinessDetail = () => {
     profit,
     cashFlow,
     inventoryValue,
-    yearsEstablished,
+    yearEstablished,
     employees,
     reasonForSelling,
     address,
@@ -113,7 +113,7 @@ const BusinessDetail = () => {
                 <strong>Inventory Value:</strong> ${inventoryValue}
               </div>
               <div>
-                <strong>Years Established:</strong> {yearsEstablished}
+                <strong>Year Established:</strong> {yearEstablished}
               </div>
               <div>
                 <strong>Employees:</strong> {employees}

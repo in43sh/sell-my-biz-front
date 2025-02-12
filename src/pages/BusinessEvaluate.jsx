@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthProvider';
-import InputField from '../components/Form/InputField';
+import InputField from '../components/form/InputField';
 
 const BusinessEvaluate = () => {
   const { isLoggedIn } = useAuth();
