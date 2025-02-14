@@ -1,5 +1,5 @@
 import categoriesData from '../../constants/categoriesData';
-import CategoryCard from './Category';
+import CategoryCard from './CategoryCard';
 
 const CategoriesList = () => {
   return (

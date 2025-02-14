@@ -1,3 +1,4 @@
+// TO BE DELETED
 import PropTypes from 'prop-types';
 
 const SaveButton = ({ onClick }) => {

@@ -1,4 +1,3 @@
-// src/constants/usStates.js
 const usStates = [
   { value: '', label: 'All States' },
   { value: 'AL', label: 'Alabama' },

@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthProvider';
-import HamburgerMenu from '../HamburgerMenu';
+import HamburgerMenu from '../navbar/HamburgerMenu';
 import Logo from '../../assets/images/logo.svg';
-import AccountDropdown from '../AccountDropdown';
-import MobileMenu from '../MobileMenu';
+import AccountDropdown from '../navbar/AccountDropdown';
+import MobileMenu from '../navbar/MobileMenu';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

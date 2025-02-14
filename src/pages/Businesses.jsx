@@ -56,6 +56,7 @@ const BusinessListPage = () => {
 
   return (
     <div className="mt-6 w-full px-4">
+      {/* Mobile */}
       <div className="mb-4 flex flex-col gap-2 md:hidden">
         <Search />
         <div className="flex items-center space-x-2">
@@ -194,10 +195,10 @@ const BusinessListPage = () => {
         <div className="w-full md:w-3/4">
           <div className="mb-4 hidden gap-2 md:flex md:justify-between">
             <Search />
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-1">
               <label
                 htmlFor="sortBy"
-                className="text-sm font-medium text-gray-700"
+                className="text-sm font-medium whitespace-nowrap text-gray-700"
               >
                 Sort By:
               </label>
