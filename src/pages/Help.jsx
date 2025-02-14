@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import InputField from '../components/form/InputField';
 
 export default function HelpPage() {
   const [formData, setFormData] = useState({
@@ -25,38 +26,33 @@ export default function HelpPage() {
           back to you as soon as possible.
         </p>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-blue-700">Name</label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full rounded-lg border border-blue-300 p-2"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-blue-700">Email</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full rounded-lg border border-blue-300 p-2"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-blue-700">Message</label>
-            <textarea
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              className="w-full rounded-lg border border-blue-300 p-2"
-              required
-            />
-          </div>
+          <InputField
+            id="name"
+            name="name"
+            type="text"
+            label="Name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+          <InputField
+            id="email"
+            name="email"
+            type="email"
+            label="Email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+          <InputField
+            id="message"
+            name="message"
+            type="text"
+            label="Message"
+            value={formData.message}
+            onChange={handleChange}
+            required
+          />
           <button
             type="submit"
             className="cursor-pointer rounded-lg bg-blue-700 px-4 py-2 text-white"
