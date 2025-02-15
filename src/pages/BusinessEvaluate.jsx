@@ -82,7 +82,7 @@ export default function BusinessValuation() {
         <form className="space-y-4">
           <div>
             <label className="text-sm font-medium text-blue-600">
-              SDE (Profit):
+              Profit:
             </label>
             <input
               type="number"
