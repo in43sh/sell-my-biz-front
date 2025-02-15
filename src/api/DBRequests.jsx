@@ -248,3 +248,12 @@ export const deleteBusiness = async (id, token) => {
     'DELETE'
   );
 };
+
+export const checkApiStatus = async () => {
+  try {
+    const response = await fetch('http://localhost:8000');
+    return response;
+  } catch (error) {
+    throw new Error('API request failed.');
+  }
+};

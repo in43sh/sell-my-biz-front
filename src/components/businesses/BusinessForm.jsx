@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import useBusinessForm from '../../hooks/useBusinessForm';
-import Spinner from '../../components/layouts/Spinner';
+import Spinner from '../../components/common/Spinner';
 import InputField from '../form/InputField';
 import AddImage from './AddImage';
 import categories from '../../constants/categories';
@@ -383,15 +383,13 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
           required
         />
       </section>
-
-      {/* --- ACTION BUTTONS --- */}
       <div className="mt-6 flex justify-center space-x-4">
-        <button
+        {/* <button
           type="button"
           className="cursor-pointer rounded-md border border-gray-400 px-4 py-2 text-gray-700 transition duration-300 hover:bg-gray-100"
         >
           Cancel
-        </button>
+        </button> */}
         <button
           type="submit"
           className="cursor-pointer rounded-md bg-blue-600 px-4 py-2 font-semibold text-white transition duration-300 hover:bg-blue-700"

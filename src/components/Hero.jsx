@@ -1,4 +1,4 @@
-import Search from './Search';
+import Search from './common/Search';
 
 const Hero = () => (
   <div className="flex min-h-screen flex-col bg-gradient-to-br from-blue-100 via-white to-green-100">

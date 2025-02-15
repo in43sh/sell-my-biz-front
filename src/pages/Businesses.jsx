@@ -4,7 +4,7 @@ import { getBusinesses } from '../api/DBRequests';
 import { useAuth } from '../contexts/AuthProvider';
 import BusinessesList from '../components/businesses/BusinessesList';
 import InputField from '../components/form/InputField';
-import Search from '../components/Search';
+import Search from '../components/common/Search';
 
 import emptyFilters from '../constants/emptyFilters';
 import usStates from '../constants/usStates';

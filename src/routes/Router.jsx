@@ -17,6 +17,7 @@ import ForgotPassword from '../pages/auth/ForgotPassword';
 import PrivacyPolicy from '../pages/PrivacyPolicy2';
 import AboutUs from '../pages/AboutUs';
 import Help from '../pages/Help';
+import ApiStatusCheck from '../pages/ApiStatusCheck';
 
 const Router = () => {
   return (
@@ -49,6 +50,7 @@ const Router = () => {
       <Route path="/privacy" element={<PrivacyPolicy />} />
       <Route path="/about-us" element={<AboutUs />} />
       <Route path="/help" element={<Help />} />
+      <Route path="/api-status" element={<ApiStatusCheck />} />
 
       {/* 404 Route */}
       <Route path="*" element={<NotFound />} />
