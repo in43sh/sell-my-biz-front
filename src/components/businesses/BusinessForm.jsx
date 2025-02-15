@@ -36,6 +36,12 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
         reasonForSelling: '',
         isListedByOwner: false,
         preferredContactMethod: '',
+        city: '',
+        state: '',
+        zipCode: '',
+        ownerName: '',
+        contactEmail: '',
+        phoneNumber: '',
       });
     }
   }, [evaluationData, setForm]);
@@ -64,7 +70,6 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             tooltip="Use a clear, searchable name like 'Reliable HVAC Service'."
             required
           />
-          {/* If you want 'description' as a textarea, replace `InputField` with a custom component or <textarea> */}
           <InputField
             id="description"
             name="description"
@@ -142,7 +147,6 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.profit}
             error={error.profit}
             onChange={handleChange}
-          
           />
           <InputField
             id="cashFlow"
@@ -153,7 +157,6 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.cashFlow}
             error={error.cashFlow}
             onChange={handleChange}
-            
           />
           <InputField
             id="inventoryValue"
@@ -164,7 +167,6 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.inventoryValue}
             error={error.inventoryValue}
             onChange={handleChange}
-            
           />
         </div>
       </section>
@@ -181,7 +183,6 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.address}
             error={error.address}
             onChange={handleChange}
-            
           />
           <InputField
             id="city"
@@ -275,6 +276,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
                   value="phone"
                   checked={form.preferredContactMethod === 'phone'}
                   onChange={handleChange}
+                  required
                   className="h-4 w-4 text-blue-600 focus:ring-2 focus:ring-blue-600"
                 />
                 <label
@@ -292,6 +294,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
                   value="email"
                   checked={form.preferredContactMethod === 'email'}
                   onChange={handleChange}
+                  required
                   className="h-4 w-4 text-blue-600 focus:ring-2 focus:ring-blue-600"
                 />
                 <label
@@ -325,7 +328,6 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.yearEstablished}
             error={error.yearEstablished}
             onChange={handleChange}
-            
           />
           <InputField
             id="employees"
@@ -336,7 +338,6 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.employees}
             error={error.employees}
             onChange={handleChange}
-            
           />
           <InputField
             id="reasonForSelling"
@@ -400,7 +401,6 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
         </button>
       </div>
 
-      {/* --- ERROR & LOADING STATES --- */}
       {error.form && (
         <p className="mt-3 text-center text-red-600">{error.form}</p>
       )}
