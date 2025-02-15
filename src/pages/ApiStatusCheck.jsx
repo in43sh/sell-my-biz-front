@@ -7,8 +7,8 @@ export default function ApiStatusCheck() {
 
   useEffect(() => {
     checkApiStatus()
-      .then((response) => {
-        if (response.ok) {
+      .then(({ status }) => {
+        if (status === 200) {
           setStatus('API is working!');
           setStatusColor('text-green-600');
         } else {
