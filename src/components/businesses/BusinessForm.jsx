@@ -85,7 +85,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
               htmlFor="category"
               className="mb-1 block text-sm font-medium text-gray-700"
             >
-              Category
+              Category <span className="text-red-500">*</span>
             </label>
             <select
               id="category"
@@ -261,11 +261,10 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             onChange={handleChange}
             required
           /> */}
-
-          {/* Replace Preferred Contact Method with Radio Buttons */}
+          {/* Preferred Contact Method - Only One Can Be Chosen */}
           <div>
             <label className="mb-1 block text-sm font-medium text-gray-700">
-              Preferred Contact Method
+              Preferred Contact Method <span className="text-red-500">*</span>
             </label>
             <div className="flex space-x-4">
               <div className="flex items-center">
