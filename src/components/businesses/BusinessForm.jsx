@@ -142,7 +142,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.profit}
             error={error.profit}
             onChange={handleChange}
-            required
+          
           />
           <InputField
             id="cashFlow"
@@ -153,7 +153,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.cashFlow}
             error={error.cashFlow}
             onChange={handleChange}
-            required
+            
           />
           <InputField
             id="inventoryValue"
@@ -164,7 +164,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.inventoryValue}
             error={error.inventoryValue}
             onChange={handleChange}
-            required
+            
           />
         </div>
       </section>
@@ -181,7 +181,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.address}
             error={error.address}
             onChange={handleChange}
-            required
+            
           />
           <InputField
             id="city"
@@ -325,7 +325,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.yearEstablished}
             error={error.yearEstablished}
             onChange={handleChange}
-            required
+            
           />
           <InputField
             id="employees"
@@ -336,7 +336,7 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.employees}
             error={error.employees}
             onChange={handleChange}
-            required
+            
           />
           <InputField
             id="reasonForSelling"
