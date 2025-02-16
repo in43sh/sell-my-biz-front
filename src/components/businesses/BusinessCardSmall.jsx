@@ -20,6 +20,7 @@ const BusinessCardSmall = ({
     ownerName,
     contactEmail,
     phoneNumber,
+    preferredContactMethod,
   } = business;
   const [showModal, setShowModal] = useState(false);
 
@@ -66,6 +67,7 @@ const BusinessCardSmall = ({
           ownerName={ownerName}
           contactEmail={contactEmail}
           phoneNumber={phoneNumber}
+          preferredContactMethod={preferredContactMethod}
           onClose={() => setShowModal(false)}
         />
       )}

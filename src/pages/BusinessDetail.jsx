@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
-import { formatPhoneNumber } from '../utils/phoneFormatter';
+// import { formatPhoneNumber } from '../utils/phoneFormatter';
 import { useAuth } from '../contexts/AuthProvider';
 import { getBusiness } from '../api/DBRequests';
 import ContactModal from '../components/businesses/ContactModal';
@@ -71,6 +71,7 @@ const BusinessDetail = () => {
     ownerName,
     contactEmail,
     phoneNumber,
+    preferredContactMethod,
   } = business;
 
   return (
@@ -147,6 +148,7 @@ const BusinessDetail = () => {
                 ownerName={ownerName}
                 contactEmail={contactEmail}
                 phoneNumber={phoneNumber}
+                preferredContactMethod={preferredContactMethod}
                 onClose={() => setShowContactInfo(false)}
               />
             )}

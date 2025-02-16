@@ -23,6 +23,7 @@ const BusinessCard = ({
     ownerName,
     contactEmail,
     phoneNumber,
+    preferredContactMethod,
     isListedByOwner,
     grossRevenue,
     createdAt,
@@ -96,6 +97,7 @@ const BusinessCard = ({
           ownerName={ownerName}
           contactEmail={contactEmail}
           phoneNumber={phoneNumber}
+          preferredContactMethod={preferredContactMethod}
           onClose={() => setShowModal(false)}
         />
       )}
