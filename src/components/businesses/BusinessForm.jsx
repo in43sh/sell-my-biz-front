@@ -189,6 +189,16 @@ const BusinessForm = ({ id = '' }) => {
             onChange={handleChange}
             required
           />
+          <InputField
+            id="phoneNumber"
+            name="phoneNumber"
+            type="tel"
+            label="Contact Phone Number"
+            value={form.phoneNumber}
+            error={error.phoneNumber}
+            onChange={handleChange}
+            required
+          />
           <RadioGroup
             id="preferredContactMethod"
             label="Preferred Contact Method"

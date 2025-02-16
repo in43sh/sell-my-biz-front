@@ -35,7 +35,7 @@ const Router = () => {
         <Route path="add-business" element={<AddBusiness />} />
         <Route path="profile" element={<Profile />} />
         <Route path="my-businesses" element={<MyBusinesses />} />
-        <Route path="edit-business" element={<EditBusiness />} />
+        <Route path="edit-business/:id" element={<EditBusiness />} />
       </Route>
 
       {/* Businesses Routes */}

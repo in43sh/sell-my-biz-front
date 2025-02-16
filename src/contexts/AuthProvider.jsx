@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(initialToken);
   const [userData, setUserData] = useState(initialUser);
   const [isLoggedIn, setIsLoggedIn] = useState(!!initialToken);
-  const { clearAccount } = useAccount();
+  // const { clearAccount } = useAccount();
 
   const userId = token ? jwtDecode(token).userId : '';
 
@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
     setIsLoggedIn(false);
     setUserData({});
     setToken('');
-    clearAccount();
+    // clearAccount();
   };
 
   return (
