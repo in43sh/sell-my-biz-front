@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 
 const AddImage = ({
   error,
@@ -9,10 +8,8 @@ const AddImage = ({
   handleFileUpload,
   required = false,
 }) => {
-  const [isPanelOpen, setIsPanelOpen] = useState(false);
-
   return (
-    <div className="mb-4 flex flex-col gap-4">
+    <div className="flex flex-col gap-4">
       <p className="font-semibold">Cover Image</p>
 
       <input

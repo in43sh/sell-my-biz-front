@@ -4,8 +4,8 @@ const Subscribe = () => {
       <div className="mx-auto max-w-2xl text-center">
         <h2 className="mb-3 text-3xl font-bold">Stay Updated</h2>
         <p className="mb-6 text-gray-600">
-          Amet lorem at rebum amet dolores. Elitr lorem dolor sed amet diam
-          labore at justo ipsum eirmod duo labore labore.
+          Subscribe to our newsletter and never miss out on the latest updates,
+          exclusive content, and special offers.
         </p>
         <form className="flex flex-col justify-center gap-4 sm:flex-row">
           <input

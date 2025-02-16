@@ -360,7 +360,6 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
                   target: { name: 'isListedByOwner', value: e.target.checked },
                 })
               }
-              // required
             />
             <label
               htmlFor="isListedByOwner"
@@ -380,7 +379,6 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
           setImageSrc={setImageSrc}
           handleFileUpload={handleFileUpload}
           setFile={setFile}
-          required
         />
       </section>
       <div className="mt-6 flex justify-center space-x-4">
