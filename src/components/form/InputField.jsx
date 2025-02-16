@@ -4,6 +4,7 @@ const InputField = ({
   id,
   name,
   type = 'text',
+  min,
   placeholder,
   value,
   error,
@@ -52,6 +53,7 @@ const InputField = ({
         onChange={onChange}
         required={required}
         disabled={disabled}
+        {...(type === 'number' && min !== undefined ? { min } : {})} // Apply min only for number fields
       />
       {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
     </div>
@@ -69,6 +71,8 @@ InputField.propTypes = {
   label: PropTypes.string,
   tooltip: PropTypes.string,
   required: PropTypes.bool,
+  disabled: PropTypes.bool,
+  min: PropTypes.number, // Added min prop
 };
 
 export default InputField;
