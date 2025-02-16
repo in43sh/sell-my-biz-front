@@ -1,4 +1,3 @@
-// src/components/categories/CategoryCard.jsx
 import { Link } from 'react-router-dom';
 
 const CategoryCard = ({ category }) => {

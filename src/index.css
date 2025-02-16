@@ -1,8 +1,8 @@
 @import 'tailwindcss';
 
-.group:hover .group-hover\:block {
+/* .group:hover .group-hover\:block {
   display: block;
-}
+} */
 
 @keyframes shake {
   0%,

@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import DeleteModal from './DeleteModal';
-import { deleteBusiness, markBusinessAsSold } from '../../api/DBRequests';
 import { useAuth } from '../../contexts/AuthProvider';
+import { deleteBusiness, markBusinessAsSold } from '../../api/DBRequests';
+import DeleteModal from './DeleteModal';
 
 const DeleteButton = ({ id, name, updateList }) => {
   const { token } = useAuth();
