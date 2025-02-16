@@ -5,7 +5,8 @@ import {
   updatePassword,
   deleteAccount,
 } from '../../api/DBRequests';
-import InputField from '../../components/form/InputField'; // Import InputField
+import InputField from '../../components/form/InputField';
+import DeleteAccountModal from '../../components/common/DeleteAccountModal';
 
 const Profile = () => {
   const { token, userData, setUserData, clearUserSession } = useAuth();
@@ -27,7 +28,7 @@ const Profile = () => {
   const [passwordError, setPasswordError] = useState('');
 
   const [successMessage, setSuccessMessage] = useState('');
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteError, setDeleteError] = useState('');
 
   const handleProfileSave = async () => {
@@ -184,25 +185,26 @@ const Profile = () => {
             lost.
           </p>
           {deleteError && <ErrorMessage message={deleteError} />}
-          {showDeleteConfirm ? (
-            <ActionButtons
-              onCancel={() => setShowDeleteConfirm(false)}
-              onConfirm={handleDeleteAccount}
-              confirmText="Confirm Delete"
-              confirmClass="bg-red-600 hover:bg-red-700"
-            />
-          ) : (
-            <button
-              onClick={() => setShowDeleteConfirm(true)}
-              className="w-full cursor-pointer rounded-md bg-red-600 py-2 font-semibold text-white transition hover:bg-red-700"
-            >
-              Delete My Account
-            </button>
-          )}
+          <button
+            onClick={() => setShowDeleteModal(true)}
+            className="w-full cursor-pointer rounded-md bg-red-600 py-2 font-semibold text-white transition hover:bg-red-700"
+          >
+            Delete My Account
+          </button>
         </div>
-
         {successMessage && <SuccessMessage message={successMessage} />}
       </div>
+
+      {showDeleteModal && (
+        <DeleteAccountModal
+          title="Confirm Account Deletion"
+          message="Are you sure you want to delete your account? This action cannot be undone."
+          onConfirm={handleDeleteAccount}
+          onCancel={() => setShowDeleteModal(false)}
+          confirmText="Delete Account"
+          confirmClass="bg-red-600 hover:bg-red-700"
+        />
+      )}
     </div>
   );
 };

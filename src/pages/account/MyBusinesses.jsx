@@ -3,11 +3,12 @@ import { getUserBusinesses } from '../../api/DBRequests';
 import BusinessesList from '../../components/businesses/BusinessesList';
 import Spinner from '../../components/common/Spinner';
 import { useAuth } from '../../contexts/AuthProvider';
+import { Link } from 'react-router-dom';
 
 const MyBusinesses = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [businessesList, setBusinessesList] = useState([]);
-  const [sortBy, setSortBy] = useState('-createdAt');
+  const [sortBy] = useState('-createdAt');
   const { userId, token } = useAuth();
   const [error, setError] = useState('');
   const [showLoadMore, setShowLoadMore] = useState(true);
@@ -53,7 +54,15 @@ const MyBusinesses = () => {
       ) : isLoading ? (
         <Spinner />
       ) : businessesList.length === 0 ? (
-        <p className="text-center text-gray-600">No businesses found.</p>
+        <div className="text-center">
+          <p className="text-gray-600">No businesses found.</p>
+          <Link
+            to="/account/add-business"
+            className="mt-4 inline-block rounded-md bg-blue-600 px-4 py-2 font-medium text-white transition duration-300 hover:bg-blue-700"
+          >
+            Add a Business
+          </Link>
+        </div>
       ) : (
         <BusinessesList
           list={businessesList}
