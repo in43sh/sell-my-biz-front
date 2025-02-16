@@ -12,6 +12,7 @@ const InputField = ({
   label,
   tooltip,
   required = false,
+  disabled = false,
 }) => {
   return (
     <div className="relative mb-4">
@@ -42,11 +43,16 @@ const InputField = ({
         type={type}
         className={`w-full rounded-md border border-gray-300 p-3 focus:ring-2 focus:ring-blue-600 focus:outline-none ${
           error ? 'border-red-500' : ''
+        } ${
+          disabled
+            ? 'cursor-not-allowed bg-gray-100 text-gray-500'
+            : 'border-gray-300'
         }`}
         placeholder={placeholder}
         value={value || ''}
         onChange={onChange}
         required={required}
+        disabled={disabled}
       />
       {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
     </div>

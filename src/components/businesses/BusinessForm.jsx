@@ -257,7 +257,7 @@ const BusinessForm = ({ id = '' }) => {
       <div className="mt-6 flex justify-center">
         <button
           type="submit"
-          className="rounded-md bg-blue-600 px-6 py-2 font-semibold text-white transition hover:bg-blue-700"
+          className="cursor-pointer rounded-md bg-blue-600 px-6 py-2 font-semibold text-white transition hover:bg-blue-700"
         >
           Save
         </button>
