@@ -1,18 +1,20 @@
-import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import useBusinessForm from '../../hooks/useBusinessForm';
 import Spinner from '../../components/common/Spinner';
+import FormSection from '../form/FormSection';
 import InputField from '../form/InputField';
+import Dropdown from '../form/Dropdown';
+import Checkbox from '../form/Checkbox';
+import RadioGroup from '../form/RadioGroup';
 import AddImage from './AddImage';
 import categories from '../../constants/categories';
 
-const BusinessForm = ({ id = '', evaluationData = null }) => {
+const BusinessForm = ({ id = '' }) => {
   const {
     form,
     error,
     imageSrc,
     isLoading,
-    setForm,
     setFile,
     setImageSrc,
     handleFileUpload,
@@ -20,44 +22,16 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
     handleSubmit,
   } = useBusinessForm(id);
 
-  useEffect(() => {
-    if (evaluationData) {
-      setForm({
-        ...form,
-        name: '',
-        description: '',
-        category: evaluationData.details?.industry || '',
-        price: evaluationData.result || '',
-        grossRevenue: evaluationData.details?.grossRevenue || '',
-        profit: evaluationData.details?.profit || '',
-        inventoryValue: evaluationData.details?.inventory || '',
-        yearEstablished: evaluationData.details?.businessAge || '',
-        employees: '',
-        reasonForSelling: '',
-        isListedByOwner: false,
-        preferredContactMethod: '',
-        city: '',
-        state: '',
-        zipCode: '',
-        ownerName: '',
-        contactEmail: '',
-        phoneNumber: '',
-      });
-    }
-  }, [evaluationData, setForm]);
-
   return (
     <form
       onSubmit={handleSubmit}
-      className="mx-auto w-full max-w-4xl rounded-md bg-white p-6 shadow-md"
+      className="mx-auto w-full max-w-4xl rounded-lg bg-white p-6 shadow-lg"
     >
       <h2 className="mb-6 text-center text-2xl font-semibold">
         Business Information
       </h2>
 
-      {/* --- BASIC INFO SECTION --- */}
-      <section className="mb-8">
-        <h3 className="mb-4 text-lg font-medium">Basic Info</h3>
+      <FormSection title="Basic Info">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <InputField
             id="name"
@@ -67,7 +41,6 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             value={form.name}
             error={error.name}
             onChange={handleChange}
-            tooltip="Use a clear, searchable name like 'Reliable HVAC Service'."
             required
           />
           <InputField
@@ -80,40 +53,19 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             onChange={handleChange}
             required
           />
-          <div>
-            <label
-              htmlFor="category"
-              className="mb-1 block text-sm font-medium text-gray-700"
-            >
-              Category <span className="text-red-500">*</span>
-            </label>
-            <select
-              id="category"
-              name="category"
-              className={`w-full rounded-md border border-gray-300 p-3 focus:ring-2 focus:ring-blue-600 focus:outline-none ${
-                error.category ? 'border-red-500' : ''
-              }`}
-              value={form.category}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select a category</option>
-              {categories.map((category) => (
-                <option key={category} value={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
-            {error.category && (
-              <p className="mt-1 text-sm text-red-600">{error.category}</p>
-            )}
-          </div>
+          <Dropdown
+            id="category"
+            label="Category"
+            value={form.category}
+            options={categories}
+            onChange={handleChange}
+            error={error.category}
+            required
+          />
         </div>
-      </section>
+      </FormSection>
 
-      {/* --- FINANCIAL INFO SECTION --- */}
-      <section className="mb-8">
-        <h3 className="mb-4 text-lg font-medium">Financial Info</h3>
+      <FormSection title="Financial Info">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <InputField
             id="price"
@@ -169,11 +121,9 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             onChange={handleChange}
           />
         </div>
-      </section>
+      </FormSection>
 
-      {/* --- LOCATION SECTION --- */}
-      <section className="mb-8">
-        <h3 className="mb-4 text-lg font-medium">Location</h3>
+      <FormSection title="Location">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <InputField
             id="address"
@@ -215,11 +165,9 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             required
           />
         </div>
-      </section>
+      </FormSection>
 
-      {/* --- CONTACT SECTION --- */}
-      <section className="mb-8">
-        <h3 className="mb-4 text-lg font-medium">Contact Details</h3>
+      <FormSection title="Contact Details">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <InputField
             id="ownerName"
@@ -241,81 +189,19 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             onChange={handleChange}
             required
           />
-          <InputField
-            id="phoneNumber"
-            name="phoneNumber"
-            type="tel"
-            label="Contact Phone Number"
-            value={form.phoneNumber}
-            error={error.phoneNumber}
+          <RadioGroup
+            id="preferredContactMethod"
+            label="Preferred Contact Method"
+            options={['phone', 'email']}
+            value={form.preferredContactMethod}
             onChange={handleChange}
+            error={error.preferredContactMethod}
             required
           />
-          {/* <InputField
-            id="preferredContactMethod"
-            name="preferredContactMethod"
-            type="text"
-            label="Preferred Contact Method"
-            value={form.preferredContactMethod}
-            error={error.preferredContactMethod}
-            onChange={handleChange}
-            required
-          /> */}
-          {/* Preferred Contact Method - Only One Can Be Chosen */}
-          <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700">
-              Preferred Contact Method <span className="text-red-500">*</span>
-            </label>
-            <div className="flex space-x-4">
-              <div className="flex items-center">
-                <input
-                  type="radio"
-                  id="preferredContactPhone"
-                  name="preferredContactMethod"
-                  value="phone"
-                  checked={form.preferredContactMethod === 'phone'}
-                  onChange={handleChange}
-                  required
-                  className="h-4 w-4 text-blue-600 focus:ring-2 focus:ring-blue-600"
-                />
-                <label
-                  htmlFor="preferredContactPhone"
-                  className="ml-2 text-sm font-medium text-gray-700"
-                >
-                  Phone
-                </label>
-              </div>
-              <div className="flex items-center">
-                <input
-                  type="radio"
-                  id="preferredContactEmail"
-                  name="preferredContactMethod"
-                  value="email"
-                  checked={form.preferredContactMethod === 'email'}
-                  onChange={handleChange}
-                  required
-                  className="h-4 w-4 text-blue-600 focus:ring-2 focus:ring-blue-600"
-                />
-                <label
-                  htmlFor="preferredContactEmail"
-                  className="ml-2 text-sm font-medium text-gray-700"
-                >
-                  Email
-                </label>
-              </div>
-            </div>
-            {error.preferredContactMethod && (
-              <p className="mt-1 text-sm text-red-600">
-                {error.preferredContactMethod}
-              </p>
-            )}
-          </div>
         </div>
-      </section>
+      </FormSection>
 
-      {/* --- ADDITIONAL SECTION --- */}
-      <section className="mb-8">
-        <h3 className="mb-4 text-lg font-medium">Additional Info</h3>
+      <FormSection title="Additional Info">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <InputField
             id="yearEstablished"
@@ -348,31 +234,17 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
             onChange={handleChange}
             required
           />
-          <div className="flex items-center">
-            <input
-              className="mr-2 h-5 w-5 cursor-pointer rounded border-gray-300 focus:ring-2 focus:ring-blue-600"
-              type="checkbox"
-              id="isListedByOwner"
-              name="isListedByOwner"
-              checked={form.isListedByOwner || false}
-              onChange={(e) =>
-                handleChange({
-                  target: { name: 'isListedByOwner', value: e.target.checked },
-                })
-              }
-            />
-            <label
-              htmlFor="isListedByOwner"
-              className="text-sm font-medium text-gray-700"
-            >
-              Is Listed by Owner
-            </label>
-          </div>
+          <Checkbox
+            id="isListedByOwner"
+            name="isListedByOwner"
+            label="Is Listed by Owner"
+            checked={form.isListedByOwner}
+            onChange={handleChange}
+          />
         </div>
-      </section>
+      </FormSection>
 
-      {/* --- COVER IMAGE SECTION --- */}
-      <section className="mb-8">
+      <FormSection>
         <AddImage
           error={error}
           imageSrc={imageSrc}
@@ -380,17 +252,12 @@ const BusinessForm = ({ id = '', evaluationData = null }) => {
           handleFileUpload={handleFileUpload}
           setFile={setFile}
         />
-      </section>
-      <div className="mt-6 flex justify-center space-x-4">
-        {/* <button
-          type="button"
-          className="cursor-pointer rounded-md border border-gray-400 px-4 py-2 text-gray-700 transition duration-300 hover:bg-gray-100"
-        >
-          Cancel
-        </button> */}
+      </FormSection>
+
+      <div className="mt-6 flex justify-center">
         <button
           type="submit"
-          className="cursor-pointer rounded-md bg-blue-600 px-4 py-2 font-semibold text-white transition duration-300 hover:bg-blue-700"
+          className="rounded-md bg-blue-600 px-6 py-2 font-semibold text-white transition hover:bg-blue-700"
         >
           Save
         </button>
