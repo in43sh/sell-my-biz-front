@@ -273,7 +273,6 @@ const BusinessForm = ({ id = '' }) => {
 
 BusinessForm.propTypes = {
   id: PropTypes.string,
-  evaluationData: PropTypes.object,
 };
 
 export default BusinessForm;
