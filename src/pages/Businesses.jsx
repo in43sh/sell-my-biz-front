@@ -217,19 +217,12 @@ const BusinessListPage = () => {
               </select>
             </div>
           </div>
-          {loading ? (
-            <p className="text-center text-sm text-gray-700">Loading...</p>
-          ) : businesses.length === 0 ? (
-            <p className="mt-4 text-center text-sm text-gray-500">
-              No businesses found.
-            </p>
-          ) : (
-            <BusinessesList
-              list={businesses}
-              canViewDetails={true}
-              canContact={isLoggedIn}
-            />
-          )}
+          <BusinessesList
+            list={businesses}
+            loading={loading}
+            canViewDetails={true}
+            canContact={isLoggedIn}
+          />
         </div>
       </div>
     </div>

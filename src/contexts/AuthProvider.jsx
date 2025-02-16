@@ -1,9 +1,9 @@
-import React, { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 import { jwtDecode } from 'jwt-decode';
 import PropTypes from 'prop-types';
 
-import { useAccount } from './AccountProvider';
+// import { useAccount } from './AccountProvider';
 
 const AuthContext = createContext();
 

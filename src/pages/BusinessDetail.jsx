@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 // import { formatPhoneNumber } from '../utils/phoneFormatter';
 import { useAuth } from '../contexts/AuthProvider';
 import { getBusiness } from '../api/DBRequests';
+import Spinner from '../components/common/Spinner';
 import ContactModal from '../components/businesses/ContactModal';
 
 const BusinessDetail = () => {
@@ -46,7 +47,7 @@ const BusinessDetail = () => {
   }
 
   if (!business) {
-    return <div className="w-full py-10 text-center">Loading...</div>;
+    return <Spinner />;
   }
 
   // Destructure business properties
