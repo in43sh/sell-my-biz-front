@@ -53,7 +53,7 @@ export default function BusinessValuation() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center bg-blue-100 p-6">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300 p-6 text-blue-900">
       <div className="w-full max-w-lg rounded-2xl bg-white p-8 shadow-lg">
         <h2 className="mb-6 text-center text-3xl font-semibold text-blue-700">
           Business Valuation Estimator

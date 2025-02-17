@@ -24,7 +24,7 @@ export default function ApiStatusCheck() {
   }, []);
 
   return (
-    <div className="flex h-screen items-center justify-center bg-gray-200">
+    <div className="flex h-screen items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300">
       <div className="rounded-xl border border-gray-300 bg-white p-8 shadow-xl">
         <h1 className="mb-2 text-2xl font-bold">API Status</h1>
         <p className={`mt-2 text-lg font-medium ${statusColor}`}>{status}</p>

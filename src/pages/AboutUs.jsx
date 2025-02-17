@@ -1,7 +1,7 @@
 export default function AboutUs() {
   return (
-    <div className="mx-auto max-w-4xl bg-blue-50 p-6 text-blue-900">
-      <div className="rounded-lg border border-blue-300 bg-blue-100 p-6 shadow-md">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300 p-6 text-blue-900">
+      <div className="max-w-4xl rounded-lg border border-blue-300 bg-white p-6 shadow-md">
         <h1 className="mb-4 text-3xl font-bold text-blue-700">About Us</h1>
         <p className="mb-4">
           Welcome to Sell My Biz! We are a dedicated team of professionals
@@ -32,15 +32,15 @@ export default function AboutUs() {
           Our Team
         </h2>
         <p>
-          Our team consists of self-starters and busisnessowners with vast
-          expirience .
+          Our team consists of self-starters and business owners with vast
+          experience.
         </p>
 
         <h2 className="mt-6 mb-2 text-2xl font-semibold text-blue-700">
           Contact Us
         </h2>
         <p>
-          Have questions or need assistance? Reach out to us at
+          Have questions or need assistance? Reach out to us at&nbsp;
           <strong>
             <a
               href="mailto:support@sellmybiz.com"
@@ -49,7 +49,7 @@ export default function AboutUs() {
               support@sellmybiz.com
             </a>
           </strong>
-          , and we’ll be happy to help!
+          , and we&#39;ll be happy to help!
         </p>
       </div>
     </div>
