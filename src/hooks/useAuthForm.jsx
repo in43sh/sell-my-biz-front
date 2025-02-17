@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 import { login } from '../api/DBRequests';
 import { useAuth } from '../contexts/AuthProvider';
@@ -9,7 +9,7 @@ const useAuthForm = () => {
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState({});
   const { setUserSession } = useAuth();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = ({ target: { name, value } }) => {

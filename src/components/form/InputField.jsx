@@ -51,9 +51,9 @@ const InputField = ({
         placeholder={placeholder}
         value={value || ''}
         onChange={onChange}
-        required={required}
         disabled={disabled}
-        {...(type === 'number' && min !== undefined ? { min } : {})} // Apply min only for number fields
+        {...(type === 'number' && min !== undefined ? { min } : {})}
+        {...(required ? { required: true } : {})}
       />
       {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
     </div>
