@@ -1,4 +1,4 @@
-const Dropdown = ({ id, label, value, options, onChange, error, required }) => (
+const Select = ({ id, label, value, options, onChange, error, required }) => (
   <div>
     <label
       htmlFor={id}
@@ -25,4 +25,4 @@ const Dropdown = ({ id, label, value, options, onChange, error, required }) => (
   </div>
 );
 
-export default Dropdown;
+export default Select;

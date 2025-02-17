@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { requestPasswordReset } from '../../api/DBRequests';
+import InputField from '../../components/form/InputField';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -38,19 +39,16 @@ const ForgotPassword = () => {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Email Address
-            </label>
-            <input
-              type="email"
-              className="mt-1 w-full rounded-md border p-2"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
+          <InputField
+            id="email"
+            name="email"
+            type="email"
+            label="Email Address"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
           <button
             type="submit"

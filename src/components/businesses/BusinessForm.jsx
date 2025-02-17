@@ -3,7 +3,7 @@ import useBusinessForm from '../../hooks/useBusinessForm';
 import Spinner from '../../components/common/Spinner';
 import FormSection from '../form/FormSection';
 import InputField from '../form/InputField';
-import Dropdown from '../form/Dropdown';
+import Select from '../form/Select';
 import Checkbox from '../form/Checkbox';
 import RadioGroup from '../form/RadioGroup';
 import AddImage from './AddImage';
@@ -53,7 +53,7 @@ const BusinessForm = ({ id = '' }) => {
             onChange={handleChange}
             required
           />
-          <Dropdown
+          <Select
             id="category"
             label="Category"
             value={form.category}

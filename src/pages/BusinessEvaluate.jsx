@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import InputField from '../components/form/InputField';
+import Select from '../components/form/Select';
 
 const categoryMultiples = {
   Retail: 2.5,
@@ -13,62 +15,40 @@ const categoryMultiples = {
 };
 
 export default function BusinessValuation() {
-  const [sde, setSde] = useState('');
-  const [inventory, setInventory] = useState('');
-  const [revenue, setRevenue] = useState('');
-  const [category, setCategory] = useState('');
-  const [businessAge, setBusinessAge] = useState('');
-  const [repeatCustomers, setRepeatCustomers] = useState('');
-  const [employees, setEmployees] = useState('');
+  const [formData, setFormData] = useState({
+    sde: '',
+    inventory: '',
+    revenue: '',
+    category: '',
+    businessAge: '',
+    repeatCustomers: '',
+    employees: '',
+  });
   const [valuation, setValuation] = useState(null);
+  const [categoryError, setCategoryError] = useState(null);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]:
+        e.target.type === 'number'
+          ? parseFloat(e.target.value) || ''
+          : e.target.value,
+    });
+  };
 
   const calculateValuation = () => {
-    let estimatedValue = 0;
-
-    if (employees === 0) {
-      if (businessAge === 0) {
-        estimatedValue = 0;
-      } else if (businessAge < 2) {
-        estimatedValue =
-          0.15 * (revenue + parseFloat(inventory || 0)) + 0.5 * sde;
-      } else if (businessAge < 5) {
-        estimatedValue =
-          0.2 * (revenue + parseFloat(inventory || 0)) + 0.75 * sde;
-      } else {
-        estimatedValue = 0.25 * (revenue + parseFloat(inventory || 0)) + sde;
-      }
-    } else {
-      let baseMultiple = categoryMultiples[category] || 2.0;
-      let repeatCustomerMultiplier = 1.0;
-      if (repeatCustomers >= 50) repeatCustomerMultiplier = 1.4;
-      else if (repeatCustomers >= 30) repeatCustomerMultiplier = 1.3;
-      else if (repeatCustomers >= 10) repeatCustomerMultiplier = 1.2;
-
-      let ageMultiplier = businessAge >= 5 ? 1.1 : 1.0;
-      let employeeMultiplier =
-        employees > 10
-          ? 1.2
-          : employees > 5
-            ? 1.1
-            : employees === 1
-              ? 0.8
-              : 1.0;
-
-      let riskMultiplier = 1.0;
-      if (businessAge === 0) riskMultiplier = 0.3;
-      else if (businessAge < 2 && employees === 1) riskMultiplier = 0.5;
-      else if (businessAge < 2 && employees <= 3) riskMultiplier = 0.65;
-      else if (businessAge < 5 && employees === 1) riskMultiplier = 0.6;
-      else if (businessAge < 5 && employees <= 3) riskMultiplier = 0.75;
-      else if (businessAge === 5 && employees === 1) riskMultiplier = 0.7;
-
-      estimatedValue =
-        (sde * baseMultiple + 0.3 * revenue + parseFloat(inventory || 0)) *
-        ageMultiplier *
-        employeeMultiplier *
-        riskMultiplier;
+    if (!formData.category) {
+      setCategoryError('Please select a category');
+      return;
     }
+    setCategoryError(null);
 
+    let baseMultiple = categoryMultiples[formData.category] || 2.0;
+    let estimatedValue =
+      formData.sde * baseMultiple +
+      0.3 * formData.revenue +
+      parseFloat(formData.inventory || 0);
     setValuation(estimatedValue);
   };
 
@@ -80,103 +60,41 @@ export default function BusinessValuation() {
         </h2>
 
         <form className="space-y-4">
-          <div>
-            <label className="text-sm font-medium text-blue-600">
-              Profit:
-            </label>
-            <input
+          {[
+            'sde',
+            'inventory',
+            'revenue',
+            'businessAge',
+            'repeatCustomers',
+            'employees',
+          ].map((field) => (
+            <InputField
+              key={field}
+              id={field}
+              name={field}
               type="number"
-              value={sde}
-              onChange={(e) => setSde(parseFloat(e.target.value) || '')}
-              className="mt-1 w-full rounded-md border border-gray-300 p-2 text-lg text-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter Profit (e.g., 150000)"
+              min={0}
+              label={field
+                .replace(/([A-Z])/g, ' $1')
+                .trim()
+                .split(' ')
+                .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ')}
+              placeholder={`Enter ${field.replace(/([A-Z])/g, ' $1').trim()}`}
+              value={formData[field]}
+              onChange={handleChange}
             />
-          </div>
+          ))}
 
-          <div>
-            <label className="text-sm font-medium text-blue-600">
-              Inventory Value:
-            </label>
-            <input
-              type="number"
-              value={inventory}
-              onChange={(e) => setInventory(parseFloat(e.target.value) || '')}
-              className="mt-1 w-full rounded-md border border-gray-300 p-2 text-lg text-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter Inventory Value (e.g., 20000)"
-            />
-          </div>
-
-          <div>
-            <label className="text-sm font-medium text-blue-600">
-              Revenue:
-            </label>
-            <input
-              type="number"
-              value={revenue}
-              onChange={(e) => setRevenue(parseFloat(e.target.value) || '')}
-              className="mt-1 w-full rounded-md border border-gray-300 p-2 text-lg text-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter Gross Revenue (e.g., 500000)"
-            />
-          </div>
-
-          <div>
-            <label className="text-sm font-medium text-blue-600">
-              Category:
-            </label>
-            <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className="mt-1 w-full rounded-md border border-gray-300 p-3 text-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="">Select a Category</option>
-              {Object.keys(categoryMultiples).map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div>
-            <label className="text-sm font-medium text-blue-600">
-              Business Age (Years):
-            </label>
-            <input
-              type="number"
-              value={businessAge}
-              onChange={(e) => setBusinessAge(parseFloat(e.target.value) || '')}
-              className="mt-1 w-full rounded-md border border-gray-300 p-2 text-lg text-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter Business Age (e.g., 10)"
-            />
-          </div>
-
-          <div>
-            <label className="text-sm font-medium text-blue-600">
-              Repeat Customers (%):
-            </label>
-            <input
-              type="number"
-              value={repeatCustomers}
-              onChange={(e) =>
-                setRepeatCustomers(parseFloat(e.target.value) || '')
-              }
-              className="mt-1 w-full rounded-md border border-gray-300 p-2 text-lg text-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter Repeat Customer Rate (e.g., 80)"
-            />
-          </div>
-
-          <div>
-            <label className="text-sm font-medium text-blue-600">
-              Number of Employees:
-            </label>
-            <input
-              type="number"
-              value={employees}
-              onChange={(e) => setEmployees(parseFloat(e.target.value) || '')}
-              className="mt-1 w-full rounded-md border border-gray-300 p-2 text-lg text-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter Number of Employees (e.g., 5)"
-            />
-          </div>
+          <Select
+            id="category"
+            label="Category"
+            value={formData.category}
+            options={Object.keys(categoryMultiples)}
+            onChange={handleChange}
+            error={categoryError}
+            required
+          />
 
           <button
             type="button"
