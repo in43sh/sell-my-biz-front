@@ -93,7 +93,7 @@ AddImage.propTypes = {
   error: PropTypes.shape({
     coverImageUrl: PropTypes.string,
   }),
-  imageSrc: PropTypes.oneOfType([PropTypes.string, PropTypes.null]),
+  imageSrc: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
   // imageSrc: PropTypes.string,
   setFile: PropTypes.func.isRequired,
   setImageSrc: PropTypes.func.isRequired,
