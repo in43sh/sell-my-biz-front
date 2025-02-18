@@ -1,14 +1,15 @@
 import PropTypes from 'prop-types';
 import useBusinessForm from '../../hooks/useBusinessForm';
-import Spinner from '../../components/common/Spinner';
+import categories from '../../constants/categories';
+import usStates from '../../constants/usStates';
+import AddImage from './AddImage';
 import FormSection from '../form/FormSection';
 import InputField from '../form/InputField';
 import TextArea from '../form/TextArea';
 import Select from '../form/Select';
 import Checkbox from '../form/Checkbox';
 import RadioGroup from '../form/RadioGroup';
-import AddImage from './AddImage';
-import categories from '../../constants/categories';
+import Spinner from '../../components/common/Spinner';
 
 const BusinessForm = ({ id = '' }) => {
   const {
@@ -143,16 +144,27 @@ const BusinessForm = ({ id = '' }) => {
             onChange={handleChange}
             required
           />
-          <InputField
-            id="state"
-            name="state"
-            type="text"
-            label="State"
-            value={form.state}
-            error={error.state}
-            onChange={handleChange}
-            required
-          />
+          <div className="mb-3">
+            <label
+              htmlFor="state"
+              className="mb-1 block text-sm font-medium text-gray-700"
+            >
+              State
+            </label>
+            <select
+              id="state"
+              name="state"
+              className="w-full rounded border border-gray-300 p-2 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-none"
+              value={form.state}
+              onChange={handleChange}
+            >
+              {usStates.map((state) => (
+                <option key={state.value} value={state.value}>
+                  {state.label}
+                </option>
+              ))}
+            </select>
+          </div>
           <InputField
             id="zipCode"
             name="zipCode"
