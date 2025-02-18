@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import DeleteButton from '../businesses/DeleteButton';
@@ -103,6 +104,30 @@ const BusinessCard = ({
       )}
     </div>
   );
+};
+
+BusinessCard.propTypes = {
+  business: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    category: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    coverImageUrl: PropTypes.string,
+    ownerName: PropTypes.string.isRequired,
+    contactEmail: PropTypes.string,
+    phoneNumber: PropTypes.string,
+    preferredContactMethod: PropTypes.string,
+    isListedByOwner: PropTypes.bool.isRequired,
+    grossRevenue: PropTypes.number.isRequired,
+    createdAt: PropTypes.string.isRequired,
+    state: PropTypes.string.isRequired,
+  }).isRequired,
+  canEdit: PropTypes.bool,
+  canDelete: PropTypes.bool,
+  canViewDetails: PropTypes.bool,
+  canContact: PropTypes.bool,
+  updateList: PropTypes.func.isRequired,
 };
 
 export default BusinessCard;

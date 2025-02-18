@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const Checkbox = ({ id, name, label, checked, onChange }) => {
   return (
     <div className="flex items-center">
@@ -16,6 +18,14 @@ const Checkbox = ({ id, name, label, checked, onChange }) => {
       </label>
     </div>
   );
+};
+
+Checkbox.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  checked: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default Checkbox;

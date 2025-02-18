@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { checkApiStatus } from '../api/DBRequests';
 import Spinner from '../components/common/Spinner';
 
-export default function ApiStatusCheck() {
+const ApiStatusCheck = () => {
   const [status, setStatus] = useState('Checking API...');
   const [statusColor, setStatusColor] = useState('text-gray-500');
   const [loading, setLoading] = useState(true);
@@ -45,4 +45,6 @@ export default function ApiStatusCheck() {
       </div>
     </div>
   );
-}
+};
+
+export default ApiStatusCheck;

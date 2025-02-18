@@ -5,6 +5,7 @@ const Footer = () => {
     e.target.classList.add('shake');
     setTimeout(() => e.target.classList.remove('shake'), 500);
   };
+
   return (
     <footer className="bg-gray-900 py-10 text-white">
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-6 md:grid-cols-3">

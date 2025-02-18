@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 
@@ -64,6 +65,11 @@ const AccountDropdown = ({ onClose, clearUserSession }) => {
       </button>
     </div>
   );
+};
+
+AccountDropdown.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  clearUserSession: PropTypes.func.isRequired,
 };
 
 export default AccountDropdown;

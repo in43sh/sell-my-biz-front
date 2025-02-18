@@ -15,7 +15,7 @@ const categoryMultiples = {
   Other: 1.8,
 };
 
-export default function BusinessValuation() {
+const BusinessValuation = () => {
   const [formData, setFormData] = useState({
     sde: 0,
     inventory: 0,
@@ -107,4 +107,6 @@ export default function BusinessValuation() {
       </div>
     </div>
   );
-}
+};
+
+export default BusinessValuation;

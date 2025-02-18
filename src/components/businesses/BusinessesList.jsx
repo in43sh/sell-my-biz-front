@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import BusinessCard from './BusinessCard';
 import Spinner from '../../components/common/Spinner';
 
@@ -35,6 +36,33 @@ const BusinessesList = ({
       </div>
     </div>
   );
+};
+
+BusinessesList.propTypes = {
+  list: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      category: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      coverImageUrl: PropTypes.string,
+      ownerName: PropTypes.string.isRequired,
+      contactEmail: PropTypes.string,
+      phoneNumber: PropTypes.string,
+      preferredContactMethod: PropTypes.string,
+      isListedByOwner: PropTypes.bool.isRequired,
+      grossRevenue: PropTypes.number.isRequired,
+      createdAt: PropTypes.string.isRequired,
+      state: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  loading: PropTypes.bool.isRequired,
+  canEdit: PropTypes.bool,
+  canDelete: PropTypes.bool,
+  canViewDetails: PropTypes.bool,
+  canContact: PropTypes.bool,
+  updateList: PropTypes.func.isRequired,
 };
 
 export default BusinessesList;

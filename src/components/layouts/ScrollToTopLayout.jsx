@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useLocation, useNavigationType } from 'react-router-dom';
 
-export default function ScrollToTopLayout({ children }) {
+const ScrollToTopLayout = ({ children }) => {
   const navigationType = useNavigationType();
   const { pathname } = useLocation();
 
@@ -10,4 +11,10 @@ export default function ScrollToTopLayout({ children }) {
   }, [pathname, navigationType]);
 
   return <>{children}</>;
-}
+};
+
+ScrollToTopLayout.propTypes = {
+  children: PropTypes.node,
+};
+
+export default ScrollToTopLayout;

@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const RadioGroup = ({ id, label, options, value, onChange, error }) => (
   <div>
     <label className="mb-1 block text-sm font-medium text-gray-700">
@@ -21,5 +23,14 @@ const RadioGroup = ({ id, label, options, value, onChange, error }) => (
     {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
   </div>
 );
+
+RadioGroup.propTypes = {
+  id: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  error: PropTypes.string,
+};
 
 export default RadioGroup;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import InputField from '../components/form/InputField';
 
-export default function HelpPage() {
+const HelpPage = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -81,4 +81,6 @@ export default function HelpPage() {
       </div>
     </div>
   );
-}
+};
+
+export default HelpPage;
