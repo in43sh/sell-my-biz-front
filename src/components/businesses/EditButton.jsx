@@ -10,8 +10,8 @@ const EditButton = ({ id }) => {
 
   return (
     <button
-      onClick={handleEdit}
       className="flex cursor-pointer items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white transition duration-300 hover:bg-blue-700"
+      onClick={handleEdit}
     >
       Edit
     </button>
