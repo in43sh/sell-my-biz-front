@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { MapPinIcon } from '@heroicons/react/24/solid';
 import Logo from '../../assets/images/logo.svg';
 
 const Footer = () => {
@@ -18,8 +19,8 @@ const Footer = () => {
             Discover opportunities and grow your business with SellMyBiz.
             Connect with potential buyers and sellers in a seamless platform.
           </p>
-          <p className="mt-2">
-            {/* <i className="fas fa-map-marker-alt mr-2 text-blue-400"></i> */}
+          <p className="mt-2 flex items-center">
+            <MapPinIcon className="mr-2 h-5 w-5 text-blue-400" />
             Seattle, WA
           </p>
           {/* <p>
