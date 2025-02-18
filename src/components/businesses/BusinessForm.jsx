@@ -144,7 +144,7 @@ const BusinessForm = ({ id = '' }) => {
             onChange={handleChange}
             required
           />
-          <div className="mb-3">
+          <div className="relative mb-4">
             <label
               htmlFor="state"
               className="mb-1 block text-sm font-medium text-gray-700"
@@ -154,7 +154,7 @@ const BusinessForm = ({ id = '' }) => {
             <select
               id="state"
               name="state"
-              className="w-full rounded border border-gray-300 p-2 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-none"
+              className="h-[50px] w-full rounded-md border border-gray-300 p-3 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-none"
               value={form.state}
               onChange={handleChange}
             >
