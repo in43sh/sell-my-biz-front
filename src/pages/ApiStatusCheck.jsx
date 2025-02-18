@@ -1,33 +1,47 @@
 import { useState, useEffect } from 'react';
 import { checkApiStatus } from '../api/DBRequests';
+import Spinner from '../components/common/Spinner';
 
 export default function ApiStatusCheck() {
-  const [status, setStatus] = useState('Checking...');
-  const [statusColor, setStatusColor] = useState('text-gray-700');
+  const [status, setStatus] = useState('Checking API...');
+  const [statusColor, setStatusColor] = useState('text-gray-500');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    checkApiStatus()
-      .then(({ status }) => {
+    const fetchApiStatus = async () => {
+      try {
+        const { status } = await checkApiStatus();
         if (status === 200) {
-          setStatus('API is working!');
+          setStatus('✅ API is working!');
           setStatusColor('text-green-600');
         } else {
-          setStatus('API responded but not OK.');
-          setStatusColor('text-red-600');
+          setStatus('⚠️ API responded but not OK.');
+          setStatusColor('text-yellow-600');
         }
-      })
-      .catch((error) => {
-        setStatus('API request failed.');
+      } catch {
+        setStatus('❌ API request failed.');
         setStatusColor('text-red-600');
-        console.error('Error fetching API status:', error);
-      });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchApiStatus();
   }, []);
 
   return (
-    <div className="flex h-screen items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300">
-      <div className="rounded-xl border border-gray-300 bg-white p-8 shadow-xl">
-        <h1 className="mb-2 text-2xl font-bold">API Status</h1>
-        <p className={`mt-2 text-lg font-medium ${statusColor}`}>{status}</p>
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300">
+      <div className="rounded-2xl border border-gray-200 bg-white px-8 py-6 text-center shadow-lg">
+        <h1 className="mb-4 text-3xl font-semibold text-gray-800">
+          API Status
+        </h1>
+        {loading ? (
+          <div className="flex items-center justify-center gap-2 text-gray-500">
+            <Spinner />
+          </div>
+        ) : (
+          <p className={`text-xl font-medium ${statusColor}`}>{status}</p>
+        )}
       </div>
     </div>
   );
