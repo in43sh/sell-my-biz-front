@@ -1,7 +1,7 @@
 const inputFields = [
   {
     name: 'sde',
-    label: 'Seller’s Discretionary Earnings (SDE)',
+    label: 'Profit (SDE)',
     type: 'number',
     min: 0,
   },
