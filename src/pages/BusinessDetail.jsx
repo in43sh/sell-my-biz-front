@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
-// import { formatPhoneNumber } from '../utils/phoneFormatter';
 import { useAuth } from '../contexts/AuthProvider';
 import { getBusiness } from '../api/DBRequests';
 import Spinner from '../components/common/Spinner';
 import ContactModal from '../components/businesses/ContactModal';
+import { formatCurrency } from '../utils/formatCurrency';
 
 const BusinessDetail = () => {
   const { isLoggedIn } = useAuth();
@@ -14,27 +14,19 @@ const BusinessDetail = () => {
   const [redirectToSignIn, setRedirectToSignIn] = useState(false);
 
   useEffect(() => {
-    const getBusinessData = async () => {
+    const fetchBusiness = async () => {
       try {
-        const businessData = await getBusiness(
+        const data = await getBusiness(
           { 'Content-Type': 'application/json' },
           id
         );
-        setBusiness(businessData);
+        setBusiness(data);
       } catch (error) {
         console.error('Error fetching business data:', error);
       }
     };
-    getBusinessData();
+    fetchBusiness();
   }, [id]);
-
-  const handleContactSeller = () => {
-    if (isLoggedIn) {
-      setShowContactInfo(true);
-    } else {
-      setRedirectToSignIn(true);
-    }
-  };
 
   if (redirectToSignIn) {
     return (
@@ -46,11 +38,12 @@ const BusinessDetail = () => {
     );
   }
 
-  if (!business) {
-    return <Spinner />;
-  }
+  if (!business) return <Spinner />;
 
-  // Destructure business properties
+  const handleContactSeller = () => {
+    isLoggedIn ? setShowContactInfo(true) : setRedirectToSignIn(true);
+  };
+
   const {
     name,
     category,
@@ -75,6 +68,10 @@ const BusinessDetail = () => {
     preferredContactMethod,
   } = business;
 
+  const formattedAddress = [address, city, state, zipCode]
+    .filter(Boolean)
+    .join(', ');
+
   return (
     <div className="w-full px-4 py-10">
       <div className="mx-auto max-w-5xl space-y-8">
@@ -97,38 +94,40 @@ const BusinessDetail = () => {
           <div className="lg:col-span-2">
             <h3 className="text-3xl font-bold">{name}</h3>
             <p className="mt-2 text-gray-600">{category}</p>
-
             <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div>
-                <strong>Price:</strong> ${price}
-              </div>
-              <div>
-                <strong>Revenue:</strong> ${grossRevenue}
-              </div>
-              <div>
-                <strong>Profit:</strong> ${profit}
-              </div>
-              <div>
-                <strong>Cash Flow:</strong> ${cashFlow}
-              </div>
-              <div>
-                <strong>Inventory Value:</strong> ${inventoryValue}
-              </div>
-              <div>
-                <strong>Year Established:</strong> {yearEstablished}
-              </div>
-              <div>
-                <strong>Employees:</strong> {employees}
-              </div>
-              <div>
-                <strong>Reason for Selling:</strong> {reasonForSelling}
-              </div>
+              {[
+                { label: 'Price', value: formatCurrency(price) },
+                { label: 'Revenue', value: formatCurrency(grossRevenue) },
+                { label: 'Profit', value: formatCurrency(profit) },
+                { label: 'Cash Flow', value: formatCurrency(cashFlow) },
+                {
+                  label: 'Inventory Value',
+                  value: formatCurrency(inventoryValue),
+                },
+                { label: 'Year Established', value: yearEstablished },
+                {
+                  label: 'Employees',
+                  value:
+                    employees !== null && employees !== undefined
+                      ? employees
+                      : 'N/A',
+                },
+                { label: 'Reason for Selling', value: reasonForSelling },
+              ].map(
+                ({ label, value }) =>
+                  value !== null &&
+                  value !== undefined && (
+                    <div key={label}>
+                      <strong>{label}:</strong> {value}
+                    </div>
+                  )
+              )}
             </div>
-
-            <div className="mt-6">
-              <strong>Address:</strong> {address}, {city}, {state} {zipCode}
-            </div>
-
+            {formattedAddress && (
+              <div className="mt-6">
+                <strong>Address:</strong> {formattedAddress}
+              </div>
+            )}
             <h4 className="mt-6 text-2xl font-bold">Description</h4>
             <p className="mt-2 text-gray-700">{description}</p>
           </div>

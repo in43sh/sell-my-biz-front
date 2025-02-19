@@ -249,6 +249,6 @@ export const deleteBusiness = async (id, token) => {
   );
 };
 
-export const checkApiStatus = async () => {
-  return handleApiRequest('/', { headers: {} }, null, null, 'GET');
-};
+// api status
+export const checkApiStatus = () =>
+  handleApiRequest('/', { headers: {} }, null, null, 'GET');

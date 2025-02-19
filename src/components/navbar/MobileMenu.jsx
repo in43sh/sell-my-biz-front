@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 const MobileMenu = ({ isLoggedIn, clearUserSession, onClose }) => {
@@ -55,6 +56,12 @@ const MobileMenu = ({ isLoggedIn, clearUserSession, onClose }) => {
       )}
     </div>
   );
+};
+
+MobileMenu.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
+  clearUserSession: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default MobileMenu;

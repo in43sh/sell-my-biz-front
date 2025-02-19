@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const Select = ({ id, label, value, options, onChange, error, required }) => (
   <div>
     <label
@@ -24,5 +26,15 @@ const Select = ({ id, label, value, options, onChange, error, required }) => (
     {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
   </div>
 );
+
+Select.propTypes = {
+  id: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onChange: PropTypes.func.isRequired,
+  error: PropTypes.string,
+  required: PropTypes.bool,
+};
 
 export default Select;

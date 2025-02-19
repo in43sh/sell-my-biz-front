@@ -1,4 +1,4 @@
-export default function PrivacyPolicy() {
+const PrivacyPolicy = () => {
   return (
     <div className="mx-auto max-w-4xl bg-blue-50 p-6 text-blue-900">
       <div className="rounded-lg border border-blue-300 bg-blue-100 p-6 shadow-md">
@@ -82,4 +82,6 @@ export default function PrivacyPolicy() {
       </div>
     </div>
   );
-}
+};
+
+export default PrivacyPolicy;

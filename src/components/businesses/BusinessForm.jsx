@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types';
 import useBusinessForm from '../../hooks/useBusinessForm';
-import Spinner from '../../components/common/Spinner';
+import categories from '../../constants/categories';
+import usStates from '../../constants/usStates';
+import AddImage from './AddImage';
 import FormSection from '../form/FormSection';
 import InputField from '../form/InputField';
+import TextArea from '../form/TextArea';
 import Select from '../form/Select';
 import Checkbox from '../form/Checkbox';
 import RadioGroup from '../form/RadioGroup';
-import AddImage from './AddImage';
-import categories from '../../constants/categories';
+import Spinner from '../../components/common/Spinner';
 
 const BusinessForm = ({ id = '' }) => {
   const {
@@ -25,48 +27,46 @@ const BusinessForm = ({ id = '' }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="mx-auto w-full max-w-4xl rounded-lg bg-white p-6 shadow-lg"
+      className="mx-auto w-full max-w-3xl space-y-6 rounded-lg bg-white p-6 shadow-lg"
     >
-      <h2 className="mb-6 text-center text-2xl font-semibold">
+      <h2 className="text-center text-2xl font-semibold">
         Business Information
       </h2>
 
       <FormSection title="Basic Info">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <InputField
-            id="name"
-            name="name"
-            type="text"
-            label="Business Name"
-            value={form.name}
-            error={error.name}
-            onChange={handleChange}
-            required
-          />
-          <InputField
-            id="description"
-            name="description"
-            type="text"
-            label="Description"
-            value={form.description}
-            error={error.description}
-            onChange={handleChange}
-            required
-          />
-          <Select
-            id="category"
-            label="Category"
-            value={form.category}
-            options={categories}
-            onChange={handleChange}
-            error={error.category}
-            required
-          />
-        </div>
+        <InputField
+          id="name"
+          name="name"
+          type="text"
+          label="Business Name"
+          value={form.name}
+          error={error.name}
+          onChange={handleChange}
+          required
+        />
+        <TextArea
+          id="description"
+          name="description"
+          label="Description"
+          rows={3}
+          value={form.description}
+          error={error.description}
+          onChange={handleChange}
+          required
+        />
+        <Select
+          id="category"
+          label="Category"
+          value={form.category}
+          options={categories}
+          onChange={handleChange}
+          error={error.category}
+          required
+        />
       </FormSection>
 
       <FormSection title="Financial Info">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="grid grid-cols-2 gap-4">
           <InputField
             id="price"
             name="price"
@@ -144,16 +144,27 @@ const BusinessForm = ({ id = '' }) => {
             onChange={handleChange}
             required
           />
-          <InputField
-            id="state"
-            name="state"
-            type="text"
-            label="State"
-            value={form.state}
-            error={error.state}
-            onChange={handleChange}
-            required
-          />
+          <div className="relative mb-4">
+            <label
+              htmlFor="state"
+              className="mb-1 block text-sm font-medium text-gray-700"
+            >
+              State
+            </label>
+            <select
+              id="state"
+              name="state"
+              className="h-[50px] w-full rounded-md border border-gray-300 p-3 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-none"
+              value={form.state}
+              onChange={handleChange}
+            >
+              {usStates.map((state) => (
+                <option key={state.value} value={state.value}>
+                  {state.label}
+                </option>
+              ))}
+            </select>
+          </div>
           <InputField
             id="zipCode"
             name="zipCode"
@@ -168,7 +179,7 @@ const BusinessForm = ({ id = '' }) => {
       </FormSection>
 
       <FormSection title="Contact Details">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="grid grid-cols-2 gap-4">
           <InputField
             id="ownerName"
             name="ownerName"
@@ -212,7 +223,7 @@ const BusinessForm = ({ id = '' }) => {
       </FormSection>
 
       <FormSection title="Additional Info">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="grid grid-cols-2 gap-4">
           <InputField
             id="yearEstablished"
             name="yearEstablished"
@@ -264,7 +275,7 @@ const BusinessForm = ({ id = '' }) => {
         />
       </FormSection>
 
-      <div className="mt-6 flex justify-center">
+      <div className="flex justify-center">
         <button
           type="submit"
           className="cursor-pointer rounded-md bg-blue-600 px-6 py-2 font-semibold text-white transition hover:bg-blue-700"

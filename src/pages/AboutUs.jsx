@@ -1,4 +1,4 @@
-export default function AboutUs() {
+const AboutUs = () => {
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300 p-6 text-blue-900">
       <div className="max-w-4xl rounded-lg border border-blue-300 bg-white p-6 shadow-md">
@@ -54,4 +54,6 @@ export default function AboutUs() {
       </div>
     </div>
   );
-}
+};
+
+export default AboutUs;

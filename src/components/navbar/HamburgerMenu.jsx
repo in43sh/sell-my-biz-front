@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const HamburgerMenu = ({ toggleMenu }) => {
   return (
     <button
@@ -20,6 +22,10 @@ const HamburgerMenu = ({ toggleMenu }) => {
       </svg>
     </button>
   );
+};
+
+HamburgerMenu.propTypes = {
+  toggleMenu: PropTypes.func.isRequired,
 };
 
 export default HamburgerMenu;

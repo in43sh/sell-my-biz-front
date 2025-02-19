@@ -64,6 +64,7 @@ InputField.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   type: PropTypes.string,
+  min: PropTypes.number,
   placeholder: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   error: PropTypes.string,
@@ -72,7 +73,6 @@ InputField.propTypes = {
   tooltip: PropTypes.string,
   required: PropTypes.bool,
   disabled: PropTypes.bool,
-  min: PropTypes.number, // Added min prop
 };
 
 export default InputField;

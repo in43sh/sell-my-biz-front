@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+import { MapPinIcon } from '@heroicons/react/24/solid';
 import Logo from '../../assets/images/logo.svg';
 
 const Footer = () => {
@@ -5,19 +7,20 @@ const Footer = () => {
     e.target.classList.add('shake');
     setTimeout(() => e.target.classList.remove('shake'), 500);
   };
+
   return (
     <footer className="bg-gray-900 py-10 text-white">
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-6 md:grid-cols-3">
         <div>
-          <a href="/">
+          <Link to="/">
             <img src={Logo} alt="SellMyBiz" className="mb-4 w-48" />
-          </a>
+          </Link>
           <p className="text-gray-400">
             Discover opportunities and grow your business with SellMyBiz.
             Connect with potential buyers and sellers in a seamless platform.
           </p>
-          <p className="mt-2">
-            {/* <i className="fas fa-map-marker-alt mr-2 text-blue-400"></i> */}
+          <p className="mt-2 flex items-center">
+            <MapPinIcon className="mr-2 h-5 w-5 text-blue-400" />
             Seattle, WA
           </p>
           {/* <p>
@@ -34,29 +37,29 @@ const Footer = () => {
           <h5 className="mb-4 text-lg font-semibold">Quick Links</h5>
           <ul className="space-y-2">
             <li>
-              <a className="text-gray-400 hover:text-white" href="/">
+              <Link className="text-gray-400 hover:text-white" to="/">
                 Home
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="text-gray-400 hover:text-white" href="/about-us">
+              <Link className="text-gray-400 hover:text-white" to="/about-us">
                 About Us
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="text-gray-400 hover:text-white" href="/businesses">
+              <Link className="text-gray-400 hover:text-white" to="/businesses">
                 Businesses
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="text-gray-400 hover:text-white" href="/privacy">
+              <Link className="text-gray-400 hover:text-white" to="/privacy">
                 Privacy
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="text-gray-400 hover:text-white" href="/help">
+              <Link className="text-gray-400 hover:text-white" to="/help">
                 Help
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -93,22 +96,22 @@ const Footer = () => {
       <div className="mt-8 border-t border-gray-700 pt-6 text-center text-gray-400">
         <p className="mb-3">
           &copy; {new Date().getFullYear()}{' '}
-          <a href="/" className="font-semibold text-white hover:underline">
+          <Link to="/" className="font-semibold text-white hover:underline">
             SellMyBiz
-          </a>
+          </Link>
           . All Rights Reserved.
         </p>
         <div className="flex justify-center space-x-4">
-          <a href="/" className="text-gray-400 hover:text-white">
+          <a href="#" className="text-gray-400 hover:text-white">
             <i className="fab fa-facebook-f"></i>
           </a>
-          <a href="/" className="text-gray-400 hover:text-white">
+          <a href="#" className="text-gray-400 hover:text-white">
             <i className="fab fa-twitter"></i>
           </a>
-          <a href="/" className="text-gray-400 hover:text-white">
+          <a href="#" className="text-gray-400 hover:text-white">
             <i className="fab fa-linkedin-in"></i>
           </a>
-          <a href="/" className="text-gray-400 hover:text-white">
+          <a href="#" className="text-gray-400 hover:text-white">
             <i className="fab fa-instagram"></i>
           </a>
         </div>

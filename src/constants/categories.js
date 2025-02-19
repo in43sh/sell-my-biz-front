@@ -14,6 +14,7 @@ const categories = [
   'Manufacturing',
   'Real Estate',
   'Construction',
+  'Other',
 ];
 
 export default categories;

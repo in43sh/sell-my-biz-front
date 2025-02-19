@@ -90,11 +90,15 @@ const AddImage = ({
 };
 
 AddImage.propTypes = {
-  error: PropTypes.object,
-  imageSrc: PropTypes.string,
+  error: PropTypes.shape({
+    coverImageUrl: PropTypes.string,
+  }),
+  imageSrc: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
+  // imageSrc: PropTypes.string,
   setFile: PropTypes.func.isRequired,
   setImageSrc: PropTypes.func.isRequired,
   handleFileUpload: PropTypes.func.isRequired,
+  required: PropTypes.bool,
 };
 
 export default AddImage;

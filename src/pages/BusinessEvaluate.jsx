@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthProvider';
 import InputField from '../components/form/InputField';
 import Select from '../components/form/Select';
-import inputFields from '../constants/evaluateFormFieldsData';
+import inputFields from '../constants/evaluateFormFieldsData'; // Import input fields dynamically
 
 const INDUSTRY_MULTIPLIERS = {
   Retail: 2.5,
@@ -21,80 +21,53 @@ const BusinessEvaluate = () => {
   const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
 
-  // Initialize form state with empty strings (0 is allowed once entered)
   const initialState = inputFields.reduce((acc, field) => {
-    acc[field.name] = '';
+    acc[field.name] = ''; // Start with an empty string
     return acc;
-  }, { industry: '' });
+  }, { industry: '' }); // Initialize industry as an empty string
 
   const [formData, setFormData] = useState(initialState);
   const [result, setResult] = useState(null);
   const [details, setDetails] = useState(null);
 
-  // Handle changes while allowing "0" as a valid numeric input.
+  // ✅ Fixed handleChange to properly handle `0`
   const handleChange = ({ target: { name, value } }) => {
     setFormData((prevForm) => ({
       ...prevForm,
-      [name]:
-        name === 'industry'
-          ? value
-          : value === '' // keep empty string if field is cleared
-          ? ''
-          : Number(value), // convert value to number (0 remains 0)
+      [name]: value === ''
+        ? '' 
+        : name === 'industry' 
+        ? value
+        : isNaN(value) 
+        ? prevForm[name] 
+        : Number(value), 
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validate that no field is left empty (0 is acceptable)
+    // Ensure required fields are filled but allow `0` values
     if (Object.values(formData).some((val) => val === '')) {
       alert('Please provide all required fields.');
       return;
     }
 
-    // Destructure inputs; numeric fields are already numbers (0 allowed)
     const { sde, inventory, industry, revenue, businessAge, repeatCustomers, employees } = formData;
+
     const multiple = INDUSTRY_MULTIPLIERS[industry] || INDUSTRY_MULTIPLIERS.Other;
-    const baseValuation = sde * multiple;
+    const ageFactor = Math.min(parseInt(businessAge) || 0, 20) * 0.02;
+    const repeatCustomerFactor = parseFloat(repeatCustomers) * 0.01;
+    const revenueFactor = parseFloat(revenue) * 0.3;
 
-    // --- Revised Multipliers Based on Simulated Business Profiles ---
+    const valuation =
+      parseFloat(sde) * multiple +
+      parseFloat(inventory || 0) +
+      revenueFactor +
+      parseFloat(sde) * ageFactor +
+      parseFloat(sde) * repeatCustomerFactor;
 
-    // Age Multiplier: very young businesses carry higher risk.
-    let ageMultiplier = 1.0;
-    if (businessAge < 3) {
-      ageMultiplier = 0.55;
-    } else if (businessAge < 5) {
-      ageMultiplier = 0.75;
-    } else if (businessAge < 10) {
-      ageMultiplier = 0.9;
-    } else {
-      ageMultiplier = 1.1;
-    }
-
-    // Repeat Business Multiplier: low repeat numbers reduce valuation.
-    let repeatMultiplier = 1.0;
-    if (repeatCustomers < 10) {
-      repeatMultiplier = 0.65;
-    } else if (repeatCustomers < 30) {
-      repeatMultiplier = 0.85;
-    } else {
-      repeatMultiplier = 1.0;
-    }
-
-    // Employee Multiplier: fewer than 3 employees (often owner-run) get a slight discount.
-    const employeeMultiplier = employees < 3 ? 0.85 : 1.0;
-
-    // Adjust base valuation by applying the multipliers.
-    const adjustedValuation = baseValuation * ageMultiplier * repeatMultiplier * employeeMultiplier;
-
-    // Revenue adds a direct contribution (30% of revenue).
-    const revenueContribution = revenue * 0.3;
-
-    // Final valuation is the adjusted base plus inventory and revenue contribution.
-    const finalValuation = adjustedValuation + inventory + revenueContribution;
-
-    setResult(finalValuation);
+    setResult(valuation);
     setDetails({
       sde,
       inventory,
@@ -104,12 +77,9 @@ const BusinessEvaluate = () => {
       businessAge,
       repeatCustomers,
       employees,
-      ageMultiplier,
-      repeatMultiplier,
-      employeeMultiplier,
-      revenueContribution,
-      baseValuation,
-      adjustedValuation,
+      ageFactor,
+      repeatCustomerFactor,
+      revenueFactor,
     });
   };
 
@@ -129,23 +99,25 @@ const BusinessEvaluate = () => {
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {inputFields.map(({ name, label, min }) => (
+          {/* Generate Inputs from `inputFields` */}
+          {inputFields.map(({ name, label, type, min }) => (
             <InputField
               key={name}
               id={name}
               name={name}
-              type="text" // using "text" to prevent native number spinners
+              type={type}
               min={min}
-              inputMode="numeric" // brings up a numeric keyboard on mobile
-              pattern="[0-9]*"   // restricts input to numbers only
+              inputMode="numeric" // ✅ Removes the number input slider on mobile
+              pattern="[0-9]*" // ✅ Prevents scrolling on number input
               label={label}
               placeholder={`Enter ${label}`}
-              value={formData[name] === '' ? '' : formData[name]}
+              value={formData[name] === '' ? '' : formData[name]} 
               onChange={handleChange}
               required
             />
           ))}
 
+          {/* Industry Dropdown */}
           <Select
             id="industry"
             label="Industry"
@@ -155,6 +127,8 @@ const BusinessEvaluate = () => {
             required
           />
 
+
+          {/* Submit Button */}
           <button
             type="submit"
             className="w-full cursor-pointer rounded-lg bg-blue-600 py-3 font-semibold text-white transition duration-300 hover:bg-blue-700"
@@ -163,6 +137,7 @@ const BusinessEvaluate = () => {
           </button>
         </form>
 
+        {/* Display Results */}
         {result !== null && (
           <div className="mt-6 rounded-lg bg-gray-100 p-6 shadow-md">
             <h4 className="text-xl font-semibold">Valuation Result</h4>

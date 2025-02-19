@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { addBusiness, getBusiness, updateBusiness } from '../api/DBRequests';
 import { useAuth } from '../contexts/AuthProvider';
+import { formatPhoneNumber } from '../utils/phoneFormatter';
 
 const useBusinessForm = (id) => {
   const navigate = useNavigate();
@@ -106,18 +107,19 @@ const useBusinessForm = (id) => {
 
     try {
       const formData = new FormData();
+      const formattedPhoneNumber = formatPhoneNumber(form.phoneNumber);
+      Object.entries({ ...form, phoneNumber: formattedPhoneNumber }).forEach(
+        ([key, value]) => {
+          if (value !== null && value !== undefined && value !== '') {
+            formData.append(key, value);
+          }
+        }
+      );
 
       // Append image file if exists
       if (file) {
         formData.append('file', file);
       }
-
-      // Append form fields, excluding empty ones
-      Object.entries(form).forEach(([key, value]) => {
-        if (value !== null && value !== undefined && value !== '') {
-          formData.append(key, value);
-        }
-      });
 
       let result;
       if (id) {
@@ -132,16 +134,12 @@ const useBusinessForm = (id) => {
     } catch (error) {
       console.error(error);
 
-      // Handle specific validation errors
       if (
         error.response &&
         error.response.data &&
         error.response.data.message
       ) {
-        const rawMessage = error.response.data.message;
-
-        // Extract readable validation messages
-        const readableMessage = rawMessage
+        const readableMessage = error.response.data.message
           .replace('ValidationError: Business validation failed: ', '')
           .replace(/:/g, ' -')
           .replace(/description -/g, 'Description: ')

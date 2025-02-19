@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const DeleteAccountModal = ({
   title,
   message,
@@ -28,6 +30,15 @@ const DeleteAccountModal = ({
       </div>
     </div>
   );
+};
+
+DeleteAccountModal.propTypes = {
+  title: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
+  onConfirm: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  confirmText: PropTypes.string,
+  confirmClass: PropTypes.string,
 };
 
 export default DeleteAccountModal;
