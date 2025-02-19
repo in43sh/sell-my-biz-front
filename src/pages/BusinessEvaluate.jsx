@@ -58,12 +58,12 @@ const BusinessEvaluate = () => {
     const multiple = INDUSTRY_MULTIPLIERS[industry] || INDUSTRY_MULTIPLIERS.Other;
     const baseValuation = sde * multiple;
 
-    // --- Revised Multipliers Based on Simulated Business Profiles ---
-
-    // Age Multiplier: very young businesses carry higher risk.
+    // --- Revised Multipliers Based on Risk Factors ---
+    
+    // 1. Age Multiplier:
     let ageMultiplier = 1.0;
     if (businessAge < 3) {
-      ageMultiplier = 0.55;
+      ageMultiplier = 0.45; // even steeper penalty for very young businesses
     } else if (businessAge < 5) {
       ageMultiplier = 0.75;
     } else if (businessAge < 10) {
@@ -72,26 +72,33 @@ const BusinessEvaluate = () => {
       ageMultiplier = 1.1;
     }
 
-    // Repeat Business Multiplier: low repeat numbers reduce valuation.
+    // 2. Repeat Business Multiplier:
     let repeatMultiplier = 1.0;
-    if (repeatCustomers < 10) {
+    if (repeatCustomers < 30) {
       repeatMultiplier = 0.65;
-    } else if (repeatCustomers < 30) {
-      repeatMultiplier = 0.85;
     } else {
       repeatMultiplier = 1.0;
     }
 
-    // Employee Multiplier: fewer than 3 employees (often owner-run) get a slight discount.
-    const employeeMultiplier = employees < 3 ? 0.85 : 1.0;
+    // 3. Employee Multiplier:
+    let employeeMultiplier = 1.0;
+    if (employees < 3) {
+      if (businessAge < 3) {
+        employeeMultiplier = 0.4; // extremely low for very young businesses with few employees
+      } else {
+        employeeMultiplier = 0.8;
+      }
+    } else {
+      employeeMultiplier = 1.0;
+    }
 
-    // Adjust base valuation by applying the multipliers.
+    // Calculate the adjusted base valuation using the risk multipliers.
     const adjustedValuation = baseValuation * ageMultiplier * repeatMultiplier * employeeMultiplier;
 
     // Revenue adds a direct contribution (30% of revenue).
     const revenueContribution = revenue * 0.3;
 
-    // Final valuation is the adjusted base plus inventory and revenue contribution.
+    // Final valuation = adjusted base + inventory + revenue contribution.
     const finalValuation = adjustedValuation + inventory + revenueContribution;
 
     setResult(finalValuation);

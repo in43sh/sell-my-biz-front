@@ -1,84 +1,132 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthProvider';
+import InputField from '../components/form/InputField';
+import Select from '../components/form/Select';
+import inputFields from '../constants/evaluateFormFieldsData';
+
+const INDUSTRY_MULTIPLIERS = {
+  Retail: 2.5,
+  'Food & Beverage': 2.2,
+  'Health & Wellness': 2.8,
+  Technology: 3.5,
+  Manufacturing: 2.0,
+  Services: 2.0,
+  Education: 2.2,
+  Entertainment: 2.5,
+  Other: 1.8,
+};
 
 const BusinessEvaluate = () => {
   const { isLoggedIn } = useAuth();
-  const [formData, setFormData] = useState({
-    profit: '',
-    inventory: '',
-    industry: '',
-    grossRevenue: '',
-    businessAge: '',
-    repeatCustomers: '',
-  });
-  const [result, setResult] = useState(null);
-  const [details, setDetails] = useState(null);
   const navigate = useNavigate();
 
-  const INDUSTRY_MULTIPLIERS = {
-    Retail: 2.5,
-    'Food & Beverage': 2.2,
-    'Health & Wellness': 2.8,
-    Technology: 3.5,
-    Manufacturing: 2.0,
-    Services: 2.0,
-    Education: 2.2,
-    Entertainment: 2.5,
-    Other: 1.8,
-  };
+  // Initialize form state with empty strings (0 is allowed once entered)
+  const initialState = inputFields.reduce((acc, field) => {
+    acc[field.name] = '';
+    return acc;
+  }, { industry: '' });
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const [formData, setFormData] = useState(initialState);
+  const [result, setResult] = useState(null);
+  const [details, setDetails] = useState(null);
+
+  // Handle changes while allowing "0" as a valid numeric input.
+  const handleChange = ({ target: { name, value } }) => {
+    setFormData((prevForm) => ({
+      ...prevForm,
+      [name]:
+        name === 'industry'
+          ? value
+          : value === '' // keep empty string if field is cleared
+          ? ''
+          : Number(value), // convert value to number (0 remains 0)
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const {
-      profit,
-      inventory,
-      industry,
-      grossRevenue,
-      businessAge,
-      repeatCustomers,
-    } = formData;
-    if (
-      !profit ||
-      !industry ||
-      !grossRevenue ||
-      !businessAge ||
-      !repeatCustomers
-    ) {
+    // Validate that no field is left empty (0 is acceptable)
+    if (Object.values(formData).some((val) => val === '')) {
       alert('Please provide all required fields.');
       return;
     }
 
-    const multiple =
-      INDUSTRY_MULTIPLIERS[industry] || INDUSTRY_MULTIPLIERS.Other;
-    const ageFactor = Math.min(parseInt(businessAge), 20) * 0.02;
-    const repeatCustomerFactor = parseFloat(repeatCustomers) * 0.01;
-    const revenueFactor = parseFloat(grossRevenue) * 0.3;
+    // Destructure inputs; numeric fields are already numbers (0 allowed)
+    const { sde, inventory, industry, revenue, businessAge, repeatCustomers, employees } = formData;
+    const multiple = INDUSTRY_MULTIPLIERS[industry] || INDUSTRY_MULTIPLIERS.Other;
+    const baseValuation = sde * multiple;
 
-    const valuation =
-      parseFloat(profit) * multiple +
-      parseFloat(inventory || 0) +
-      revenueFactor +
-      parseFloat(profit) * ageFactor +
-      parseFloat(profit) * repeatCustomerFactor;
+    // --- Revised Multipliers Based on Risk Factors ---
+    //
+    // 1. Age Multiplier:
+    //    Businesses under 3 years old are very high risk.
+    //    Businesses between 3-5 years get a moderate discount,
+    //    5-10 years get a slight discount,
+    //    and businesses over 10 years get a premium.
+    let ageMultiplier = 1.0;
+    if (businessAge < 3) {
+      ageMultiplier = 0.4; // very young business: steep risk penalty
+    } else if (businessAge < 5) {
+      ageMultiplier = 0.7;
+    } else if (businessAge < 10) {
+      ageMultiplier = 0.9;
+    } else {
+      ageMultiplier = 1.1;
+    }
 
-    setResult(valuation);
+    // 2. Repeat Business Multiplier:
+    //    Low repeat business signals poor customer loyalty.
+    let repeatMultiplier = 1.0;
+    if (repeatCustomers < 10) {
+      repeatMultiplier = 0.65;
+    } else if (repeatCustomers < 30) {
+      repeatMultiplier = 0.85;
+    } else {
+      repeatMultiplier = 1.0;
+    }
+
+    // 3. Employee Multiplier:
+    //    Fewer than 3 employees indicate an owner-run operation.
+    //    If a business is very young (under 3 years) AND has few employees,
+    //    the risk is compounded.
+    let employeeMultiplier = 1.0;
+    if (employees < 3) {
+      if (businessAge < 3) {
+        employeeMultiplier = 0.3; // extremely low multiplier if both risk factors align
+      } else {
+        employeeMultiplier = 0.8;
+      }
+    } else {
+      employeeMultiplier = 1.0;
+    }
+
+    // Calculate the adjusted base valuation using the risk multipliers.
+    const adjustedValuation = baseValuation * ageMultiplier * repeatMultiplier * employeeMultiplier;
+
+    // Revenue adds a direct contribution (30% of revenue).
+    const revenueContribution = revenue * 0.3;
+
+    // Final valuation is the adjusted base plus inventory and revenue contribution.
+    const finalValuation = adjustedValuation + inventory + revenueContribution;
+
+    setResult(finalValuation);
     setDetails({
-      profit,
+      sde,
       inventory,
       industry,
       industryMultiple: multiple,
-      grossRevenue,
+      revenue,
       businessAge,
       repeatCustomers,
-      ageFactor,
-      repeatCustomerFactor,
-      revenueFactor,
+      employees,
+      ageMultiplier,
+      repeatMultiplier,
+      employeeMultiplier,
+      revenueContribution,
+      baseValuation,
+      adjustedValuation,
     });
   };
 
@@ -96,88 +144,34 @@ const BusinessEvaluate = () => {
         <h2 className="mb-6 text-center text-3xl font-semibold text-gray-900">
           Business Valuation Calculator
         </h2>
+
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="mb-2 block text-sm font-medium">
-              Profit (Yearly)
-            </label>
-            <input
-              type="number"
-              className="w-full rounded-lg border p-3"
-              name="profit"
-              value={formData.profit}
+          {inputFields.map(({ name, label, min }) => (
+            <InputField
+              key={name}
+              id={name}
+              name={name}
+              type="text" // using "text" to prevent native number spinners
+              min={min}
+              inputMode="numeric" // brings up a numeric keyboard on mobile
+              pattern="[0-9]*"   // restricts input to numbers only
+              label={label}
+              placeholder={`Enter ${label}`}
+              value={formData[name] === '' ? '' : formData[name]}
               onChange={handleChange}
-              placeholder="Enter Profit (e.g., 150000)"
+              required
             />
-          </div>
-          <div>
-            <label className="mb-2 block text-sm font-medium">
-              Inventory Value
-            </label>
-            <input
-              type="number"
-              className="w-full rounded-lg border p-3"
-              name="inventory"
-              value={formData.inventory}
-              onChange={handleChange}
-              placeholder="Enter Inventory Value (e.g., 20000)"
-            />
-          </div>
-          <div>
-            <label className="mb-2 block text-sm font-medium">
-              Gross Revenue
-            </label>
-            <input
-              type="number"
-              className="w-full rounded-lg border p-3"
-              name="grossRevenue"
-              value={formData.grossRevenue}
-              onChange={handleChange}
-              placeholder="Enter Gross Revenue (e.g., 500000)"
-            />
-          </div>
-          <div>
-            <label className="mb-2 block text-sm font-medium">
-              Business Age (Years)
-            </label>
-            <input
-              type="number"
-              className="w-full rounded-lg border p-3"
-              name="businessAge"
-              value={formData.businessAge}
-              onChange={handleChange}
-              placeholder="Enter Business Age (e.g., 10)"
-            />
-          </div>
-          <div>
-            <label className="mb-2 block text-sm font-medium">
-              Repeat Customers (%)
-            </label>
-            <input
-              type="number"
-              className="w-full rounded-lg border p-3"
-              name="repeatCustomers"
-              value={formData.repeatCustomers}
-              onChange={handleChange}
-              placeholder="Enter Repeat Customer Rate (e.g., 80)"
-            />
-          </div>
-          <div>
-            <label className="mb-2 block text-sm font-medium">Industry</label>
-            <select
-              className="w-full rounded-lg border p-3"
-              name="industry"
-              value={formData.industry}
-              onChange={handleChange}
-            >
-              <option value="">Select an Industry</option>
-              {Object.keys(INDUSTRY_MULTIPLIERS).map((industry) => (
-                <option key={industry} value={industry}>
-                  {industry}
-                </option>
-              ))}
-            </select>
-          </div>
+          ))}
+
+          <Select
+            id="industry"
+            label="Industry"
+            value={formData.industry}
+            options={Object.keys(INDUSTRY_MULTIPLIERS)}
+            onChange={handleChange}
+            required
+          />
+
           <button
             type="submit"
             className="w-full cursor-pointer rounded-lg bg-blue-600 py-3 font-semibold text-white transition duration-300 hover:bg-blue-700"
@@ -192,35 +186,6 @@ const BusinessEvaluate = () => {
             <p className="mt-2 text-lg">
               <strong>Estimated Valuation:</strong> ${result.toLocaleString()}
             </p>
-            <h5 className="mt-4 text-lg font-semibold">Breakdown</h5>
-            <ul className="mt-2 space-y-2">
-              <li>
-                <strong>Profit (SDE):</strong> $
-                {parseFloat(details.profit).toLocaleString()}
-              </li>
-              <li>
-                <strong>Gross Revenue Factor:</strong> $
-                {details.revenueFactor.toLocaleString()}
-              </li>
-              <li>
-                <strong>Business Age Factor:</strong> +
-                {(details.ageFactor * 100).toFixed(1)}%
-              </li>
-              <li>
-                <strong>Repeat Customers Factor:</strong> +
-                {(details.repeatCustomerFactor * 100).toFixed(1)}%
-              </li>
-              <li>
-                <strong>Industry:</strong> {details.industry}
-              </li>
-              <li>
-                <strong>Industry Multiple:</strong> {details.industryMultiple}x
-              </li>
-              <li>
-                <strong>Inventory Value:</strong> $
-                {parseFloat(details.inventory || 0).toLocaleString()}
-              </li>
-            </ul>
             <button
               className="mt-4 w-full cursor-pointer rounded-lg bg-green-600 py-3 font-semibold text-white transition duration-300 hover:bg-green-700"
               onClick={handleCreateListing}
