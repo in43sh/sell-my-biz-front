@@ -144,7 +144,7 @@ const BusinessEvaluate = () => {
           Business Valuation Calculator
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
-          {inputFields.map(({ name, label, min }) => (
+          {inputFields.map(({ name, label, min, exampleValue }) => (
             <InputField
               key={name}
               id={name}
@@ -154,7 +154,8 @@ const BusinessEvaluate = () => {
               inputMode="numeric" // brings up a numeric keyboard on mobile
               pattern="[0-9]*" // restricts input to numbers only
               label={label}
-              placeholder={`Enter ${label}`}
+              // placeholder={`Enter ${label}. ${exampleValue}`}
+              placeholder={`e.g., ${exampleValue}`}
               value={formData[name] === '' ? '' : formData[name]}
               onChange={handleChange}
               required

@@ -1,3 +1,5 @@
+// TODO
+// TO BE DELETED
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthProvider';
@@ -22,10 +24,13 @@ const BusinessEvaluate = () => {
   const navigate = useNavigate();
 
   // Initialize form state with empty strings (0 is allowed once entered)
-  const initialState = inputFields.reduce((acc, field) => {
-    acc[field.name] = '';
-    return acc;
-  }, { industry: '' });
+  const initialState = inputFields.reduce(
+    (acc, field) => {
+      acc[field.name] = '';
+      return acc;
+    },
+    { industry: '' }
+  );
 
   const [formData, setFormData] = useState(initialState);
   const [result, setResult] = useState(null);
@@ -39,8 +44,8 @@ const BusinessEvaluate = () => {
         name === 'industry'
           ? value
           : value === '' // keep empty string if field is cleared
-          ? ''
-          : Number(value), // convert value to number (0 remains 0)
+            ? ''
+            : Number(value), // convert value to number (0 remains 0)
     }));
   };
 
@@ -54,8 +59,17 @@ const BusinessEvaluate = () => {
     }
 
     // Destructure inputs; numeric fields are already numbers (0 allowed)
-    const { sde, inventory, industry, revenue, businessAge, repeatCustomers, employees } = formData;
-    const multiple = INDUSTRY_MULTIPLIERS[industry] || INDUSTRY_MULTIPLIERS.Other;
+    const {
+      sde,
+      inventory,
+      industry,
+      revenue,
+      businessAge,
+      repeatCustomers,
+      employees,
+    } = formData;
+    const multiple =
+      INDUSTRY_MULTIPLIERS[industry] || INDUSTRY_MULTIPLIERS.Other;
     const baseValuation = sde * multiple;
 
     // --- Revised Multipliers Based on Risk Factors ---
@@ -103,7 +117,8 @@ const BusinessEvaluate = () => {
     }
 
     // Calculate the adjusted base valuation using the risk multipliers.
-    const adjustedValuation = baseValuation * ageMultiplier * repeatMultiplier * employeeMultiplier;
+    const adjustedValuation =
+      baseValuation * ageMultiplier * repeatMultiplier * employeeMultiplier;
 
     // Revenue adds a direct contribution (30% of revenue).
     const revenueContribution = revenue * 0.3;
@@ -154,7 +169,7 @@ const BusinessEvaluate = () => {
               type="text" // using "text" to prevent native number spinners
               min={min}
               inputMode="numeric" // brings up a numeric keyboard on mobile
-              pattern="[0-9]*"   // restricts input to numbers only
+              pattern="[0-9]*" // restricts input to numbers only
               label={label}
               placeholder={`Enter ${label}`}
               value={formData[name] === '' ? '' : formData[name]}
