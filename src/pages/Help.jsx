@@ -19,7 +19,7 @@ const HelpPage = () => {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300 p-6 text-blue-900">
-      <div className="w-full max-w-2xl rounded-lg border border-blue-300 bg-blue-100 bg-white p-6 shadow-md">
+      <div className="w-full max-w-2xl rounded-lg border border-blue-300 bg-white p-6 shadow-md">
         <h1 className="mb-4 text-3xl font-bold text-blue-700">Help Page</h1>
         <p className="mb-4">
           If you need assistance, please fill out the form below and we will get
