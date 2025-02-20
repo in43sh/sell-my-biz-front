@@ -1,5 +1,3 @@
-// TODO
-// TO BE DELETED
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthProvider';
@@ -23,7 +21,7 @@ const BusinessEvaluate = () => {
   const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
 
-  // Initialize form state with empty strings (0 is allowed once entered)
+  // Initialize form state (all fields start as empty strings; "0" is allowed when entered)
   const initialState = inputFields.reduce(
     (acc, field) => {
       acc[field.name] = '';
@@ -68,22 +66,19 @@ const BusinessEvaluate = () => {
       repeatCustomers,
       employees,
     } = formData;
-    const multiple =
+    const industryMultiplier =
       INDUSTRY_MULTIPLIERS[industry] || INDUSTRY_MULTIPLIERS.Other;
-    const baseValuation = sde * multiple;
+    const baseValuation = sde * industryMultiplier;
 
-    // --- Revised Multipliers Based on Risk Factors ---
-    //
+    // --- Risk Multipliers Calculation ---
+
     // 1. Age Multiplier:
-    //    Businesses under 3 years old are very high risk.
-    //    Businesses between 3-5 years get a moderate discount,
-    //    5-10 years get a slight discount,
-    //    and businesses over 10 years get a premium.
+    //    < 3 years → 0.45, 3–5 years → 0.75, 5–10 years → 0.9, 10+ years → 1.1
     let ageMultiplier = 1.0;
     if (businessAge < 3) {
-      ageMultiplier = 0.4; // very young business: steep risk penalty
+      ageMultiplier = 0.45;
     } else if (businessAge < 5) {
-      ageMultiplier = 0.7;
+      ageMultiplier = 0.75;
     } else if (businessAge < 10) {
       ageMultiplier = 0.9;
     } else {
@@ -91,39 +86,28 @@ const BusinessEvaluate = () => {
     }
 
     // 2. Repeat Business Multiplier:
-    //    Low repeat business signals poor customer loyalty.
-    let repeatMultiplier = 1.0;
-    if (repeatCustomers < 10) {
-      repeatMultiplier = 0.65;
-    } else if (repeatCustomers < 30) {
-      repeatMultiplier = 0.85;
-    } else {
-      repeatMultiplier = 1.0;
-    }
+    //    Fewer than 30 repeat customers → 0.65, otherwise → 1.0
+    const repeatMultiplier = repeatCustomers < 30 ? 0.65 : 1.0;
 
     // 3. Employee Multiplier:
-    //    Fewer than 3 employees indicate an owner-run operation.
-    //    If a business is very young (under 3 years) AND has few employees,
-    //    the risk is compounded.
+    //    If fewer than 3 employees and business is under 3 years → 0.4,
+    //    if fewer than 3 employees (but 3+ years) → 0.8,
+    //    otherwise → 1.0
     let employeeMultiplier = 1.0;
     if (employees < 3) {
-      if (businessAge < 3) {
-        employeeMultiplier = 0.3; // extremely low multiplier if both risk factors align
-      } else {
-        employeeMultiplier = 0.8;
-      }
+      employeeMultiplier = businessAge < 3 ? 0.4 : 0.8;
     } else {
       employeeMultiplier = 1.0;
     }
 
-    // Calculate the adjusted base valuation using the risk multipliers.
+    // Apply the risk multipliers to the base valuation.
     const adjustedValuation =
       baseValuation * ageMultiplier * repeatMultiplier * employeeMultiplier;
 
-    // Revenue adds a direct contribution (30% of revenue).
+    // Revenue adds an additive contribution (30% of revenue).
     const revenueContribution = revenue * 0.3;
 
-    // Final valuation is the adjusted base plus inventory and revenue contribution.
+    // Final valuation = Adjusted base valuation + Inventory + Revenue contribution.
     const finalValuation = adjustedValuation + inventory + revenueContribution;
 
     setResult(finalValuation);
@@ -131,7 +115,7 @@ const BusinessEvaluate = () => {
       sde,
       inventory,
       industry,
-      industryMultiple: multiple,
+      industryMultiplier,
       revenue,
       businessAge,
       repeatCustomers,
@@ -154,14 +138,13 @@ const BusinessEvaluate = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-700 to-blue-900 p-6">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300 p-6">
       <div className="w-full max-w-lg rounded-2xl bg-white p-8 shadow-xl">
         <h2 className="mb-6 text-center text-3xl font-semibold text-gray-900">
           Business Valuation Calculator
         </h2>
-
         <form onSubmit={handleSubmit} className="space-y-4">
-          {inputFields.map(({ name, label, min }) => (
+          {inputFields.map(({ name, label, min, exampleValue }) => (
             <InputField
               key={name}
               id={name}
@@ -171,13 +154,13 @@ const BusinessEvaluate = () => {
               inputMode="numeric" // brings up a numeric keyboard on mobile
               pattern="[0-9]*" // restricts input to numbers only
               label={label}
-              placeholder={`Enter ${label}`}
+              // placeholder={`Enter ${label}. ${exampleValue}`}
+              placeholder={`e.g., ${exampleValue}`}
               value={formData[name] === '' ? '' : formData[name]}
               onChange={handleChange}
               required
             />
           ))}
-
           <Select
             id="industry"
             label="Industry"
@@ -186,7 +169,6 @@ const BusinessEvaluate = () => {
             onChange={handleChange}
             required
           />
-
           <button
             type="submit"
             className="w-full cursor-pointer rounded-lg bg-blue-600 py-3 font-semibold text-white transition duration-300 hover:bg-blue-700"
@@ -194,7 +176,6 @@ const BusinessEvaluate = () => {
             Calculate Valuation
           </button>
         </form>
-
         {result !== null && (
           <div className="mt-6 rounded-lg bg-gray-100 p-6 shadow-md">
             <h4 className="text-xl font-semibold">Valuation Result</h4>

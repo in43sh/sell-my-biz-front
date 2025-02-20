@@ -1,4 +1,4 @@
-const inputFields = [
+export const inputFields = [
   {
     name: 'sde',
     label: 'Profit (SDE)',
@@ -43,4 +43,4 @@ const inputFields = [
   },
 ];
 
-export default inputFields;
+// export default inputFields;

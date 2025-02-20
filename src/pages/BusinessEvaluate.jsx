@@ -3,19 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthProvider';
 import InputField from '../components/form/InputField';
 import Select from '../components/form/Select';
-import inputFields from '../constants/evaluateFormFieldsData';
-
-const INDUSTRY_MULTIPLIERS = {
-  Retail: 2.5,
-  'Food & Beverage': 2.2,
-  'Health & Wellness': 2.8,
-  Technology: 3.5,
-  Manufacturing: 2.0,
-  Services: 2.0,
-  Education: 2.2,
-  Entertainment: 2.5,
-  Other: 1.8,
-};
+import { inputFields } from '../constants/evaluateFormFieldsData';
+import { calculateBusinessValuation } from '../utils/businessValuation';
+import { INDUSTRY_MULTIPLIERS } from '../constants/industryMultipliers';
 
 const BusinessEvaluate = () => {
   const { isLoggedIn } = useAuth();
@@ -23,10 +13,7 @@ const BusinessEvaluate = () => {
 
   // Initialize form state (all fields start as empty strings; "0" is allowed when entered)
   const initialState = inputFields.reduce(
-    (acc, field) => {
-      acc[field.name] = '';
-      return acc;
-    },
+    (acc, field) => ({ ...acc, [field.name]: '' }),
     { industry: '' }
   );
 
@@ -34,99 +21,26 @@ const BusinessEvaluate = () => {
   const [result, setResult] = useState(null);
   const [details, setDetails] = useState(null);
 
-  // Handle changes while allowing "0" as a valid numeric input.
+  // Handle input changes
   const handleChange = ({ target: { name, value } }) => {
-    setFormData((prevForm) => ({
-      ...prevForm,
-      [name]:
-        name === 'industry'
-          ? value
-          : value === '' // keep empty string if field is cleared
-            ? ''
-            : Number(value), // convert value to number (0 remains 0)
+    setFormData((prev) => ({
+      ...prev,
+      [name]: name === 'industry' ? value : value === '' ? '' : Number(value),
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validate that no field is left empty (0 is acceptable)
+    // Validate required fields
     if (Object.values(formData).some((val) => val === '')) {
       alert('Please provide all required fields.');
       return;
     }
 
-    // Destructure inputs; numeric fields are already numbers (0 allowed)
-    const {
-      sde,
-      inventory,
-      industry,
-      revenue,
-      businessAge,
-      repeatCustomers,
-      employees,
-    } = formData;
-    const industryMultiplier =
-      INDUSTRY_MULTIPLIERS[industry] || INDUSTRY_MULTIPLIERS.Other;
-    const baseValuation = sde * industryMultiplier;
-
-    // --- Risk Multipliers Calculation ---
-
-    // 1. Age Multiplier:
-    //    < 3 years → 0.45, 3–5 years → 0.75, 5–10 years → 0.9, 10+ years → 1.1
-    let ageMultiplier = 1.0;
-    if (businessAge < 3) {
-      ageMultiplier = 0.45;
-    } else if (businessAge < 5) {
-      ageMultiplier = 0.75;
-    } else if (businessAge < 10) {
-      ageMultiplier = 0.9;
-    } else {
-      ageMultiplier = 1.1;
-    }
-
-    // 2. Repeat Business Multiplier:
-    //    Fewer than 30 repeat customers → 0.65, otherwise → 1.0
-    const repeatMultiplier = repeatCustomers < 30 ? 0.65 : 1.0;
-
-    // 3. Employee Multiplier:
-    //    If fewer than 3 employees and business is under 3 years → 0.4,
-    //    if fewer than 3 employees (but 3+ years) → 0.8,
-    //    otherwise → 1.0
-    let employeeMultiplier = 1.0;
-    if (employees < 3) {
-      employeeMultiplier = businessAge < 3 ? 0.4 : 0.8;
-    } else {
-      employeeMultiplier = 1.0;
-    }
-
-    // Apply the risk multipliers to the base valuation.
-    const adjustedValuation =
-      baseValuation * ageMultiplier * repeatMultiplier * employeeMultiplier;
-
-    // Revenue adds an additive contribution (30% of revenue).
-    const revenueContribution = revenue * 0.3;
-
-    // Final valuation = Adjusted base valuation + Inventory + Revenue contribution.
-    const finalValuation = adjustedValuation + inventory + revenueContribution;
-
+    const { finalValuation, details } = calculateBusinessValuation(formData);
     setResult(finalValuation);
-    setDetails({
-      sde,
-      inventory,
-      industry,
-      industryMultiplier,
-      revenue,
-      businessAge,
-      repeatCustomers,
-      employees,
-      ageMultiplier,
-      repeatMultiplier,
-      employeeMultiplier,
-      revenueContribution,
-      baseValuation,
-      adjustedValuation,
-    });
+    setDetails(details);
   };
 
   const handleCreateListing = () => {
@@ -149,12 +63,11 @@ const BusinessEvaluate = () => {
               key={name}
               id={name}
               name={name}
-              type="text" // using "text" to prevent native number spinners
+              type="text"
               min={min}
-              inputMode="numeric" // brings up a numeric keyboard on mobile
-              pattern="[0-9]*" // restricts input to numbers only
+              inputMode="numeric"
+              pattern="[0-9]*"
               label={label}
-              // placeholder={`Enter ${label}. ${exampleValue}`}
               placeholder={`e.g., ${exampleValue}`}
               value={formData[name] === '' ? '' : formData[name]}
               onChange={handleChange}
