@@ -22,10 +22,13 @@ const BusinessEvaluate = () => {
   const navigate = useNavigate();
 
   // Initialize form state (all fields start as empty strings; "0" is allowed when entered)
-  const initialState = inputFields.reduce((acc, field) => {
-    acc[field.name] = '';
-    return acc;
-  }, { industry: '' });
+  const initialState = inputFields.reduce(
+    (acc, field) => {
+      acc[field.name] = '';
+      return acc;
+    },
+    { industry: '' }
+  );
 
   const [formData, setFormData] = useState(initialState);
   const [result, setResult] = useState(null);
@@ -39,8 +42,8 @@ const BusinessEvaluate = () => {
         name === 'industry'
           ? value
           : value === '' // keep empty string if field is cleared
-          ? ''
-          : Number(value), // convert value to number (0 remains 0)
+            ? ''
+            : Number(value), // convert value to number (0 remains 0)
     }));
   };
 
@@ -54,8 +57,17 @@ const BusinessEvaluate = () => {
     }
 
     // Destructure inputs; numeric fields are already numbers (0 allowed)
-    const { sde, inventory, industry, revenue, businessAge, repeatCustomers, employees } = formData;
-    const industryMultiplier = INDUSTRY_MULTIPLIERS[industry] || INDUSTRY_MULTIPLIERS.Other;
+    const {
+      sde,
+      inventory,
+      industry,
+      revenue,
+      businessAge,
+      repeatCustomers,
+      employees,
+    } = formData;
+    const industryMultiplier =
+      INDUSTRY_MULTIPLIERS[industry] || INDUSTRY_MULTIPLIERS.Other;
     const baseValuation = sde * industryMultiplier;
 
     // --- Risk Multipliers Calculation ---
@@ -89,7 +101,8 @@ const BusinessEvaluate = () => {
     }
 
     // Apply the risk multipliers to the base valuation.
-    const adjustedValuation = baseValuation * ageMultiplier * repeatMultiplier * employeeMultiplier;
+    const adjustedValuation =
+      baseValuation * ageMultiplier * repeatMultiplier * employeeMultiplier;
 
     // Revenue adds an additive contribution (30% of revenue).
     const revenueContribution = revenue * 0.3;
@@ -125,7 +138,7 @@ const BusinessEvaluate = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[#2c3e50] to-[#4ca1af] p-6">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300 p-6">
       <div className="w-full max-w-lg rounded-2xl bg-white p-8 shadow-xl">
         <h2 className="mb-6 text-center text-3xl font-semibold text-gray-900">
           Business Valuation Calculator
@@ -139,7 +152,7 @@ const BusinessEvaluate = () => {
               type="text" // using "text" to prevent native number spinners
               min={min}
               inputMode="numeric" // brings up a numeric keyboard on mobile
-              pattern="[0-9]*"   // restricts input to numbers only
+              pattern="[0-9]*" // restricts input to numbers only
               label={label}
               placeholder={`Enter ${label}`}
               value={formData[name] === '' ? '' : formData[name]}
