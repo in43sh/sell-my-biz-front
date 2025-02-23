@@ -149,7 +149,7 @@ const BusinessForm = ({ id = '' }) => {
               htmlFor="state"
               className="mb-1 block text-sm font-medium text-gray-700"
             >
-              State
+              State <span className="text-red-500"> *</span>
             </label>
             <select
               id="state"
