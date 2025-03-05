@@ -4,7 +4,7 @@ import MyBusinesses from './MyBusinesses';
 import Profile from './Profile';
 import LeftMenu from '../../components/account/LeftMenu';
 
-const AccountPage = () => {
+const Account = () => {
   const [activePage, setActivePage] = useState('Profile');
 
   const accountContent = () => {
@@ -34,4 +34,4 @@ const AccountPage = () => {
   );
 };
 
-export default AccountPage;
+export default Account;
