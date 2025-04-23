@@ -79,6 +79,7 @@ const BusinessesListWithFilter = () => {
         </div>
       </div>
 
+      {/* Desktop */}
       <div className="flex flex-col gap-6 md:flex-row">
         <div className="w-full rounded-lg bg-white p-4 shadow md:w-1/4">
           <h5 className="mb-4 text-lg font-semibold text-gray-800">Filters</h5>
@@ -179,13 +180,13 @@ const BusinessesListWithFilter = () => {
             />
           </div>
           <button
-            className="mt-3 w-full cursor-pointer bg-blue-600 p-2 text-sm font-medium text-white hover:bg-blue-700"
+            className="mt-3 w-full cursor-pointer rounded-md bg-blue-600 p-2 text-sm font-medium text-white hover:bg-blue-700"
             onClick={handleApplyFilters}
           >
             Apply Filters
           </button>
           <button
-            className="mt-2 w-full cursor-pointer bg-gray-400 p-2 text-sm font-medium text-white hover:bg-gray-500"
+            className="mt-2 w-full cursor-pointer rounded-md bg-gray-400 p-2 text-sm font-medium text-white hover:bg-gray-500"
             onClick={handleResetFilters}
           >
             Reset Filters
