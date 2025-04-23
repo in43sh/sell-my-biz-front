@@ -35,6 +35,12 @@ const Navbar = () => {
 
           <div className="hidden items-center space-x-4 md:flex">
             <Link
+              to="/account/add-business"
+              className="rounded-md bg-blue-700 px-5 py-2 font-medium text-white transition duration-300 hover:bg-blue-800"
+            >
+              List Your Business
+            </Link>
+            <Link
               to="/evaluate"
               className="rounded-md bg-blue-700 px-5 py-2 font-medium text-white transition duration-300 hover:bg-blue-800"
             >
