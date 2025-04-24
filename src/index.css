@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
 /* .group:hover .group-hover\:block {
   display: block;
 } */
