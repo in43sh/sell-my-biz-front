@@ -7,9 +7,16 @@ const MobileMenu = ({ isLoggedIn, clearUserSession, onClose }) => {
   };
 
   return (
-    <div className="space-y-4 bg-blue-600 p-4 md:hidden">
+    <nav className="space-y-4 bg-blue-600 p-4 md:hidden">
       {isLoggedIn ? (
         <div className="relative space-y-2">
+          <Link
+            to="/evaluate"
+            className="block rounded-md px-4 py-2 text-white hover:bg-blue-700"
+            onClick={handleLinkClick}
+          >
+            Evaluate Your Business
+          </Link>
           <Link
             to="/account/profile"
             className="block rounded-md px-4 py-2 text-white hover:bg-blue-700"
@@ -52,9 +59,15 @@ const MobileMenu = ({ isLoggedIn, clearUserSession, onClose }) => {
           >
             Sign Up
           </Link>
+          <Link
+            to="/evaluate"
+            className="block rounded-md bg-blue-700 px-6 py-2 text-white transition duration-300 hover:bg-green-700"
+          >
+            Evaluate Your Business
+          </Link>
         </div>
       )}
-    </div>
+    </nav>
   );
 };
 
