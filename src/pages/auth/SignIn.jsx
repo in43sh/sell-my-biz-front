@@ -1,6 +1,7 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import InputField from '../../components/form/InputField';
 import useAuthForm from '../../hooks/useAuthForm';
+import GradientLayout from '../../components/layouts/GradientLayout';
 
 const SignIn = () => {
   const { form, error, handleChange, handleSubmit } = useAuthForm();
@@ -13,7 +14,7 @@ const SignIn = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300 p-6">
+    <GradientLayout>
       <div className="w-full max-w-md rounded-xl border border-gray-200 bg-white p-8 shadow-lg">
         <h2 className="mb-6 text-center text-3xl font-semibold text-gray-900">
           Sign In to Your Account
@@ -79,7 +80,7 @@ const SignIn = () => {
           </Link>
         </p>
       </div>
-    </div>
+    </GradientLayout>
   );
 };
 

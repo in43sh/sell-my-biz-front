@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { checkApiStatus } from '../api/DBRequests';
 import Spinner from '../components/common/Spinner';
+import GradientLayout from '../components/layouts/GradientLayout';
 
 const ApiStatusCheck = () => {
   const [status, setStatus] = useState('Checking API...');
@@ -30,7 +31,7 @@ const ApiStatusCheck = () => {
   }, []);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300">
+    <GradientLayout>
       <div className="rounded-2xl border border-gray-200 bg-white px-8 py-6 text-center shadow-lg">
         <h1 className="mb-4 text-3xl font-semibold text-gray-800">
           API Status
@@ -43,7 +44,7 @@ const ApiStatusCheck = () => {
           <p className={`text-xl font-medium ${statusColor}`}>{status}</p>
         )}
       </div>
-    </div>
+    </GradientLayout>
   );
 };
 

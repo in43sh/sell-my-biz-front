@@ -2,11 +2,12 @@ import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthProvider';
-import InputField from '../components/form/InputField';
-import Select from '../components/form/Select';
-import { inputFields } from '../constants/evaluateFormFieldsData';
 import { calculateBusinessValuation } from '../utils/businessValuation';
 import { INDUSTRY_MULTIPLIERS } from '../constants/industryMultipliers';
+import { inputFields } from '../constants/evaluateFormFieldsData';
+import GradientLayout from '../components/layouts/GradientLayout';
+import InputField from '../components/form/InputField';
+import Select from '../components/form/Select';
 
 const BusinessEvaluate = () => {
   const { isLoggedIn } = useAuth();
@@ -53,7 +54,7 @@ const BusinessEvaluate = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300 p-6">
+    <GradientLayout>
       <div className="w-full max-w-lg rounded-2xl bg-white p-8 shadow-xl">
         <h2 className="mb-6 text-center text-3xl font-semibold text-gray-900">
           Business Valuation Calculator
@@ -105,7 +106,7 @@ const BusinessEvaluate = () => {
           </div>
         )}
       </div>
-    </div>
+    </GradientLayout>
   );
 };
 
